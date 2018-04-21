@@ -3,4 +3,4 @@ name = Template
 short_description = Kurzbeschreibung der Applikation.
 type = patient
 id = __opapp_identifier()
-version = __opapp_version()
+version = 1.0

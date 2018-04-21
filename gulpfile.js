@@ -6,6 +6,12 @@ var runSequence = require('run-sequence');
 var rename = require("gulp-rename");
 var minify = require('gulp-minify');
 var cleanCSS = require('gulp-clean-css');
+var clean = require('gulp-clean');
+
+
+
+var app_id = 'org.optinomic.template.test';
+
 
 
 var jsminify_config = {
@@ -63,7 +69,7 @@ function minImages() {
     console.log("minImages...");
     return gulp.src('src/img/**/*')
         .pipe(imagemin())
-        .pipe(gulp.dest('public/img'));
+        .pipe(gulp.dest(app_id + '/img'));
 }
 
 
@@ -78,8 +84,9 @@ function buildTemplates() {
             minifyCSS: true,
             removeComments: true
         }))
-        .pipe(gulp.dest('public/templates'))
+        .pipe(gulp.dest(app_id + '/templates'))
 }
+
 
 function buildOPAPP() {
     console.log("buildOPAPP...");
@@ -88,51 +95,64 @@ function buildOPAPP() {
             path: ['src']
         }))
         .pipe(rename("base.opapp"))
-        .pipe(gulp.dest('public'))
+        .pipe(gulp.dest(app_id + ''))
+}
+
+function buildHOTLOAD() {
+    return gulp.src('src/__build/hotload.nj')
+        .pipe(render({
+            path: ['']
+        }))
+        .pipe(gulp.dest(app_id + ''))
 }
 
 function copyReadme() {
     return gulp.src('src/README.md')
         .pipe(rename("readme.md"))
-        .pipe(gulp.dest('public'));
-}
-
-function copyVersion() {
-    return gulp.src('src/VERSION.*')
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest(app_id + ''));
 }
 
 function copyIncludes() {
     return gulp.src('src/includes/**/*.*')
         .pipe(minify(jsminify_config))
-        .pipe(gulp.dest('public/includes'));
+        .pipe(gulp.dest(app_id + '/includes'));
 }
 
 function copyJS() {
     return gulp.src('src/javascript/**/*.*')
         .pipe(minify(jsminify_config))
-        .pipe(gulp.dest('public/javascript'));
+        .pipe(gulp.dest(app_id + '/javascript'));
 }
 
 function copyCSS() {
     return gulp.src('src/css/**/*.*')
         .pipe(cleanCSS(clean_css_config))
-        .pipe(gulp.dest('public/css'));
+        .pipe(gulp.dest(app_id + '/css'));
 }
 
 function copyCalculations() {
     return gulp.src('src/calculations/**/*.*')
         .pipe(minify(jsminify_config))
-        .pipe(gulp.dest('public/calculations'));
+        .pipe(gulp.dest(app_id + '/calculations'));
 }
 
 gulp.task('build', function () {
-    runSequence(['build-templates', 'build-images'], 'build-opapp', 'cleanup');
+    runSequence('clean-src', 'build-templates', 'build-images', 'build-opapp', 'cleanup');
+    setTimeout(function () {
+        runSequence('hotload');
+    }, 500);
 });
 
 gulp.task('build-images', function () {
     // copyImages();
     minImages();
+});
+
+gulp.task('clean-src', function () {
+    return gulp.src(app_id, {
+            read: false
+        })
+        .pipe(clean());
 });
 
 gulp.task('build-templates', function () {
@@ -143,9 +163,12 @@ gulp.task('build-opapp', function () {
     buildOPAPP();
 });
 
+gulp.task('hotload', function () {
+    buildHOTLOAD();
+});
+
 gulp.task('cleanup', function () {
     copyReadme();
-    copyVersion();
     copyIncludes();
     copyJS();
     copyCalculations();

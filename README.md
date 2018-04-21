@@ -40,12 +40,13 @@ The following process can vary. This should be just a basic documentation.
 1. Create a new Rep @ https://github.com/Optinomic with your choosen name. Example: `org.optinomic.template.test`
 2. Go to https://github.com/Optinomic/org.optinomic.template.test and choose `Clone or download`
 3. Choose `Open in Desktop`
-4. Make sure your local path points to `your_local_path/optinomic-app-repositorys/org.optinomic.template.test/public`
-5. Double check that you have selected only the `/public` Folder. This should be the root of your [app-repo](https://github.com/Optinomic/org.optinomic.template.test).
+4. Make sure your local path points to `your_local_path/optinomic-app-repositorys/org.optinomic.template.test/org.optinomic.template.test`
+5. Double check that you have selected only the `/org.optinomic.template.test` Folder. This should be the root of your [app-repo](https://github.com/Optinomic/org.optinomic.template.test).
 
 ### Start Building
 
-1. check `Build` below.
+1. Change `app_id` in `gulpfile.js`.
+2. Check `Build` below.
 
 ## Build
 
@@ -53,7 +54,7 @@ Documentation for your build process.
 
 ### Yarn
 
-Yarn is our package manager of choice: FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.
+Yarn must be installe - this is our package manager of choice: FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.
 
 - [Install and update](https://yarnpkg.com/en/docs/install)
 - [Most common commands](https://yarnpkg.com/en/docs/usage)
@@ -67,6 +68,8 @@ Yarn is our package manager of choice: FAST, RELIABLE, AND SECURE DEPENDENCY MAN
 #### Available Gulp-Tasks
 
 The complete list of all tasks can be found: [Here](https://github.com/Optinomic/app-builder/blob/master/gulpfile.js#L129).
+
+The following list are the most common tasks:
 
 ##### build
 
