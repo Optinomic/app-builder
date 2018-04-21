@@ -2,11 +2,11 @@
 
 ## Beschreibung
 
-Beschreiben Sie die Funktionalität Ihrer Applikation hier. Mit Apps werden Computerprogramme bezeichnet, die genutzt werden, um eine nützliche oder gewünschte nicht systemtechnische Funktionalität zu bearbeiten oder zu unterstützen, das heißt sie dienen der „Lösung von Benutzerproblemen“.
+Beschreiben Sie die Funktionalität Ihrer Applikation hier. Mit Apps werden Computerprogramme bezeichnet, die genutzt werden, um eine nützliche oder gewünschte nicht systemtechnische Funktionalität zu bearbeiten oder zu unterstützen, das heisst sie dienen der „Lösung von Benutzerproblemen“.
 
 ## Auswertung / Ergebnisse
 
-- Beschreiben Sie die Auswertungen / Ergebnisse Ihrer Applikation hier.
+- Unterkapitel: Beschreiben Sie die Auswertungen / Ergebnisse Ihrer Applikation hier.
 
 ## Hinweis
 
