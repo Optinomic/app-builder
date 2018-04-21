@@ -55,3 +55,15 @@ gulp build
 gulp watch
 ```
 Run's `build` as soon as changes in `/src` directory are detected.
+
+
+## Contact
+
+![image](http://www.optinomic.com/_logo/optinomic_logo_trademark_indigo_25.png)
+
+*Optinomic GmbH*   
+*Haldenstrasse 7*     
+*CH - 8942 Oberrieden*     
+*+41(0)44 508 26 76*    
+*[info@optinomic.com](mailto:info@optinomic.com)*   
+*[www.optinomic.com](https://www.optinomic.com/)*   

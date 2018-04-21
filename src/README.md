@@ -20,5 +20,5 @@ Diese Applikation ist nur lauffähig innerhalb einer [https://www.optinomic.com/
 *Haldenstrasse 7*     
 *CH - 8942 Oberrieden*     
 *+41(0)44 508 26 76*    
-*[mailto:info@optinomic.com](info@optinomic.com)*   
-*[https://www.optinomic.com/](www.optinomic.com)*   
+*[info@optinomic.com](mailto:info@optinomic.com)*   
+*[www.optinomic.com](https://www.optinomic.com/)*   
