@@ -41,37 +41,17 @@ Yarn is our package manager of choice:
 
 #### Available Gulp-Tasks
 
-##### default
+The complete list of all tasks can be found: [Here](https://github.com/Optinomic/app-builder/blob/master/gulpfile.js#L129).
+
+##### build
 
 ```shell
-gulp default
+gulp build
 ```
-
-Run's the following Tasks:
-
-1. build-opapp
-2. build-images
-
-##### build-opapp
-
-```shell
-gulp build-opapp
-```
-
-*Description:* This tasks creates the needed `.opapp` File. Render Nunjucks templates and minify the resulting HTML/JS/CSS.
-
-##### build-images
-
-```shell
-gulp build-Minify PNG, JPEG, GIF and SVG images
-```
-
-*Description:* Minify PNG, JPEG, GIF and SVG images.
-
 
 ##### watch
 
 ```shell
 gulp watch
 ```
-Run's `default` as soon as changes in `/src` directory are detected.
+Run's `build` as soon as changes in `/src` directory are detected.
