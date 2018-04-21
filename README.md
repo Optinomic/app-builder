@@ -33,7 +33,7 @@ The following process can vary. This should be just a basic documentation.
 2. Extract the folder in your `optinomic-app-repositorys` Folder
 3. Rename the extracted folder to your needs. Example: `org.optinomic.template.test`
 4. Open your Terminal and `cd` into the renamed directory.
-5. Run `yarn install``
+5. Run `yarn install`
 
 ### Create app-repo
 
