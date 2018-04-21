@@ -28,8 +28,7 @@ Full Documentation: [Optinomic-App | Specification](https://doc.optinomic.org/V2
 ## Build
 
 ### Yarn
-Yarn is our package manager of choice: 
-> FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.
+Yarn is our package manager of choice: FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.
 
 - [Install and update](https://yarnpkg.com/en/docs/install)
 - [Most common commands](https://yarnpkg.com/en/docs/usage)
