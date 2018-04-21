@@ -1,0 +1,22 @@
+{# ------- Sections ------- #}
+{% include "__config/01_app_module.txt" %}
+{% include "__config/02_dependencies.txt" %}
+{% include "__config/03_description.txt" %}
+{% include "__config/04_developer.txt" %}
+{% include "__config/05_template.txt" %}
+{% include "__config/06_css.txt" %}
+{% include "__config/07_pdf_template.txt" %}
+{% include "__config/08_javascript.txt" %}
+{% include "__config/09_css.txt" %}
+{% include "__config/10_survey.txt" %}
+{% include "__config/11_event.txt" %}
+{% include "__config/12_email.txt" %}
+{% include "__config/13_calculation.txt" %}
+{% include "__config/14_patient_group.txt" %}
+{% include "__config/15_stay_group.txt" %}
+{% include "__config/16_sql_init.txt" %}
+{% include "__config/17_task.txt" %}
+{% include "__config/18_data_source_query.txt" %}
+
+[readme]
+{% include "README.md" %}

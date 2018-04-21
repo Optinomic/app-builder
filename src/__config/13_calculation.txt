@@ -1,0 +1,2 @@
+[calculation javascript my_calculation]
+__opapp_include(calculations/full.js)

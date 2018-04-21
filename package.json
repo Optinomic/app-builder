@@ -1,0 +1,21 @@
+{
+  "name": "app-builder",
+  "version": "0.0.1",
+  "description": "Optinomic-App Builder",
+  "main": "index.js",
+  "repository": "https://github.com/Optinomic/app-builder.git",
+  "author": "Optinomic GmbH <www.optinomic.com>",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.3",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jsbeautifier": "^2.1.2",
+    "gulp-minify": "^2.1.0",
+    "gulp-nunjucks-render": "^2.2.2",
+    "gulp-rename": "^1.2.2",
+    "nunjucks": "^3.1.2",
+    "run-sequence": "^2.2.1"
+  }
+}

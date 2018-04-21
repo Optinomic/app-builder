@@ -1,0 +1,13 @@
+{# Configuration #}
+{% set templateName = "Test" %}
+{% extends "__build/templates/minimal.nj" %} 
+
+{# --- HEAD-Section ---#}
+{% block head %}
+<meta name="author" content="Optinomic GmbH">  
+{% endblock %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+{% include "templates/hello_world.html" %}
+{% endblock %}

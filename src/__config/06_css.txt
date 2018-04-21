@@ -1,0 +1,2 @@
+[css]
+__opapp_include(css/default.css)
