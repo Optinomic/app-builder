@@ -1,7 +1,6 @@
-{#  ------- Configuration -------                                           #}
-{#  Building a simple hotload file.                                         #}
-{#  - Templates-Array:  Should match corresponding filename in /templates   #}
-
+{#  ------- Configuration -------                                           -#}
+{#  Building a simple hotload file.                                         -#}
+{#  - Templates-Array:  Should match corresponding filename in /templates   -#}
 {% include "src/__config/01_app_module.txt" %}
 {% include "src/__config/02_dependencies.txt" %}
 {% include "src/__config/03_description.txt" %}

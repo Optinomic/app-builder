@@ -1,38 +1,48 @@
 {% import "survey_markup/build/macros.nj" as m %} 
 
-<div ng-init="result.extras = { survey_version: '{{survey.version}}', welcome_title: '{{survey.welcome_title}}', page: 'welcome', start: date.now() }">
+<div ng-init="result.extras = { survey: {{ survey | dump }}, question_groups: {{ question_groups | dump }}, current_state: 'welcome'}">
     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
         <div flex-gt-sm="65" layout="column">
             <div ng-if="!thankyou">
-                <form name="surveyForm">
-                    <div ng-if="result.extras.page === 'welcome'">
+                    <div ng-if="result.extras.current_state === 'welcome'">
                         <md-card>
-                            <md-progress-linear md-mode="determinate" value="3"></md-progress-linear>
-                            <md-card-title>
+                            <md-progress-linear md-mode="determinate" value="1"></md-progress-linear>
+                            <md-card-title class="layout-margin">
                                 <md-card-title-text>
                                     <span class="md-display-1" style="color:#3F51B5">{{survey.welcome_title}}</span>
                                     <span class="md-subhead" style="color:#9E9E9E">{{survey.welcome_subtitle}}</span>
                                 </md-card-title-text>
                             </md-card-title>
-                            
-                            <md-divider></md-divider>
-                            <md-card-content>
-                                <p class="md-body-1">{{survey.welcome_text}}</p>
-                            </md-card-content>
+                            <div style="min-height:53vh" class="layout-margin">
+                                <md-card-content>
+                                    <p class="md-body-1">{{survey.welcome_text}}</p>
+                                </md-card-content>
+                            </div>
                             <md-divider></md-divider>
                             <md-card-actions layout="row" layout-align="end center">
-                                <md-button ng-click="result.extras.page = 'start'">Jetzt ausführen</md-button>
+                                <md-button ng-click="result.extras.current_state = 'start'">Jetzt starten</md-button>
                             </md-card-actions>
                         </md-card>
                     </div>
-                    <div ng-if="result.extras.page === 'start'" ng-init="result.extras.question_group = 1">
-                        {% for qg in survey.question_groups %}
+                    <div ng-if="result.extras.current_state === 'start'" ng-init="result.extras.current_question_group = 1">
+
+                        {% for qg in question_groups %}
                             {{ m.questionGroupStart(qg, survey, loop.index, loop.length) }}
-                                <h2>Fragen kommmen hier!</h2>
+                                
+                                {% for q in qg.questions %}
+                                    {% if q.type == "questionSelect" %}
+                                        {{ m.questionSelect(q, qg, loop.index, loop.length) }}
+                                    {% endif %}
+
+                                    {% if q.type == "questionNumber" %}
+                                        {{ m.questionNumber(q, qg, loop.index, loop.length) }}
+                                    {% endif %}
+                                    
+                                {% endfor %}
+
                             {{ m.questionGroupEnd(qg, survey, loop.index, loop.length) }}
                         {% endfor %}
                     </div>
-                </form>
             </div>
             <div ng-if="thankyou">
                 <h1 show-xs show-sm hide-gt-sm class="md-display-2">Herzlichen Dank</h1>

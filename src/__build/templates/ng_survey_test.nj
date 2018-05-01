@@ -1,7 +1,5 @@
-{#  ------- NG-Survey | Tester -------                 #}
-{#  This is a  NG-SURVEY - Template for Testing only.  #}
-
-{% from 'survey_markup/data.nj' import survey %} 
+{#  ------- NG-Survey | Tester -------                 -#}
+{#  This is a  NG-SURVEY - Template for Testing only.  -#}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
@@ -13,7 +11,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Optinomic :: a446f9b3-aa0c-43c6-9e31-e3e7e2d07132</title>
+    <title>Optinomic :: NG-Survey Tester</title>
     <meta name="description" content="Optinomic - Survey">
     <meta name="author" content="Optinomic.com">
     <meta name="viewport" content="width=device-width,initial-scale=1">

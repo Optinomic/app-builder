@@ -1,4 +1,4 @@
-{# ------- Sections ------- #}
+{# ------- Sections ------- -#}
 {% include "__config/01_app_module.txt" %}
 {% include "__config/02_dependencies.txt" %}
 {% include "__config/03_description.txt" %}
@@ -18,4 +18,4 @@
 {% include "__config/18_data_source_query.txt" %}
 
 [readme]
-{% include "README.md" %}
+{% include "README.md" -%}

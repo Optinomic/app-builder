@@ -1,29 +1,50 @@
-{% macro questionGroupStart(g, survey, loop_index, loop_length) %}
 
-<div ng-if="result.extras.question_group === {{loop_index}}">
+{# --- Question Group ---#} 
+
+{% macro questionGroupStart(g, s, loop_index, loop_length) %}
+
+<div ng-if="result.extras.current_question_group === {{loop_index}}">
 <md-card>
     <md-progress-linear md-mode="determinate" value="{{loop_index / (loop_length + 0.5) * 100}}"></md-progress-linear>
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-display-1" style="color:#3F51B5">{{loop_index}}. {{g.group_title}}</span>
-            <span class="md-subhead" style="color:#9E9E9E">{{g.group_subtitle}} @ {{survey.welcome_title}}</span>
+    <md-card-title class="layout-margin">
+        <md-card-title-text >
+            <span class="md-headline" style="margin:0">
+            {% if s.question_groups_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{g.group_title}}
+            </span>
+            <span class="md-subhead" style="color:#9E9E9E;margin-top:-12px">{{g.group_subtitle}}</span>
         </md-card-title-text>
     </md-card-title>
 
     <md-divider></md-divider>
-    <md-card-content>
+    <div style="min-height:53vh">
+        <form name="{{g.group_id}}">
+            <md-card-content>
 {% endmacro %}
 
 
-{% macro questionGroupEnd(g, survey, loop_index, loop_length) %}
-    </md-card-content>
+{% macro questionGroupEnd(g, s, loop_index, loop_length) %}
+            </md-card-content>
+        </form>
+    </div>
     <md-divider></md-divider>
 
     {% if loop_index === loop_length %}
-    <md-card-actions ng-if="surveyForm.$valid" layout="row" layout-align="space-between center">
-        <md-button ng-click="result.extras.question_group = result.extras.question_group - 1">Zurück</md-button>
+    <md-card-actions layout="row" layout-align="space-between center">
+        {% if loop_index === 1 %}
+        <p>&nbsp;</p>
+        {% else %}
+        <md-button ng-click="result.extras.current_question_group = result.extras.current_question_group - 1">Zurück</md-button>
+        {% endif %}
         <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
-        <md-button ng-click="saveresult()">Speichern</md-button>
+        <div ng-if="{{g.group_id}}.$valid">
+            <md-button ng-click="saveresult()">Speichern</md-button>
+        </div>
+        <div ng-if="{{g.group_id}}.$invalid">
+            <md-button disabled>Speichern</md-button>
+        </div>
     </md-card-actions>
     {% endif %}
 
@@ -32,13 +53,63 @@
         {% if loop_index === 1 %}
         <p>&nbsp;</p>
         {% else %}
-        <md-button ng-click="result.extras.question_group = result.extras.question_group - 1">Zurück</md-button>
+        <md-button ng-click="result.extras.current_question_group = result.extras.current_question_group - 1">Zurück</md-button>
         {% endif %}
         <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
-        <md-button ng-click="result.extras.question_group = result.extras.question_group + 1">Weiter</md-button>
+        <div ng-if="{{g.group_id}}.$valid">
+            <md-button ng-click="result.extras.current_question_group = result.extras.current_question_group + 1">Weiter</md-button>
+        </div>
+        <div ng-if="{{g.group_id}}.$invalid">
+            <md-button disabled>Weiter</md-button>
+        </div>
     </md-card-actions>
     {% endif %}
 </md-card>
 </div>
+{% endmacro %}
+
+
+
+{# --- Questions ---#} 
+
+{% macro questionSelect(q, g, loop_index, loop_length) %}
+<md-card-content>
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1" style="color:#3F51B5; margin:0">{{ q.title }}</p>
+        <p class="md-body-1">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+        <label>{{ q.label }}</label>
+        <md-select name="{{ q.var }}" ng-model="result.{{ q.var }}" required>
+            {% for o in q.options %}
+                <md-option value="{{ o.value }}">{{ o.label }}</md-option>          
+            {% endfor %}
+        </md-select>
+        <div ng-messages="{{ g.group_id }}.{{ q.var }}.$error" multiple md-auto-hide>
+            <div ng-message="required">
+                «{{ q.title }}» ist eine Pflichtangabe.
+            </div>
+        </div>
+    </md-input-container>
+</md-card-content>
+{% endmacro %}
+
+
+{% macro questionNumber(q, g, loop_index, loop_length) %}
+<md-card-content>
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1" style="color:#3F51B5; margin:0">{{ q.title }}</p>
+        <p class="md-body-1">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+        <label>{{ q.label }}</label>
+        <input required type="number" step="any" name="{{ q.var }}" ng-model="result.{{ q.var }}" min="6" max="40">
+        <div ng-messages="{{ g.group_id }}.{{ q.var }}.$error" multiple md-auto-hide="false">
+            <div ng-message="required">
+                «{{ q.title }}» ist eine Pflichtangabe.
+            </div>
+        </div>
+    </md-input-container>
+</md-card-content>
 {% endmacro %}
 

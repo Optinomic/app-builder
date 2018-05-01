@@ -10,6 +10,7 @@ var clean = require('gulp-clean');
 
 
 var base_config = require('./src/__config/base_config.json'); ;
+var survey_config = require('./src/__config/survey.json'); ;
 
 var jsminify_config = {
     ext: {
@@ -85,6 +86,21 @@ function buildTemplates() {
         .pipe(gulp.dest(base_config.dist_root + '/templates'))
 }
 
+function buildNGSurvey() {
+    // console.log("buildTemplates...");
+    return gulp.src('src/survey_markup/*.+(nj)')
+        .pipe(render({
+            path: ['src'],
+            data: survey_config
+        }))
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            minifyCSS: true,
+            removeComments: true
+        }))
+        .pipe(gulp.dest(base_config.dist_root + '/survey_markup'))
+}
+
 
 function buildOPAPP() {
     // console.log("buildOPAPP...", base_config);
@@ -157,6 +173,7 @@ gulp.task('clean-dist', function () {
 
 gulp.task('build-templates', function () {
     buildTemplates();
+    buildNGSurvey();
 });
 
 gulp.task('build-opapp', function () {

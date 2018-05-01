@@ -1,5 +1,4 @@
-{# ------- Minimal CTA-Email Template ------- #}
-
+{# ------- Minimal CTA-Email Template ------- -#}
 <!doctype html>
 <html>
 
@@ -166,5 +165,4 @@
         </tr>
     </table>
 </body>
-
 </html>
