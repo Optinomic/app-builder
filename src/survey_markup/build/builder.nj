@@ -1,0 +1,46 @@
+{% import "survey_markup/build/macros.nj" as m %} 
+
+<div ng-init="result.extras = { survey_version: '{{survey.version}}', welcome_title: '{{survey.welcome_title}}', page: 'welcome', start: date.now() }">
+    <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
+        <div flex-gt-sm="65" layout="column">
+            <div ng-if="!thankyou">
+                <form name="surveyForm">
+                    <div ng-if="result.extras.page === 'welcome'">
+                        <md-card>
+                            <md-progress-linear md-mode="determinate" value="3"></md-progress-linear>
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-display-1" style="color:#3F51B5">{{survey.welcome_title}}</span>
+                                    <span class="md-subhead" style="color:#9E9E9E">{{survey.welcome_subtitle}}</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            
+                            <md-divider></md-divider>
+                            <md-card-content>
+                                <p class="md-body-1">{{survey.welcome_text}}</p>
+                            </md-card-content>
+                            <md-divider></md-divider>
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-button ng-click="result.extras.page = 'start'">Jetzt ausführen</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+                    <div ng-if="result.extras.page === 'start'" ng-init="result.extras.question_group = 1">
+                        {% for qg in survey.question_groups %}
+                            {{ m.questionGroupStart(qg, survey, loop.index, loop.length) }}
+                                <h2>Fragen kommmen hier!</h2>
+                            {{ m.questionGroupEnd(qg, survey, loop.index, loop.length) }}
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+            <div ng-if="thankyou">
+                <h1 show-xs show-sm hide-gt-sm class="md-display-2">Herzlichen Dank</h1>
+                <h1 show-gt-sm hide-sm hide-xs class="md-display-4">Herzlichen Dank</h1>
+                <span class="md-subhead" style="margin-top:-48px;">
+                    Ihre Eingabe wurde erfolgreich gespeichert! Sie können nun dieses Fenster schliessen.
+                </span>
+            </div>
+        </div>
+    </md-content>
+</div>

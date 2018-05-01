@@ -1,0 +1,6 @@
+{% extends "__build/templates/ng_survey.nj" %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+{% include "survey_markup/ng_survey_markup.html" %}
+{% endblock %}

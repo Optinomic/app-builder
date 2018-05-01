@@ -1,0 +1,22 @@
+{% set survey = 
+{
+  "version": "1.0",
+  "welcome_title": "Fragebogen - Titel",
+  "welcome_subtitle": "Untertitel - Kurzbeschreibung",
+  "welcome_text": "Weitere Anweisungen.",
+  "question_groups": [
+    {
+      "group_title": "Allgemeine Angaben",
+      "group_subtitle": "Angaben zum Messzeitpunkt"
+    },
+    {
+      "group_title": "Fragegruppe 2",
+      "group_subtitle": "Angaben zu Dies"
+    },
+    {
+      "group_title": "Fragegruppe",
+      "group_subtitle": "Angaben zu Dies"
+    }
+  ]
+}
+%}

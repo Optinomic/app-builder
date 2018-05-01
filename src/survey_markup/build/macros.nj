@@ -1,0 +1,44 @@
+{% macro questionGroupStart(g, survey, loop_index, loop_length) %}
+
+<div ng-if="result.extras.question_group === {{loop_index}}">
+<md-card>
+    <md-progress-linear md-mode="determinate" value="{{loop_index / (loop_length + 0.5) * 100}}"></md-progress-linear>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-display-1" style="color:#3F51B5">{{loop_index}}. {{g.group_title}}</span>
+            <span class="md-subhead" style="color:#9E9E9E">{{g.group_subtitle}} @ {{survey.welcome_title}}</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-divider></md-divider>
+    <md-card-content>
+{% endmacro %}
+
+
+{% macro questionGroupEnd(g, survey, loop_index, loop_length) %}
+    </md-card-content>
+    <md-divider></md-divider>
+
+    {% if loop_index === loop_length %}
+    <md-card-actions ng-if="surveyForm.$valid" layout="row" layout-align="space-between center">
+        <md-button ng-click="result.extras.question_group = result.extras.question_group - 1">Zurück</md-button>
+        <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
+        <md-button ng-click="saveresult()">Speichern</md-button>
+    </md-card-actions>
+    {% endif %}
+
+    {% if loop_index !== loop_length %}
+    <md-card-actions layout="row" layout-align="space-between center">
+        {% if loop_index === 1 %}
+        <p>&nbsp;</p>
+        {% else %}
+        <md-button ng-click="result.extras.question_group = result.extras.question_group - 1">Zurück</md-button>
+        {% endif %}
+        <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
+        <md-button ng-click="result.extras.question_group = result.extras.question_group + 1">Weiter</md-button>
+    </md-card-actions>
+    {% endif %}
+</md-card>
+</div>
+{% endmacro %}
+

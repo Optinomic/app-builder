@@ -1,0 +1,106 @@
+{#  ------- NG-Survey | Tester -------                 #}
+{#  This is a  NG-SURVEY - Template for Testing only.  #}
+
+{% from 'survey_markup/data.nj' import survey %} 
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Optinomic :: a446f9b3-aa0c-43c6-9e31-e3e7e2d07132</title>
+    <meta name="description" content="Optinomic - Survey">
+    <meta name="author" content="Optinomic.com">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    </script>
+    <script type="text/javascript">
+        function SurveyController($scope, $http) {
+            /* simple boolean to indicate when we are all done */
+            $scope.thankyou = false;
+            $scope.result = {};
+            /* use this to save the final result in an object to the server */
+            $scope.saveresult = function () {
+                $scope.thankyou = true;
+
+                console.warn('ng-survey - Tester!  Nothing is saved!');
+                console.log('$scope.result: ', $scope.result);
+                console.log(JSON.stringify($scope.result, null, 2));
+            };
+            /* page: string variable that surveys may use for multi-page navigation     in combination with ng-switch. initialise with ng-init in survey */
+            $scope.page = "";
+            /* goto_page: unconditionally go to a new page */
+            /* can't use if or ternary in ng-click */
+            $scope.goto_page = function (pg) {
+                $scope.page = pg;
+            };
+            /* goto_if: go to one page if boolean is true, another if false */
+            /* can't use if or ternary in ng-click */
+            $scope.goto_if = function (p, c, a) {
+                if (p) {
+                    $scope.page = c;
+                } else {
+                    $scope.page = a;
+                }
+            };
+            /* page_stack: a stack of future pages to visit that surveys may use     for more complex page flow */
+            $scope.page_stack = [];
+            /* push_stack: push page(s) onto the page_stack.     if called with a string, just push that page to the stack     if called with an object, for every key-value pair, push key to     stack if value is truthy */
+            /* can't use if or ternary in ng-click */
+            $scope.push_stack = function (pg) {
+                if (typeof pg == 'string') {
+                    $scope.page_stack.push(pg);
+                } else if (_.isObject(pg)) {
+                    _.each(pg, function (v, k) {
+                        if (v) {
+                            $scope.page_stack.push(k);
+                        }
+                    });
+                }
+            };
+            /* pop_stack: pop a page from the stack, go to it. if stack is empty,     goto page which is the argument to pop_stack */
+            /* can't use if or ternary in ng-click */
+            $scope.pop_stack = function (if_empty) {
+                if ($scope.page_stack.length == 0) {
+                    $scope.page = if_empty;
+                } else {
+                    $scope.page = $scope.page_stack.pop();
+                }
+            };
+        }
+        angular.module('survey', ['ngMaterial']).controller('SurveyController', SurveyController);
+    </script>
+</head>
+
+<body ng-app="survey" ng-cloak="" style="color: #424242;">
+    <div class="container">
+        <div id="main" role="main" ng-controller="SurveyController">
+            
+            <!-- MARKUP START -->
+
+            <!-- Loop Sections -->
+    {% for s in data.contact.sections %}
+        {% include "../templates/partials/run_sections.nj" %}
+    {% endfor %}
+            {% block content %}{% endblock %}
+            <!-- MARKUP END -->
+
+        </div>
+    </div>
+</body>
+</html>

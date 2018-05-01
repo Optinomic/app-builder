@@ -1,0 +1,4 @@
+{#  ------- NG-Survey -------                #}
+{#  This is a minimal NG-SURVEY - Template.  #}
+{% from 'survey_markup/data.nj' import survey %} 
+{% block content %}{% endblock %}
