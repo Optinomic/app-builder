@@ -1,0 +1,6 @@
+{
+    "dist_root": "dist",
+    "app_id": "org.optinomic.template.test",
+    "app_name": "Template",
+    "app_type": "patient"
+}

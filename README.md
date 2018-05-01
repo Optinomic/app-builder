@@ -6,8 +6,8 @@ Builds Optinomic-Apps with gulp, nunjucks
 ```shell
 .
     .
+    ├── dist                    # Compiled files
     ├── node_modules            # Dependencies installed by Yarn
-    ├── public                  # Compiled files (alternatively `dist`) - This will be the root of the app-repo.
     ├── src                     # Source files (alternatively `lib` or `app`)
     │   ├── __build             # Needed for building
     │   ├── __config            # Define Sections (check: Optinomic-App | Specification)

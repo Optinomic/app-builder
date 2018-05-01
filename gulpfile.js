@@ -9,10 +9,7 @@ var cleanCSS = require('gulp-clean-css');
 var clean = require('gulp-clean');
 
 
-
-var app_id = 'org.optinomic.template.test';
-
-
+var base_config = require('./src/__config/base_config.json'); ;
 
 var jsminify_config = {
     ext: {
@@ -66,78 +63,81 @@ var clean_css_config = {
 
 
 function minImages() {
-    console.log("minImages...");
+    // console.log("minImages...");
     return gulp.src('src/img/**/*')
         .pipe(imagemin())
-        .pipe(gulp.dest(app_id + '/img'));
+        .pipe(gulp.dest(base_config.dist_root + '/img'));
 }
 
 
 function buildTemplates() {
-    console.log("buildTemplates...");
+    // console.log("buildTemplates...");
     return gulp.src('src/templates/**/*.+(nj)')
         .pipe(render({
-            path: ['src']
+            path: ['src'],
+            data: base_config
         }))
         .pipe(htmlmin({
             collapseWhitespace: true,
             minifyCSS: true,
             removeComments: true
         }))
-        .pipe(gulp.dest(app_id + '/templates'))
+        .pipe(gulp.dest(base_config.dist_root + '/templates'))
 }
 
 
 function buildOPAPP() {
-    console.log("buildOPAPP...");
+    // console.log("buildOPAPP...", base_config);
     return gulp.src('src/__build/opapp.nj')
         .pipe(render({
-            path: ['src']
+            path: ['src'],
+            data: base_config
         }))
         .pipe(rename("base.opapp"))
-        .pipe(gulp.dest(app_id + ''))
+        .pipe(gulp.dest(base_config.dist_root + ''))
 }
 
 function buildHOTLOAD() {
     return gulp.src('src/__build/hotload.nj')
         .pipe(render({
-            path: ['']
+            path: [''],
+            data: base_config
         }))
-        .pipe(gulp.dest(app_id + ''))
+        .pipe(gulp.dest(base_config.dist_root + ''))
 }
 
 function copyReadme() {
     return gulp.src('src/README.md')
         .pipe(rename("readme.md"))
-        .pipe(gulp.dest(app_id + ''));
+        .pipe(gulp.dest(base_config.dist_root + ''));
 }
 
 function copyIncludes() {
     return gulp.src('src/includes/**/*.*')
         .pipe(minify(jsminify_config))
-        .pipe(gulp.dest(app_id + '/includes'));
+        .pipe(gulp.dest(base_config.dist_root + '/includes'));
 }
 
 function copyJS() {
     return gulp.src('src/javascript/**/*.*')
         .pipe(minify(jsminify_config))
-        .pipe(gulp.dest(app_id + '/javascript'));
+        .pipe(gulp.dest(base_config.dist_root + '/javascript'));
 }
 
 function copyCSS() {
     return gulp.src('src/css/**/*.*')
         .pipe(cleanCSS(clean_css_config))
-        .pipe(gulp.dest(app_id + '/css'));
+        .pipe(gulp.dest(base_config.dist_root + '/css'));
 }
 
 function copyCalculations() {
     return gulp.src('src/calculations/**/*.*')
         .pipe(minify(jsminify_config))
-        .pipe(gulp.dest(app_id + '/calculations'));
+        .pipe(gulp.dest(base_config.dist_root + '/calculations'));
 }
 
 gulp.task('build', function () {
-    runSequence('clean-src', 'build-templates', 'build-images', 'build-opapp', 'cleanup');
+    runSequence('clean-dist', 'build-templates', 'build-images', 'build-opapp', 'cleanup');
     setTimeout(function () {
         runSequence('hotload');
     }, 500);
@@ -148,8 +148,8 @@ gulp.task('build-images', function () {
     minImages();
 });
 
-gulp.task('clean-src', function () {
-    return gulp.src(app_id, {
+gulp.task('clean-dist', function () {
+    return gulp.src(base_config.dist_root, {
             read: false
         })
         .pipe(clean());

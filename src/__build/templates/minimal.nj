@@ -1,11 +1,5 @@
-{# 
-
-------- Minimal -------
-
-This is a minimal Template - Template.
-
-
-#}
+{#  ------- Minimal -------                 #}
+{#  This is a minimal Template - Template.  #}
 <head>
     <!-- START HEAD -->
     {% block head %}{% endblock %}  

@@ -1,0 +1,43 @@
+{% extends "__build/templates/email_cta.nj" %} 
+
+{# --- Sections ---#} 
+
+{% block title %}
+{{app_name}} (Erinnerung) :: $patient_secure$
+{% endblock %} 
+
+{# This is preheader text. Some clients will show this text as a preview.#}
+{% block preheader %}
+    <strong>Erinnerung:</strong>  Der {{app_name}}-Fragebogen für <strong>$patient$</strong> wurde noch nicht ausgefüllt. Danke.
+{% endblock %}
+
+
+{% block salutation %}
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    $recipient_name$,
+</p>
+{% endblock %} 
+
+{% block text %}
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    <strong>Erinnerung:</strong>  Der {{app_name}}-Fragebogen für <strong>$patient$</strong> wurde noch nicht ausgefüllt.
+</p>
+{% endblock %} 
+
+{% block cta %}
+<a href="$survey_link$" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">
+    Jetzt ausfüllen
+</a>
+{% endblock %} 
+
+{% block end %}
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    Bitte sobald wie möglich nachholen und wenn nötig rückdatieren. Besten Dank!
+</p>
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    Team Ergebnisqualität
+</p>
+<p style="font-family: sans-serif; font-size: 12px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    <strong>{{app_name}}:</strong> {{app_short_description}}
+</p>
+{% endblock %}

@@ -1,4 +1,6 @@
-# Optinomic-App
+# {{app_name}}
+{{app_short_description}}
+[Optinomic-App](https://www.optinomic.com/): Type: `{{app_type}}` Identification: `{{app_id}}`.
 
 ## Beschreibung
 
@@ -10,15 +12,15 @@ Beschreiben Sie die Funktionalität Ihrer Applikation hier. Mit Apps werden Comp
 
 ## Hinweis
 
-Diese Applikation ist nur lauffähig innerhalb einer [https://www.optinomic.com/](Optinomic) Installation.
+Dies Applikation «{{app_name}}» (`{{app_id}}`) ist nur lauffähig innerhalb einer [Optinomic](https://www.optinomic.com/) Installation.
 
 ## Kontakt
 
 ![image](http://www.optinomic.com/_logo/optinomic_logo_trademark_indigo_25.png)
 
-*Optinomic GmbH*   
-*Haldenstrasse 7*     
-*CH - 8942 Oberrieden*     
-*+41(0)44 508 26 76*    
-*[info@optinomic.com](mailto:info@optinomic.com)*   
-*[www.optinomic.com](https://www.optinomic.com/)*   
+Optinomic GmbH
+Haldenstrasse 7
+CH - 8942 Oberrieden
++41(0)44 508 26 76
+[info@optinomic.com](mailto:info@optinomic.com)
+[www.optinomic.com](https://www.optinomic.com/)

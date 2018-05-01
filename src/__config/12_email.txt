@@ -1,0 +1,5 @@
+[email new_event html]
+__opapp_include(template/email_new.html)
+
+[email overdue html]
+__opapp_include(template/email_overdue.html)

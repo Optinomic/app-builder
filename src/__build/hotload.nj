@@ -1,38 +1,23 @@
-{# 
-------- Configuration -------
+{#  ------- Configuration -------                                           #}
+{#  Building a simple hotload file.                                         #}
+{#  - Templates-Array:  Should match corresponding filename in /templates   #}
 
-Building a simple hotload file. 
-
-- Templates-Array:  Should match corresponding filename in /templates
-#}
-
-{% set app_id = "org.optinomic.template.test" %}
-
-{# 
-------- Configuration -------
-- Proceed as the following for your needs.
-#}
-[module]
-name = Template
-short_description = Kurzbeschreibung der Applikation.
-type = patient
-id = {{app_id}}
-version = 1.0
-
+{% include "src/__config/01_app_module.txt" %}
 {% include "src/__config/02_dependencies.txt" %}
 {% include "src/__config/03_description.txt" %}
 {% include "src/__config/04_developer.txt" %}
 [readme]
-# Currently in HOTLOAD - Mode.
+# {{app_name}} 
+The {{app_type}}-app `{{app_id}}` is currently HOTLOADED!
 
-[template Hello_World 6 6]
-{% include app_id + "/templates/hello_world.html" %}
+[template Start 6 6]
+{% include dist_root + "/templates/start.html" %}
 
 [javascript]
-{% include app_id + "/javascript/main.js" %}
+{% include dist_root + "/javascript/main.js" %}
 
 [css]
-{% include app_id + "/css/default.css" %}
+{% include dist_root + "/css/default.css" %}
 
 [calculation javascript my_calculation]
-{% include app_id + "/calculations/full.js" %}
+{% include dist_root + "/calculations/full.js" %}

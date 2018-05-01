@@ -1,6 +1,5 @@
 [module]
-name = Template
-short_description = Kurzbeschreibung der Applikation.
-type = patient
-id = __opapp_identifier()
-version = 1.0
+name = {{app_name}}
+short_description = {{app_short_description}}
+type = {{app_type}}
+id = {{app_id}}
