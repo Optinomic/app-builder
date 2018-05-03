@@ -8,7 +8,7 @@
     <md-progress-linear md-mode="determinate" value="{{loop_index / (loop_length + 0.5) * 100}}"></md-progress-linear>
     <md-card-title class="layout-margin">
         <md-card-title-text >
-            <span class="md-headline" style="margin:0">
+            <span class="md-headline" style="margin:0; color:#616161">
             {% if s.question_groups_numbers === true %}
                 {{loop_index}}.
             {% endif %}
@@ -80,19 +80,16 @@
     </div>
     <md-input-container class="md-block">
         <label>{{ q.label }}</label>
-        <md-select name="{{ q.var }}" ng-model="result.{{ q.var }}" required>
+        <md-select name="{{ q.var }}" ng-model="result.{{ q.var }}" {% if q.val.required %}required{% endif %}>
             {% for o in q.options %}
                 <md-option value="{{ o.value }}">{{ o.label }}</md-option>          
             {% endfor %}
         </md-select>
-        <div ng-messages="{{ g.group_id }}.{{ q.var }}.$error" multiple md-auto-hide>
-            <div ng-message="required">
-                «{{ q.title }}» ist eine Pflichtangabe.
-            </div>
-        </div>
+        {% include "survey_markup/build/validation.nj" %}
     </md-input-container>
 </md-card-content>
 {% endmacro %}
+
 
 
 {% macro questionNumber(q, g, loop_index, loop_length) %}
@@ -103,13 +100,16 @@
     </div>
     <md-input-container class="md-block">
         <label>{{ q.label }}</label>
-        <input required type="number" step="any" name="{{ q.var }}" ng-model="result.{{ q.var }}" min="6" max="40">
-        <div ng-messages="{{ g.group_id }}.{{ q.var }}.$error" multiple md-auto-hide="false">
-            <div ng-message="required">
-                «{{ q.title }}» ist eine Pflichtangabe.
-            </div>
-        </div>
-    </md-input-container>
+        <input 
+            type="number" 
+            step="any" 
+            name="{{ q.var }}" 
+            ng-model="result.{{ q.var }}" 
+            {% if q.val.required %}required{% endif %} 
+            {% if q.val.min !== undefined %}min="{{q.val.min}}"{% endif %}  
+            {% if q.val.max !== undefined %}max="{{q.val.max}}"{% endif %}  
+            >
+        {% include "survey_markup/build/validation.nj" %}
 </md-card-content>
 {% endmacro %}
 

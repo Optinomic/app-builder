@@ -1,56 +1,146 @@
 {
-    "survey": {
-        "version": "1.0",
-        "welcome_title": "Titel des Fragebogens",
-        "welcome_subtitle": "Untertitel - Kurzbeschreibung",
-        "welcome_text": "Weitere Anweisungen.",
-        "question_groups_numbers": false
+    "survey_example": {
+        "survey": {
+            "version": "1.0",
+            "welcome_title": "TMT",
+            "welcome_subtitle": "Trail Making Test (TMT)",
+            "welcome_text": "Mit dem TMT wird die Fähigkeit zum visuellen Scannen, die psychomotorische Geschwindigkeit (TMT A) sowie die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B) erfasst.",
+            "question_groups_numbers": false,
+            "empty_vars": null
+        },
+        "question_groups": [{
+                "group_title": "Allgemeine Angaben",
+                "group_subtitle": "Angaben zum Messzeitpunkt",
+                "group_id": "allgemeine_angaben",
+                "questions": [{
+                    "type": "questionSelect",
+                    "var": "Messzeitpunkt",
+                    "title": "Messzeitpunkt",
+                    "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
+                    "label": "Assessment (Erhebung)",
+                    "val": {
+                        "required": true
+                    },
+                    "options": [{
+                        "value": "1",
+                        "label": "Eintritt"
+                    }, {
+                        "value": "2",
+                        "label": "Austritt"
+                    }, {
+                        "value": "3",
+                        "label": "Anderer Messzeitpunkt"
+                    }]
+                }]
+            },
+            {
+                "group_title": "Patientenangaben",
+                "group_subtitle": "Angaben über den Patienten",
+                "group_id": "weitere_angaben",
+                "questions": [{
+                    "type": "questionNumber",
+                    "var": "Ausbildungsjahre",
+                    "title": "Ausbildungsjahre",
+                    "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 Jahre Schule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) + 5 Jahre Studium gibt 17 Ausbildungsjahre.",
+                    "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
+                    "val": {
+                        "required": true,
+                        "min": 6,
+                        "max": 40
+                    }
+                }]
+            },
+            {
+                "group_title": "TMT A",
+                "group_subtitle": "Psychomotorische Geschwindigkeit (TMT A)",
+                "group_id": "tmt",
+                "questions": [{
+                    "type": "questionNumber",
+                    "var": "TMTATime",
+                    "title": "Zeit",
+                    "help": "Zeit in Sekunden",
+                    "label": "TMT A (Zeit in Sekunden)",
+                    "val": {
+                        "required": true,
+                        "min": 10,
+                        "max": 180
+                    }
+                }, {
+                    "type": "questionNumber",
+                    "var": "TMTAError",
+                    "title": "Fehler",
+                    "help": "Anzahl der Fehler bei der Ausführung des TMT A.",
+                    "label": "TMT A (Anzahl Fehler)",
+                    "val": {
+                        "required": true,
+                        "min": 0,
+                        "max": 999
+                    }
+                }]
+            },
+            {
+                "group_title": "TMT B",
+                "group_subtitle": "Die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B)",
+                "group_id": "tmt",
+                "questions": [{
+                    "type": "questionNumber",
+                    "var": "TMTBTime",
+                    "title": "Zeit",
+                    "help": "Zeit in Sekunden",
+                    "label": "TMT B (Zeit in Sekunden)",
+                    "val": {
+                        "required": true,
+                        "min": 10,
+                        "max": 180
+                    }
+                }, {
+                    "type": "questionNumber",
+                    "var": "TMTBError",
+                    "title": "Fehler",
+                    "help": "Anzahl der Fehler bei der Ausführung des TMT B.",
+                    "label": "TMT B (Anzahl Fehler)",
+                    "val": {
+                        "required": true,
+                        "min": 0,
+                        "max": 999
+                    }
+                }]
+            }
+        ]
     },
-    "question_groups": [{
-            "group_id": "allgemeine_angaben",
+    "another_survey": {
+        "survey": {
+            "version": "1.0",
+            "welcome_title": "Another",
+            "welcome_subtitle": "Another - Kurzbeschreibung",
+            "welcome_text": ":-)",
+            "question_groups_numbers": false,
+            "empty_vars": null
+        },
+        "question_groups": [{
             "group_title": "Allgemeine Angaben",
             "group_subtitle": "Angaben zum Messzeitpunkt",
+            "group_id": "allgemeine_angaben",
             "questions": [{
                 "type": "questionSelect",
+                "var": "Messzeitpunkt",
                 "title": "Messzeitpunkt",
                 "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
-                "var": "Messzeitpunkt",
                 "label": "Assessment (Erhebung)",
+                "val": {
+                    "required": true
+                },
                 "options": [{
                     "value": "1",
                     "label": "Eintritt"
-                },{
+                }, {
                     "value": "2",
                     "label": "Austritt"
-                },{
+                }, {
                     "value": "3",
                     "label": "Anderer Messzeitpunkt"
                 }]
-            }, {
-                "type": "questionNumber",
-                "title": "Ausbildungsjahre",
-                "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 Jahre Schule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) + 5 Jahre Studium gibt 17 Ausbildungsjahre.",
-                "var": "Ausbildungsjahre",
-                "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung"
             }]
-        },
-        {
-            "group_title": "Fragegruppe",
-            "group_subtitle": "Angaben zu ___",
-            "group_id": "weitere_angaben",
-            "questions": [{
-                "type": "questionNumber",
-                "title": "Ausbildungsjahre",
-                "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung (resp. bei Zweitausbildungen zählt die jeweils höher qualifizierende), z.B. 9 Jahre Schule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) + 5 Jahre Studium gibt 17 Ausbildungsjahre. Bei der Schule zählt die Anzahl Jahre, die man üblicherweise für den jeweiligen Schultyp benötigt, d.h. wenn jemand eine Klasse wiederholen muss, sollte dieses Jahr nicht gezählt werden. Das gleiche gilt für die Berufsausbildung, insbesondere bei Studiengängen: wenn jemand aus persönlichen Gründen 8 Jahre für einen Studienabschluss benötigt, den man eigentlich in 5 Jahren erreichen könnte, werden 5 Jahre gezählt, etc. Berufliche Weiterbildungen und Zusatzqualifikationen werden nicht mehr zur Ausbildung gezählt.",
-                "var": "Ausbildungsjahre",
-                "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung"
-            }]
-        },
-        {
-            "group_title": "Abschluss",
-            "group_subtitle": "Bald geschafft!",
-            "group_id": "abschluss",
-            "questions": []
-        }
-    ]
+        }]
+    }
 }

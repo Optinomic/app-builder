@@ -1,4 +1,6 @@
 {% extends "__build/templates/ng_survey_test.nj" %} 
+{% set current_survey = survey_example %}
+
 
 {# --- Content-Section ---#}
 {% block content %}

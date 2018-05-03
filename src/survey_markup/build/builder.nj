@@ -1,21 +1,32 @@
 {% import "survey_markup/build/macros.nj" as m %} 
 
-<div ng-init="result.extras = { survey: {{ survey | dump }}, question_groups: {{ question_groups | dump }}, current_state: 'welcome'}">
+
+    <script type="text/javascript">
+        app.controller('ContentController', function ($scope, $http) {
+
+            $scope.Date = function(){
+                return new Date();
+            };
+            
+        });
+    </script>
+
+<div ng-init="result.extras = { survey_markup: {{ current_survey | dump }}, current_state: 'welcome'}">
     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
-        <div flex-gt-sm="65" layout="column">
+        <div ng-controller="ContentController" style="width:100%;max-width:1024px;">
             <div ng-if="!thankyou">
                     <div ng-if="result.extras.current_state === 'welcome'">
                         <md-card>
                             <md-progress-linear md-mode="determinate" value="1"></md-progress-linear>
                             <md-card-title class="layout-margin">
                                 <md-card-title-text>
-                                    <span class="md-display-1" style="color:#3F51B5">{{survey.welcome_title}}</span>
-                                    <span class="md-subhead" style="color:#9E9E9E">{{survey.welcome_subtitle}}</span>
+                                    <span class="md-display-1" style="color:#3F51B5">{{current_survey.survey.welcome_title}}</span>
+                                    <span class="md-subhead" style="color:#9E9E9E">{{current_survey.survey.welcome_subtitle}}</span>
                                 </md-card-title-text>
                             </md-card-title>
                             <div style="min-height:53vh" class="layout-margin">
                                 <md-card-content>
-                                    <p class="md-body-1">{{survey.welcome_text}}</p>
+                                    <p class="md-body-1">{{current_survey.survey.welcome_text}}</p>
                                 </md-card-content>
                             </div>
                             <md-divider></md-divider>
@@ -25,9 +36,9 @@
                         </md-card>
                     </div>
                     <div ng-if="result.extras.current_state === 'start'" ng-init="result.extras.current_question_group = 1">
-
-                        {% for qg in question_groups %}
-                            {{ m.questionGroupStart(qg, survey, loop.index, loop.length) }}
+                        <span ng-init="result.start = Date()"></span>
+                        {% for qg in current_survey.question_groups %}
+                            {{ m.questionGroupStart(qg, current_survey, loop.index, loop.length) }}
                                 
                                 {% for q in qg.questions %}
                                     {% if q.type == "questionSelect" %}
@@ -40,7 +51,7 @@
                                     
                                 {% endfor %}
 
-                            {{ m.questionGroupEnd(qg, survey, loop.index, loop.length) }}
+                            {{ m.questionGroupEnd(qg, current_survey, loop.index, loop.length) }}
                         {% endfor %}
                     </div>
             </div>

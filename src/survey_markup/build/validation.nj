@@ -1,0 +1,21 @@
+{# --- Validation-Texts for ng-messages ---#}
+
+<div ng-messages="{{ g.group_id }}.{{ q.var }}.$error" role="alert">
+    {% if q.val.required %}
+    <div ng-message="required">
+        «{{ q.title }}» ist eine Pflichtangabe.
+    </div>
+    {% endif %} 
+    
+    {% if q.val.min !== undefined %}
+    <div ng-message="min">
+        Ein Mimimum von «{{ q.val.min }}» ist festgelegt.
+    </div>
+    {% endif %}
+    
+    {% if q.val.max !== undefined %}
+    <div ng-message="max">
+        Ein Maximum von «{{ q.val.max }}» ist festgelegt.
+    </div>
+    {% endif %}
+</div>

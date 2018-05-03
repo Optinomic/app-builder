@@ -32,12 +32,10 @@
             $scope.result = {};
 
             /* use this to save the final result in an object to the server */
-            $scope.saveresult = function () {
+            $scope.saveresult = function() {
+              $http.put('/surveys/#{hash}', $scope.result).success(function() {
                 $scope.thankyou = true;
-
-                console.warn('ng-survey - Tester!  Nothing is saved! Result:');
-                console.log(JSON.stringify($scope.result, null, 2));
-                console.log('$scope.result: ', $scope.result);
+              });
             };
 
             /* page: string variable that surveys may use for multi-page navigation     in combination with ng-switch. initialise with ng-init in survey */
