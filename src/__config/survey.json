@@ -1,11 +1,12 @@
 {
-    "survey_example": {
+    "tmt_example": {
         "survey": {
             "version": "1.0",
             "welcome_title": "TMT",
             "welcome_subtitle": "Trail Making Test (TMT)",
             "welcome_text": "Mit dem TMT wird die Fähigkeit zum visuellen Scannen, die psychomotorische Geschwindigkeit (TMT A) sowie die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B) erfasst.",
-            "question_groups_numbers": false,
+            "show_welcome_page": true,
+            "show_question_groups_numbers": false,
             "empty_vars": null
         },
         "question_groups": [{
@@ -58,7 +59,7 @@
                     "type": "questionNumber",
                     "var": "TMTATime",
                     "title": "Zeit",
-                    "help": "Zeit in Sekunden",
+                    "help": "Zeit in Sekunden.",
                     "label": "TMT A (Zeit in Sekunden)",
                     "val": {
                         "required": true,
@@ -86,7 +87,7 @@
                     "type": "questionNumber",
                     "var": "TMTBTime",
                     "title": "Zeit",
-                    "help": "Zeit in Sekunden",
+                    "help": "Zeit in Sekunden.",
                     "label": "TMT B (Zeit in Sekunden)",
                     "val": {
                         "required": true,
@@ -114,7 +115,8 @@
             "welcome_title": "Another",
             "welcome_subtitle": "Another - Kurzbeschreibung",
             "welcome_text": ":-)",
-            "question_groups_numbers": false,
+            "show_welcome_page": false,
+            "show_question_groups_numbers": false,
             "empty_vars": null
         },
         "question_groups": [{
@@ -122,24 +124,24 @@
             "group_subtitle": "Angaben zum Messzeitpunkt",
             "group_id": "allgemeine_angaben",
             "questions": [{
-                "type": "questionSelect",
-                "var": "Messzeitpunkt",
-                "title": "Messzeitpunkt",
-                "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
-                "label": "Assessment (Erhebung)",
+                "type": "questionText",
+                "var": "name",
+                "title": "Wie lautet Ihr Name?",
+                "help": "Wie sollen wir Sie nennen?",
+                "label": "Name",
                 "val": {
                     "required": true
-                },
-                "options": [{
-                    "value": "1",
-                    "label": "Eintritt"
-                }, {
-                    "value": "2",
-                    "label": "Austritt"
-                }, {
-                    "value": "3",
-                    "label": "Anderer Messzeitpunkt"
-                }]
+                }
+            }, {
+                "type": "questionText",
+                "var": "email",
+                "title": "Wie lautet Ihre Email Adresse?",
+                "help": "",
+                "label": "Email",
+                "val": {
+                    "required": true,
+                    "pattern": "/^.+@.+\\..+$/"
+                }
             }]
         }]
     }

@@ -18,4 +18,8 @@
         Ein Maximum von «{{ q.val.max }}» ist festgelegt.
     </div>
     {% endif %}
+
+    <div ng-message="pattern">
+        Das verlangte Pattern «{{ q.val.pattern }}» ist nicht eingehalten.
+    </div>
 </div>

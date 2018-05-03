@@ -4,12 +4,13 @@
 {% macro questionGroupStart(g, s, loop_index, loop_length) %}
 
 <div ng-if="result.extras.current_question_group === {{loop_index}}">
+<span ng-init="setPerformance('{{g.group_id}}')"></span>
 <md-card>
-    <md-progress-linear md-mode="determinate" value="{{loop_index / (loop_length + 0.5) * 100}}"></md-progress-linear>
+    <md-progress-linear md-mode="determinate" value="{{loop_index / (loop_length + 1) * 99}}"></md-progress-linear>
     <md-card-title class="layout-margin">
         <md-card-title-text >
             <span class="md-headline" style="margin:0; color:#616161">
-            {% if s.question_groups_numbers === true %}
+            {% if s.show_question_groups_numbers === true %}
                 {{loop_index}}.
             {% endif %}
             {{g.group_title}}
@@ -40,7 +41,7 @@
         {% endif %}
         <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
         <div ng-if="{{g.group_id}}.$valid">
-            <md-button ng-click="saveresult()">Speichern</md-button>
+            <md-button ng-click="prepareSave()">Speichern</md-button>
         </div>
         <div ng-if="{{g.group_id}}.$invalid">
             <md-button disabled>Speichern</md-button>
@@ -73,10 +74,10 @@
 {# --- Questions ---#} 
 
 {% macro questionSelect(q, g, loop_index, loop_length) %}
-<md-card-content>
+<md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1" style="color:#3F51B5; margin:0">{{ q.title }}</p>
-        <p class="md-body-1">{{ q.help }}</p>
+        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     <md-input-container class="md-block">
         <label>{{ q.label }}</label>
@@ -93,10 +94,10 @@
 
 
 {% macro questionNumber(q, g, loop_index, loop_length) %}
-<md-card-content>
+<md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1" style="color:#3F51B5; margin:0">{{ q.title }}</p>
-        <p class="md-body-1">{{ q.help }}</p>
+        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     <md-input-container class="md-block">
         <label>{{ q.label }}</label>
@@ -108,6 +109,25 @@
             {% if q.val.required %}required{% endif %} 
             {% if q.val.min !== undefined %}min="{{q.val.min}}"{% endif %}  
             {% if q.val.max !== undefined %}max="{{q.val.max}}"{% endif %}  
+            >
+        {% include "survey_markup/build/validation.nj" %}
+</md-card-content>
+{% endmacro %}
+
+{% macro questionText(q, g, loop_index, loop_length) %}
+<md-card-content class="question_container">
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+        <label>{{ q.label }}</label>
+        <input 
+            type="text" 
+            name="{{ q.var }}" 
+            ng-model="result.{{ q.var }}" 
+            {% if q.val.required %}required{% endif %} 
+            {% if q.val.pattern %}ng-pattern="{{q.val.pattern}}"{% endif %} 
             >
         {% include "survey_markup/build/validation.nj" %}
 </md-card-content>

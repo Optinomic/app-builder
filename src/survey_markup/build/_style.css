@@ -1,0 +1,17 @@
+.p-color {
+    color: #3F51B5;
+}
+
+.f-color {
+    color: #424242;
+}
+
+.question_container {}
+
+.question_container:hover {}
+
+.question {
+    margin: 0
+}
+
+.help {}
