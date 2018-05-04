@@ -133,6 +133,7 @@
             {% if q.val.max !== undefined %}max="{{q.val.max}}"{% endif %}  
             >
         {% include "survey_markup/build/validation.nj" %}
+    </md-input-container>
 </md-card-content>
 {% endmacro %}
 
@@ -152,6 +153,26 @@
             {% if q.val.pattern %}ng-pattern="{{q.val.pattern}}"{% endif %} 
             >
         {% include "survey_markup/build/validation.nj" %}
+    </md-input-container>
+</md-card-content>
+{% endmacro %}
+
+{% macro questionDate(q, g, loop_index, loop_length) %}
+<md-card-content class="question_container">
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+        <md-datepicker
+            name="{{ q.var }}" 
+            ng-model="result.{{ q.var }}" 
+            md-placeholder="{{ q.label }}" 
+            md-open-on-focus
+            {% if q.val.required %}required{% endif %}
+            ></md-datepicker>
+        {% include "survey_markup/build/validation.nj" %}
+    </md-input-container>
 </md-card-content>
 {% endmacro %}
 

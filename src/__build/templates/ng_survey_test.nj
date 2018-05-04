@@ -26,7 +26,6 @@
     <script type="text/javascript">
         var app = angular.module('survey', ['ngMaterial', 'ngMessages'])
 
-
         app.controller('SurveyController', ['$scope', '$http', function ($scope, $http) {
 
             /* simple boolean to indicate when we are all done */

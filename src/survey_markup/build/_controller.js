@@ -1,8 +1,86 @@
+app.config(['$mdDateLocaleProvider', function ($mdDateLocaleProvider) {
+    // ---------------------------------------------------------------------------------------------------------------
+    // The $mdDateLocaleProvider is the provider that creates the $mdDateLocale service. 
+    // This provider that allows the user to specify messages, formatters, and parsers for date internationalization. 
+    // The $mdDateLocale service itself is consumed by Angular Material components that that deal with dates.
+    // ---------------------------------------------------------------------------------------------------------------
+
+    $mdDateLocaleProvider.months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+    $mdDateLocaleProvider.shortMonths = $mdDateLocaleProvider.months;
+    $mdDateLocaleProvider.days = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+    $mdDateLocaleProvider.shortDays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+
+    // Example uses moment.js to parse and format dates.
+    $mdDateLocaleProvider.parseDate = function (dateString) {
+        var m = new Date(dateString);
+
+        if (dateString !== undefined) {
+            // console.log('1 parseDate', dateString);
+
+            var pDArray = dateString.split('.');
+            var mDay = null;
+            var mMonth = null;
+            var mYear = null;
+            pDArray.forEach(function (e, ID) {
+                if (ID === 0) {
+                    mDay = parseInt(e);
+                };
+                if (ID === 1) {
+                     mMonth = parseInt(e) - 1;
+                };
+                if (ID === 2) {
+                     mYear = parseInt(e);
+                };
+            }.bind(this));
+            
+            var pDate = new Date(mYear, mMonth, mDay, 0, 0, 0, 0);
+            // console.log('2 parseDate', pDate, mYear, mMonth, mDay);
+        };
+
+        return pDate || new Date(NaN);
+    };
+
+    $mdDateLocaleProvider.formatDate = function (date) {
+        //console.log('1) formatDate', date);
+
+        if (date !== undefined) {
+            var options = {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            };
+
+            var lDate = date.toLocaleString('de-DE', options);
+
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            // console.log('2) formatDate', lDate, date, event.toLocaleString('de-DE', options));
+        };
+
+        return lDate || '';
+    };
+
+    $mdDateLocaleProvider.monthHeaderFormatter = function (date) {
+        return $mdDateLocaleProvider.shortMonths[date.getMonth()] + ' ' + date.getFullYear();
+    };
+
+    $mdDateLocaleProvider.weekNumberFormatter = function (weekNumber) {
+        return 'Kalenderwoche ' + weekNumber;
+    };
+
+    $mdDateLocaleProvider.msgCalendar = 'Kalender';
+    $mdDateLocaleProvider.msgOpenCalendar = 'Kalender öffnen';
+}]);
+
 app.controller('ContentController', ['$scope', function ($scope) {
 
     // Date & Timings
-    $scope.Date = function () {
-        var d = new Date();
+    $scope.Date = function (d) {
+        d = d || new Date();
         return d.toISOString();
     };
 
