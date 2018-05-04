@@ -183,7 +183,7 @@ Select one entry from `options`.
 ```
 ### questionMultiSelect
 
-Select one ore more entrys from `options`.
+Select one ore more entrys from `options`. The result is stored in the variable name like: `var` + `var_prefix` + `option.var` + `var_suffix`. In the following example this would be: `messzeitpunkte[eintritt]`, `messzeitpunkte[austritt]` and `messzeitpunkte[anderer]`. You can also specify the `true_value` and `false_value`. Those can be `true` or `false` or whatever you like - also empty `""`.
 
 ```JSON
 {
@@ -217,4 +217,4 @@ Select one ore more entrys from `options`.
 
 ### ToDo
 
-- Multi Select
+- Flow-Control:  Show/Hide question at specific ng-if's.
