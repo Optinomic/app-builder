@@ -7,6 +7,8 @@
             "welcome_text": "Mit dem TMT wird die Fähigkeit zum visuellen Scannen, die psychomotorische Geschwindigkeit (TMT A) sowie die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B) erfasst.",
             "show_welcome_page": true,
             "show_question_groups_numbers": false,
+            "result_store_survey_markup": false,
+            "result_store_timings": true,
             "empty_vars": null
         },
         "question_groups": [{
@@ -117,6 +119,8 @@
             "welcome_text": ":-)",
             "show_welcome_page": false,
             "show_question_groups_numbers": false,
+            "result_store_survey_markup": false,
+            "result_store_timings": true,
             "empty_vars": null
         },
         "question_groups": [{
@@ -140,6 +144,30 @@
                 "label": "Email",
                 "val": {
                     "required": true,
+                    "pattern": "/^.+@.+\\..+$/"
+                }
+            }]
+        },{
+            "group_title": "Weitere Angaben",
+            "group_subtitle": "Dies und das.",
+            "group_id": "weitere_angaben",
+            "questions": [{
+                "type": "questionText",
+                "var": "name",
+                "title": "Wie lautet Ihr Name?",
+                "help": "Wie sollen wir Sie nennen?",
+                "label": "Name",
+                "val": {
+                    "required": false
+                }
+            }, {
+                "type": "questionText",
+                "var": "email",
+                "title": "Wie lautet Ihre Email Adresse?",
+                "help": "",
+                "label": "Email",
+                "val": {
+                    "required": false,
                     "pattern": "/^.+@.+\\..+$/"
                 }
             }]

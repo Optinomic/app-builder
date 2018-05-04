@@ -9,14 +9,15 @@
 
 
 <div>
-    <span ng-init="result.extras = { current_state: 'welcome' }"></span>
+    <span ng-init="result.extras = {}"></span>
+    <span ng-init="result.state = { 'current_state': 'welcome'}"></span>
     <span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
    
     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
         <div ng-controller="ContentController" style="width:100%;max-width:1024px;">
             <div ng-if="!thankyou">
                     {% if current_survey.survey.show_welcome_page === true %}
-                    <div ng-if="result.extras.current_state === 'welcome'">
+                    <div ng-if="result.state.current_state === 'welcome'">
                         <md-card>
                             <md-progress-linear md-mode="determinate" value="1"></md-progress-linear>
                             <md-card-title class="layout-margin">
@@ -33,17 +34,14 @@
                             </div>
                             <md-divider></md-divider>
                             <md-card-actions layout="row" layout-align="end center">
-                                <md-button ng-click="result.extras.current_state = 'start'">Jetzt starten</md-button>
+                                <md-button ng-click="surveyStart()">Jetzt starten</md-button>
                             </md-card-actions>
                         </md-card>
                     </div>
                     {% else %}
-                    <span ng-init="result.extras.current_state = 'start'"></span>
+                        <span ng-init="surveyStart()"></span>
                     {% endif %}
-                    <div ng-if="result.extras.current_state === 'start'" ng-init="result.extras.current_question_group = 1">
-                        <span ng-init="result.extras.filled = Date()"></span>
-                        <span ng-init="setPerformance('start')"></span>
-                        
+                    <div ng-if="result.state.current_state === 'start'" ng-init="result.state.current_question_group = 1">
                         {% for qg in current_survey.question_groups %}
                             {{ m.questionGroupStart(qg, current_survey, loop.index, loop.length) }}
                                 
@@ -68,12 +66,9 @@
                     </div>
             </div>
             <div ng-if="thankyou">
-                <span ng-init="setPerformance('end')"></span>
-                <h1 show-xs show-sm hide-gt-sm class="md-display-2">Herzlichen Dank</h1>
-                <h1 show-gt-sm hide-sm hide-xs class="md-display-4">Herzlichen Dank</h1>
-                <span class="md-subhead" style="margin-top:-48px;">
-                    Ihre Eingabe wurde erfolgreich gespeichert! Sie können nun dieses Fenster schliessen.
-                </span>
+            
+                {{ m.thankYouSimple(current_survey) }}
+                            
             </div>
         </div>
     </md-content>

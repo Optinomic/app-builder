@@ -19,7 +19,9 @@
     </div>
     {% endif %}
 
+    {% if q.val.pattern !== undefined %}
     <div ng-message="pattern">
-        Das verlangte Pattern «{{ q.val.pattern }}» ist nicht eingehalten.
+        Eingabe entspricht nicht dem gewünschten Pattern «{{ q.val.pattern }}».
     </div>
+    {% endif %}
 </div>

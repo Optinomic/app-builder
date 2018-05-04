@@ -8,9 +8,8 @@ var minify = require('gulp-minify');
 var cleanCSS = require('gulp-clean-css');
 var clean = require('gulp-clean');
 
-
-var base_config = require('./src/__config/base_config.json'); ;
-var survey_config = require('./src/__config/survey.json'); ;
+var base_config = require('./src/__config/base_config.json');;
+var survey_config = require('./src/__config/survey.json');;
 
 var jsminify_config = {
     ext: {
@@ -79,8 +78,11 @@ function buildTemplates() {
             data: base_config
         }))
         .pipe(htmlmin({
+            minifyJS: true,
             collapseWhitespace: true,
             minifyCSS: true,
+            sortAttributes: true,
+            sortClassName: true,
             removeComments: true
         }))
         .pipe(gulp.dest(base_config.dist_root + '/templates'))
@@ -94,8 +96,11 @@ function buildNGSurvey() {
             data: survey_config
         }))
         .pipe(htmlmin({
+            minifyJS: true,
             collapseWhitespace: true,
             minifyCSS: true,
+            sortAttributes: true,
+            sortClassName: true,
             removeComments: true
         }))
         .pipe(gulp.dest(base_config.dist_root + '/survey_markup'))
@@ -153,10 +158,10 @@ function copyCalculations() {
 }
 
 gulp.task('build', function () {
-    runSequence('clean-dist', 'build-templates', 'build-images', 'build-opapp', 'cleanup');
+    runSequence('clean-dist', ['build-templates', 'build-images', 'build-opapp'], 'cleanup');
     setTimeout(function () {
         runSequence('hotload');
-    }, 500);
+    }, 1000);
 });
 
 gulp.task('build-images', function () {

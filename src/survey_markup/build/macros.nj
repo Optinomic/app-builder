@@ -3,8 +3,8 @@
 
 {% macro questionGroupStart(g, s, loop_index, loop_length) %}
 
-<div ng-if="result.extras.current_question_group === {{loop_index}}">
-<span ng-init="setPerformance('{{g.group_id}}')"></span>
+<div ng-if="result.state.current_question_group === {{loop_index}}">
+<span ng-init="setPerformance({{loop_index}}, '{{g.group_id}}')"></span>
 <md-card>
     <md-progress-linear md-mode="determinate" value="{{loop_index / (loop_length + 1) * 99}}"></md-progress-linear>
     <md-card-title class="layout-margin">
@@ -37,7 +37,7 @@
         {% if loop_index === 1 %}
         <p>&nbsp;</p>
         {% else %}
-        <md-button ng-click="result.extras.current_question_group = result.extras.current_question_group - 1">Zurück</md-button>
+        <md-button ng-click="result.state.current_question_group = result.state.current_question_group - 1">Zurück</md-button>
         {% endif %}
         <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
         <div ng-if="{{g.group_id}}.$valid">
@@ -54,17 +54,39 @@
         {% if loop_index === 1 %}
         <p>&nbsp;</p>
         {% else %}
-        <md-button ng-click="result.extras.current_question_group = result.extras.current_question_group - 1">Zurück</md-button>
+        <md-button ng-click="result.state.current_question_group = result.state.current_question_group - 1">Zurück</md-button>
         {% endif %}
         <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
         <div ng-if="{{g.group_id}}.$valid">
-            <md-button ng-click="result.extras.current_question_group = result.extras.current_question_group + 1">Weiter</md-button>
+            <md-button ng-click="result.state.current_question_group = result.state.current_question_group + 1">Weiter</md-button>
         </div>
         <div ng-if="{{g.group_id}}.$invalid">
             <md-button disabled>Weiter</md-button>
         </div>
     </md-card-actions>
     {% endif %}
+</md-card>
+</div>
+{% endmacro %}
+
+
+{# --- Questions ---#} 
+{% macro thankYouSimple(current_survey) %}
+<md-card>
+    <md-progress-linear md-mode="determinate" value="100"></md-progress-linear>
+    <md-card-title class="layout-margin">
+        <md-card-title-text>
+            <span class="md-display-1">{{current_survey.survey.welcome_title}}</span>
+            <span class="md-subhead f-color">{{current_survey.survey.welcome_subtitle}}</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-divider></md-divider>
+    <div class="layout-padding layout-margin" style="min-height:53vh">
+        <h1 show-xs show-sm hide-gt-sm class="md-display-2 p-color">Herzlichen Dank!</h1>
+        <h1 show-gt-sm hide-sm hide-xs class="md-display-4 p-color">Herzlichen Dank!</h1>
+        <p>Ihre Eingabe wurde erfolgreich gespeichert! Sie können nun dieses Fenster schliessen.</p>
+    </div>
 </md-card>
 </div>
 {% endmacro %}
