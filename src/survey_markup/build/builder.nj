@@ -55,6 +55,10 @@
                                         {{ m.questionSelect(q, qg, loop.index, loop.length) }}
                                     {% endif %}
 
+                                    {% if q.type == "questionMultiSelect" %}
+                                        {{ m.questionMultiSelect(q, qg, loop.index, loop.length) }}
+                                    {% endif %}
+
                                     {% if q.type == "questionNumber" %}
                                         {{ m.questionNumber(q, qg, loop.index, loop.length) }}
                                     {% endif %}

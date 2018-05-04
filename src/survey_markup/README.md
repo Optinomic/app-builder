@@ -181,6 +181,39 @@ Select one entry from `options`.
     }]
 }
 ```
+### questionMultiSelect
+
+Select one ore more entrys from `options`.
+
+```JSON
+{
+    "type": "questionMultiSelect",
+    "var": "messzeitpunkte",
+    "var_prefix": "[",
+    "var_suffix": "]",
+    "title": "Messzeitpunkte",
+    "help": "Bei welchen Messzeitpunkten wurde eine Erhebung ausgeführt?",
+    "label": "Erhebungen",
+    "true_value": 1,
+    "false_value": 0,
+    "val": {
+        "required": true
+    },
+    "options": [{
+        "value": "1",
+        "var": "eintritt",
+        "label": "Eintritt"
+    }, {
+        "value": "2",
+        "var": "austritt",
+        "label": "Austritt"
+    }, {
+        "value": "3",
+        "var": "anderer",
+        "label": "Anderer Messzeitpunkt"
+    }]
+}
+```
 
 ### ToDo
 

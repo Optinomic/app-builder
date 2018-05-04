@@ -92,28 +92,7 @@
 {% endmacro %}
 
 
-
 {# --- Questions ---#} 
-
-{% macro questionSelect(q, g, loop_index, loop_length) %}
-<md-card-content class="question_container">
-    <div style="margin-bottom:36px;">
-        <p class="md-display-1 p-color question">{{ q.title }}</p>
-        <p class="md-body-1 f-color help">{{ q.help }}</p>
-    </div>
-    <md-input-container class="md-block">
-        <label>{{ q.label }}</label>
-        <md-select name="{{ q.var }}" ng-model="result.{{ q.var }}" {% if q.val.required %}required{% endif %}>
-            {% for o in q.options %}
-                <md-option value="{{ o.value }}">{{ o.label }}</md-option>          
-            {% endfor %}
-        </md-select>
-        {% include "survey_markup/build/validation.nj" %}
-    </md-input-container>
-</md-card-content>
-{% endmacro %}
-
-
 
 {% macro questionNumber(q, g, loop_index, loop_length) %}
 <md-card-content class="question_container">
@@ -166,7 +145,8 @@
     <md-input-container class="md-block">
         <md-datepicker
             name="{{ q.var }}" 
-            ng-model="result.{{ q.var }}" 
+            ng-change="result.{{ q.var }} = Date(date_{{ q.var }})" 
+            ng-model="date_{{ q.var }}" 
             md-placeholder="{{ q.label }}" 
             md-open-on-focus
             {% if q.val.required %}required{% endif %}
@@ -176,3 +156,47 @@
 </md-card-content>
 {% endmacro %}
 
+{% macro questionSelect(q, g, loop_index, loop_length) %}
+<md-card-content class="question_container">
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+        <label>{{ q.label }}</label>
+        <md-select name="{{ q.var }}" ng-model="result.{{ q.var }}" {% if q.val.required %}required{% endif %}>
+            {% for o in q.options %}
+                <md-option value="{{ o.value }}">{{ o.label }}</md-option>          
+            {% endfor %}
+        </md-select>
+        {% if q.val.required %}
+            {% include "survey_markup/build/validation.nj" %}
+        {% endif %}
+    </md-input-container>
+</md-card-content>
+{% endmacro %}
+
+{% macro questionMultiSelect(q, g, loop_index, loop_length) %}
+<md-card-content class="question_container">
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+            {% for o in q.options %}
+                <div ng-init="result['{{q.var}}{{q.var_prefix}}{{o.var}}{{q.var_suffix}}'] = {{ q.false_value }};">
+                <md-checkbox ng-model="result['{{q.var}}{{q.var_prefix}}{{o.var}}{{q.var_suffix}}']" ng-true-value="{{ q.true_value }}" ng-false-value="{{ q.false_value }}" ng-change="{{ q.var }}_fulfilled = true;" aria-label="{{ o.label }}">
+                    {{ o.label }}
+                </md-checkbox>          
+                </div>
+            {% endfor %}
+
+            {% if q.val.required %}
+                <md-checkbox style="visibility: hidden;" name="{{ q.var }}" ng-model="{{ q.var }}_fulfilled" aria-label="required" {% if q.val.required %}required{% endif %}>
+                    Required - filfilled?
+                </md-checkbox>          
+                {% include "survey_markup/build/validation.nj" %}
+            {% endif %}
+    </md-input-container>
+</md-card-content>
+{% endmacro %}
