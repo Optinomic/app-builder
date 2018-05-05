@@ -76,7 +76,16 @@ app.config(['$mdDateLocaleProvider', function ($mdDateLocaleProvider) {
     $mdDateLocaleProvider.msgOpenCalendar = 'Kalender öffnen';
 }]);
 
-app.controller('ContentController', ['$scope', function ($scope) {
+app.controller('ContentController', ['$scope', '$mdSidenav', function ($scope, $mdSidenav) {
+
+    // SideNav
+    $scope.toggleLeft = buildToggler('left');
+
+    function buildToggler(componentId) {
+      return function() {
+        $mdSidenav(componentId).toggle();
+      };
+    }
 
     // Date & Timings
     $scope.Date = function (d) {

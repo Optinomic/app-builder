@@ -100,8 +100,10 @@
         <p class="md-display-1 p-color question">{{ q.title }}</p>
         <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
+    
     <md-input-container class="md-block">
         <label>{{ q.label }}</label>
+        
         <input 
             type="number" 
             step="any" 
@@ -112,6 +114,9 @@
             {% if q.val.max !== undefined %}max="{{q.val.max}}"{% endif %}  
             >
         {% include "survey_markup/build/validation.nj" %}
+        {% if q.val.min !== undefined %}{% if q.val.max !== undefined %}
+        <md-slider ng-model="result.{{ q.var }}" min="{{q.val.min}}" max="{{q.val.max}}" aria-label="{{ q.label }}" class="md-primary"></md-slider>
+        {% endif %}{% endif %}
     </md-input-container>
 </md-card-content>
 {% endmacro %}

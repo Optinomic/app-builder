@@ -15,3 +15,14 @@
 }
 
 .help {}
+
+.main_toolbar {
+    position:fixed; 
+    background-color:#FAFAFA;
+    color: #9E9E9E;
+    padding-right: 24px;
+}
+
+md-sidenav {
+    position: fixed;
+  }

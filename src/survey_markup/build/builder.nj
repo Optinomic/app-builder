@@ -1,86 +1,98 @@
-{% import "survey_markup/build/macros.nj" as m %} 
+{% import "survey_markup/build/macros.nj" as m %}
 
 <style>
-{% include "survey_markup/build/_style.css" %}
+    {% include "survey_markup/build/_style.css" %}
 </style>
 <script type="text/javascript">
-{% include "survey_markup/build/_controller.js" %}
+    {% include "survey_markup/build/_controller.js" %}
 </script>
 
+<span ng-init="result.extras = {}"></span>
+<span ng-init="result.state = { 'current_state': 'welcome', 'progress': 1}"></span>
+<span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
 
-<div>
-    <span ng-init="result.extras = {}"></span>
-    <span ng-init="result.state = { 'current_state': 'welcome'}"></span>
-    <span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
-   
+<div ng-controller="ContentController">
+{% include "survey_markup/build/_sidenav.html" %}
+    
+<md-toolbar>
+    <div class="md-toolbar-tools main_toolbar md-whiteframe-1dp">
+        <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Menu">
+            <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+            </svg>
+        </md-button>
+        <h2 flex md-truncate>{{current_survey.survey.welcome_title}}</h2>
+        <p md-truncate class="md-caption hide-xs hide-sm">{{current_survey.survey.welcome_subtitle}}</p>
+    </div>
+</md-toolbar>
     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
-        <div ng-controller="ContentController" style="width:100%;max-width:1024px;">
+
+        <div style="width:100%;max-width:1024px;">
             <div ng-if="!thankyou">
-                    {% if current_survey.survey.show_welcome_page === true %}
-                    <div ng-if="result.state.current_state === 'welcome'">
-                        <md-card>
-                            <md-progress-linear md-mode="determinate" value="1"></md-progress-linear>
-                            <md-card-title class="layout-margin">
-                                <md-card-title-text>
-                                    <span class="md-display-1 p-color">{{current_survey.survey.welcome_title}}</span>
-                                    <span class="md-subhead f-color">{{current_survey.survey.welcome_subtitle}}</span>
-                                </md-card-title-text>
-                            </md-card-title>
-                            <md-divider></md-divider>
-                            <div style="min-height:53vh" class="layout-margin">
-                                <md-card-content>
+                {% if current_survey.survey.show_welcome_page === true %}
+                <div ng-if="result.state.current_state === 'welcome'">
+                    <md-card>
+                        <md-progress-linear md-mode="determinate" value="1"></md-progress-linear>
+                        <md-card-title class="layout-margin">
+                            <md-card-title-text>
+                                <span class="md-display-1 p-color">{{current_survey.survey.welcome_title}}</span>
+                                <span class="md-subhead f-color">{{current_survey.survey.welcome_subtitle}}</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-divider></md-divider>
+                        <div style="min-height:53vh" class="layout-margin">
+                            <md-card-content>
 
-                                    {% for t in current_survey.survey.welcome_text %}
-                                        <p class="md-body-1 f-color help">{{t}}</p>
-                                    {% endfor %}
-                                    
-                                </md-card-content>
-                            </div>
-                            <md-divider></md-divider>
-                            <md-card-actions layout="row" layout-align="end center">
-                                <md-button ng-click="surveyStart()">Jetzt starten</md-button>
-                            </md-card-actions>
-                        </md-card>
-                    </div>
-                    {% else %}
-                        <span ng-init="surveyStart()"></span>
-                    {% endif %}
-                    <div ng-if="result.state.current_state === 'start'" ng-init="result.state.current_question_group = 1">
-                        {% for qg in current_survey.question_groups %}
-                            {{ m.questionGroupStart(qg, current_survey, loop.index, loop.length) }}
-                                
-                                {% for q in qg.questions %}
-
-                                    {% if q.type == "questionSelect" %}
-                                        {{ m.questionSelect(q, qg, loop.index, loop.length) }}
-                                    {% endif %}
-
-                                    {% if q.type == "questionMultiSelect" %}
-                                        {{ m.questionMultiSelect(q, qg, loop.index, loop.length) }}
-                                    {% endif %}
-
-                                    {% if q.type == "questionNumber" %}
-                                        {{ m.questionNumber(q, qg, loop.index, loop.length) }}
-                                    {% endif %}
-
-                                    {% if q.type == "questionText" %}
-                                        {{ m.questionText(q, qg, loop.index, loop.length) }}
-                                    {% endif %}
-                                    
-                                    {% if q.type == "questionDate" %}
-                                        {{ m.questionDate(q, qg, loop.index, loop.length) }}
-                                    {% endif %}
-
+                                {% for t in current_survey.survey.welcome_text %}
+                                <p class="md-body-1 f-color help">{{t}}</p>
                                 {% endfor %}
 
-                            {{ m.questionGroupEnd(qg, current_survey, loop.index, loop.length) }}
-                        {% endfor %}
-                    </div>
+                            </md-card-content>
+                        </div>
+                        <md-divider></md-divider>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button ng-click="surveyStart()">Jetzt starten</md-button>
+                        </md-card-actions>
+                    </md-card>
+                </div>
+                {% else %}
+                <span ng-init="surveyStart()"></span>
+                {% endif %}
+                <div ng-if="result.state.current_state === 'start'" ng-init="result.state.current_question_group = 1">
+                    {% for qg in current_survey.question_groups %} 
+                        {{ m.questionGroupStart(qg, current_survey, loop.index, loop.length) }} 
+                        {% for q in qg.questions %} 
+                        
+                            {% if q.type == "questionSelect" %} 
+                                {{ m.questionSelect(q, qg, loop.index, loop.length)}} 
+                            {% endif %} 
+                            
+                            {% if q.type == "questionMultiSelect" %} 
+                                {{ m.questionMultiSelect(q, qg, loop.index, loop.length) }} 
+                            {% endif %} 
+                            
+                            {% if q.type == "questionNumber" %} 
+                                {{ m.questionNumber(q, qg, loop.index, loop.length) }} 
+                            {% endif %} 
+                            
+                            {% if q.type == "questionText" %} 
+                                {{ m.questionText(q, qg, loop.index, loop.length) }}
+                            {% endif %} 
+                            
+                            {% if q.type == "questionDate" %} 
+                                {{ m.questionDate(q, qg, loop.index, loop.length) }} 
+                            {% endif %} 
+                            
+                        {% endfor %} 
+                        {{ m.questionGroupEnd(qg, current_survey, loop.index, loop.length) }} 
+                    {% endfor %}
+                </div>
             </div>
             <div ng-if="thankyou">
-            
+
                 {{ m.thankYouSimple(current_survey) }}
-                            
+
             </div>
         </div>
     </md-content>
