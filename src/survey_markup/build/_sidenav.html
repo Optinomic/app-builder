@@ -15,21 +15,45 @@
     <md-content layout-margin style="background-color:#FAFAFA">
 
         {% raw %}
-        <p>
-            {{survey_markup.survey.welcome_title}} 
-        </p>
 
-        <p>
-            ToDo: Build Question-Group Navigation here!
-        </p>
 
-        <md-button ng-click="toggleLeft()" class="md-primary">
-            Schliessen
-        </md-button>
+        
 
-        <p class="md-caption">
-            Version: {{survey_markup.survey.version}}
-        </p>
+        <div class="layout-padding">
+            <div layout="row" layout-align="space-between center">
+              <div flex>
+                <h4 style="padding:0;margin:0">{{survey_markup.survey.welcome_title}}</h4>
+              </div>
+              <div>
+                <p style="padding:0;margin:0;color:#9E9E9E" class="md-caption">V.{{survey_markup.survey.version}}</p>
+              </div>
+            </div>
+
+            <p style="margin-top:-6px" class="md-caption">{{survey_markup.survey.welcome_subtitle}}</p>
+        <div>
+
+        <md-divider></md-divider>
+        <h4 style="margin-top:36px;">Navigation</h4>
+
+        <div ng-repeat="g in survey_markup.question_groups">
+            <a class="sidenav_link_valid" ng-if="$index < result.state.max_question_group" ng-click="goToQuestionGroup($index + 1)" href=""> 
+                <p>{{$index + 1}}.)&nbsp; {{g.group_title}}</p>
+            </a>
+            <p class="sidenav_link_invalid" ng-if="$index >= result.state.max_question_group">
+                {{$index + 1}}.)&nbsp; {{g.group_title}}
+            </p>
+        </div>
+
+        <div layout="row">
+          <div flex>&nbsp;</div>
+          <div>
+            <md-button style="margin-top:36px;" ng-click="toggleLeft()" class="md-primary">
+                Schliessen
+            </md-button>
+          </div>
+        </div>
+        
+
         {% endraw %}
 
     </md-content>

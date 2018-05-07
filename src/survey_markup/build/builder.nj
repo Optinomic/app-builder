@@ -16,12 +16,22 @@
     
 <md-toolbar>
     <div class="md-toolbar-tools main_toolbar md-whiteframe-1dp">
-        <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Menu">
-            <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-            </svg>
-        </md-button>
+        <div ng-if="result.state.current_question_group">
+            <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Menu">
+                <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+            </md-button>
+        </div>
+        <div ng-if="!result.state.current_question_group">
+            <md-button ng-click="surveyStart()" class="md-icon-button" aria-label="Menu">
+                <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5v14l11-7z"/>
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+            </md-button>
+        </div>
         <h2 flex md-truncate>{{current_survey.survey.welcome_title}}</h2>
         <p md-truncate class="md-caption hide-xs hide-sm">{{current_survey.survey.welcome_subtitle}}</p>
     </div>

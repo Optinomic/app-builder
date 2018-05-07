@@ -26,3 +26,17 @@
 md-sidenav {
     position: fixed;
 }
+
+
+.sidenav_link_valid  {
+    text-decoration: none;
+    color: #424242;
+}
+
+.sidenav_link_valid:hover  {
+    color: #3F51B5;
+}
+
+.sidenav_link_invalid  {
+    color: #9E9E9E;
+}

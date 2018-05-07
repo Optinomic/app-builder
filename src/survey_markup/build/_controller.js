@@ -26,13 +26,13 @@ app.config(['$mdDateLocaleProvider', function ($mdDateLocaleProvider) {
                     mDay = parseInt(e);
                 };
                 if (ID === 1) {
-                     mMonth = parseInt(e) - 1;
+                    mMonth = parseInt(e) - 1;
                 };
                 if (ID === 2) {
-                     mYear = parseInt(e);
+                    mYear = parseInt(e);
                 };
             }.bind(this));
-            
+
             var pDate = new Date(mYear, mMonth, mDay, 0, 0, 0, 0);
             // console.log('2 parseDate', pDate, mYear, mMonth, mDay);
         };
@@ -82,10 +82,10 @@ app.controller('ContentController', ['$scope', '$mdSidenav', function ($scope, $
     $scope.toggleLeft = buildToggler('left');
 
     function buildToggler(componentId) {
-      return function() {
-        $mdSidenav(componentId).toggle();
-      };
-    }
+        return function () {
+            $mdSidenav(componentId).toggle();
+        };
+    };
 
     // Date & Timings
     $scope.Date = function (d) {
@@ -102,6 +102,20 @@ app.controller('ContentController', ['$scope', '$mdSidenav', function ($scope, $
         // console.log('setPerformance', $scope.timings);
     };
 
+    $scope.$watch('result.state.current_question_group', function () {
+
+        try {
+            if ($scope.result.state.current_question_group > $scope.result.state.max_question_group) {
+                $scope.result.state.max_question_group = $scope.result.state.current_question_group;
+            };
+        } catch (e) {};
+        // console.log('CHANGED:', $scope.result.state.current_question_group, $scope.result.state.max_question_group);
+    });
+
+    $scope.goToQuestionGroup = function (qg) {
+        $scope.result.state.current_question_group = qg;
+        $scope.toggleLeft();
+    };
 
     // Start
     $scope.surveyStart = function () {
@@ -150,6 +164,7 @@ app.controller('ContentController', ['$scope', '$mdSidenav', function ($scope, $
             "points": []
         };
         $scope.survey_markup = Object.assign({}, $scope.result.extras.survey_markup);
+        $scope.result.state.max_question_group = 1;
 
         console.log('INIT :: Survey Markup:', $scope.survey_markup);
     };
