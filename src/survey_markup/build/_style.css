@@ -40,3 +40,35 @@ md-sidenav {
 .sidenav_link_invalid  {
     color: #9E9E9E;
 }
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+   
+  li {
+    border-bottom: 1px solid #ccc;
+  }
+   
+  li:last-child {
+    border: none;
+  }
+   
+  li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    width: 200px;
+   
+    -webkit-transition: font-size 0.3s ease;
+    -moz-transition: font-size 0.3s ease;
+    -o-transition: font-size 0.3s ease;
+    -ms-transition: font-size 0.3s ease;
+    transition: font-size 0.3s ease;
+  }
+   
+  li a:hover {
+    font-size: 17px;
+  }

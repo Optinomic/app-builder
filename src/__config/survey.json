@@ -1,174 +1,272 @@
 {
     "tmt_example": {
-        "survey": {
-            "version": "1.0",
-            "welcome_title": "TMT",
-            "welcome_subtitle": "Trail Making Test (TMT)",
-            "welcome_text": [
-                "Mit dem TMT wird die Fähigkeit zum visuellen Scannen, die psychomotorische Geschwindigkeit (TMT A) sowie die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B) erfasst."
-            ],
-            "show_welcome_page": true,
-            "show_question_groups_numbers": false,
-            "result_store_survey_markup": false,
-            "result_store_timings": true,
-            "empty_vars": null
-        },
-        "question_groups": [{
-                "group_title": "Allgemeine Angaben",
-                "group_subtitle": "Angaben zum Messzeitpunkt",
-                "group_id": "allgemeine_angaben",
-                "questions": [{
-                    "type": "questionSelect",
-                    "var": "Messzeitpunkt",
-                    "title": "Messzeitpunkt",
-                    "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
-                    "label": "Assessment (Erhebung)",
-                    "val": {
-                        "required": true
-                    },
-                    "options": [{
-                        "value": "1",
-                        "label": "Eintritt"
-                    }, {
-                        "value": "2",
-                        "label": "Austritt"
-                    }, {
-                        "value": "3",
-                        "label": "Anderer Messzeitpunkt"
-                    }]
-                }]
-            },
+      "survey": {
+        "version": "1.0",
+        "welcome_title": "TMT",
+        "welcome_subtitle": "Trail Making Test (TMT)",
+        "welcome_text": [
+          "Mit dem TMT wird die Fähigkeit zum visuellen Scannen, die psychomotorische Geschwindigkeit (TMT A) sowie die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B) erfasst."
+        ],
+        "show_welcome_page": true,
+        "show_question_groups_numbers": false,
+        "result_store_survey_markup": false,
+        "result_store_timings": true,
+        "empty_vars": null
+      },
+      "question_groups": [
+        {
+          "group_title": "Allgemeine Angaben",
+          "group_subtitle": "Angaben zum Messzeitpunkt",
+          "group_id": "allgemeine_angaben",
+          "questions": [
             {
-                "group_title": "Patientenangaben",
-                "group_subtitle": "Angaben über den Patienten",
-                "group_id": "weitere_angaben",
-                "questions": [{
-                    "type": "questionNumber",
-                    "var": "Ausbildungsjahre",
-                    "title": "Ausbildungsjahre",
-                    "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 Jahre Schule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) + 5 Jahre Studium gibt 17 Ausbildungsjahre.",
-                    "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
-                    "val": {
-                        "required": true,
-                        "min": 6,
-                        "max": 40
-                    }
-                }]
-            },
-            {
-                "group_title": "TMT A",
-                "group_subtitle": "Psychomotorische Geschwindigkeit (TMT A)",
-                "group_id": "tmt",
-                "questions": [{
-                    "type": "questionNumber",
-                    "var": "TMTATime",
-                    "title": "Zeit",
-                    "help": "Zeit in Sekunden.",
-                    "label": "TMT A (Zeit in Sekunden)",
-                    "val": {
-                        "required": true,
-                        "min": 10,
-                        "max": 180
-                    }
-                }, {
-                    "type": "questionNumber",
-                    "var": "TMTAError",
-                    "title": "Fehler",
-                    "help": "Anzahl der Fehler bei der Ausführung des TMT A.",
-                    "label": "TMT A (Anzahl Fehler)",
-                    "val": {
-                        "required": true,
-                        "min": 0,
-                        "max": 999
-                    }
-                }]
-            },
-            {
-                "group_title": "TMT B",
-                "group_subtitle": "Die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B)",
-                "group_id": "tmt",
-                "questions": [{
-                    "type": "questionNumber",
-                    "var": "TMTBTime",
-                    "title": "Zeit",
-                    "help": "Zeit in Sekunden.",
-                    "label": "TMT B (Zeit in Sekunden)",
-                    "val": {
-                        "required": true,
-                        "min": 10,
-                        "max": 180
-                    }
-                }, {
-                    "type": "questionNumber",
-                    "var": "TMTBError",
-                    "title": "Fehler",
-                    "help": "Anzahl der Fehler bei der Ausführung des TMT B.",
-                    "label": "TMT B (Anzahl Fehler)",
-                    "val": {
-                        "required": true,
-                        "min": 0,
-                        "max": 999
-                    }
-                }]
+              "type": "questionSelect",
+              "var": "Messzeitpunkt",
+              "title": "Messzeitpunkt",
+              "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
+              "label": "Assessment (Erhebung)",
+              "val": {
+                "required": true
+              },
+              "options": [
+                {
+                  "value": "1",
+                  "label": "Eintritt"
+                },
+                {
+                  "value": "2",
+                  "label": "Austritt"
+                },
+                {
+                  "value": "3",
+                  "label": "Anderer Messzeitpunkt"
+                }
+              ]
             }
-        ]
+          ]
+        },
+        {
+          "group_title": "Patientenangaben",
+          "group_subtitle": "Angaben über den Patienten",
+          "group_id": "weitere_angaben",
+          "questions": [
+            {
+              "type": "questionNumber",
+              "var": "Ausbildungsjahre",
+              "title": "Ausbildungsjahre",
+              "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 Jahre Schule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) + 5 Jahre Studium gibt 17 Ausbildungsjahre.",
+              "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
+              "val": {
+                "required": true,
+                "min": 6,
+                "max": 40
+              }
+            }
+          ]
+        },
+        {
+          "group_title": "TMT A",
+          "group_subtitle": "Psychomotorische Geschwindigkeit (TMT A)",
+          "group_id": "tmt",
+          "questions": [
+            {
+              "type": "questionNumber",
+              "var": "TMTATime",
+              "title": "Zeit",
+              "help": "Zeit in Sekunden.",
+              "label": "TMT A (Zeit in Sekunden)",
+              "val": {
+                "required": true,
+                "min": 10,
+                "max": 180
+              }
+            },
+            {
+              "type": "questionNumber",
+              "var": "TMTAError",
+              "title": "Fehler",
+              "help": "Anzahl der Fehler bei der Ausführung des TMT A.",
+              "label": "TMT A (Anzahl Fehler)",
+              "val": {
+                "required": true,
+                "min": 0,
+                "max": 999
+              }
+            }
+          ]
+        },
+        {
+          "group_title": "TMT B",
+          "group_subtitle": "Die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B)",
+          "group_id": "tmt",
+          "questions": [
+            {
+              "type": "questionNumber",
+              "var": "TMTBTime",
+              "title": "Zeit",
+              "help": "Zeit in Sekunden.",
+              "label": "TMT B (Zeit in Sekunden)",
+              "val": {
+                "required": true,
+                "min": 10,
+                "max": 180
+              }
+            },
+            {
+              "type": "questionNumber",
+              "var": "TMTBError",
+              "title": "Fehler",
+              "help": "Anzahl der Fehler bei der Ausführung des TMT B.",
+              "label": "TMT B (Anzahl Fehler)",
+              "val": {
+                "required": true,
+                "min": 0,
+                "max": 999
+              }
+            }
+          ]
+        }
+      ]
     },
     "another_survey": {
-        "survey": {
-            "version": "1.0",
-            "welcome_title": "Another",
-            "welcome_subtitle": "Another - Kurzbeschreibung",
-            "welcome_text": [
-                "Anweisung - Zeile 1",
-                "Anweisung - Zeile 2...",
-                "...und noch eine Zeile! :-)"
-            ],
-            "show_welcome_page": false,
-            "show_question_groups_numbers": false,
-            "result_store_survey_markup": false,
-            "result_store_timings": true,
-            "empty_vars": null
+      "survey": {
+        "version": "1.0",
+        "welcome_title": "Testsurvey",
+        "welcome_subtitle": "Question-Type-Explorer",
+        "welcome_text": [
+          "Ziel: Vermittlung und Darstellung aller möglichen Fragetypen und deren Funktionen.",
+          "Have a nice day! :-)"
+        ],
+        "show_welcome_page": false,
+        "show_question_groups_numbers": false,
+        "result_store_survey_markup": false,
+        "result_store_timings": true,
+        "empty_vars": null
+      },
+      "question_groups": [
+        {
+          "group_title": "Eine Zahl erfassen",
+          "group_subtitle": "Example (questionNumber)",
+          "group_id": "questionNumber",
+          "questions": [
+            {
+              "type": "questionNumber",
+              "var": "Ausbildungsjahre",
+              "title": "Ausbildungsjahre",
+              "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 JaSchule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) Jahre Studium gibt 17 Ausbildungsjahre.",
+              "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
+              "val": {
+                "required": true,
+                "min": 6,
+                "max": 40
+              }
+            }
+          ]
         },
-        "question_groups": [{
-            "group_title": "Allgemeine Angaben",
-            "group_subtitle": "Angaben zum Messzeitpunkt",
-            "group_id": "allgemeine_angaben",
-            "questions": [{
-                "type": "questionDate",
-                "var": "birthday",
-                "title": "Wann sind Sie geboren?",
-                "help": "Selektieren Sie ihren Geburtstag.",
-                "label": "Geburtstag",
-                "val": {
-                    "required": true
-                }
-            }, {
-                "type": "questionMultiSelect",
-                "var": "messzeitpunkte",
-                "var_prefix": "[",
-                "var_suffix": "]",
-                "title": "Messzeitpunkt",
-                "help": "Bei welchen Messzeitpunkten wurde eine Erhebung ausgeführt?",
-                "label": "Erhebungen",
-                "true_value": 1,
-                "false_value": 0,
-                "val": {
-                    "required": true
+        {
+          "group_title": "Ein Text erfassen",
+          "group_subtitle": "Example (questionText)",
+          "group_id": "questionText",
+          "questions": [
+            {
+              "type": "questionText",
+              "var": "email",
+              "title": "Wie lautet Ihre Email Adresse?",
+              "help": "",
+              "label": "Email",
+              "val": {
+                "required": true,
+                "pattern": "/^.+@.+\\..+$/"
+              }
+            }
+          ]
+        },
+        {
+          "group_title": "Eine Datum erfassen",
+          "group_subtitle": "Example (questionDate)",
+          "group_id": "questionDate",
+          "questions": [
+            {
+              "type": "questionDate",
+              "var": "birthday",
+              "title": "Wann sind Sie geboren?",
+              "help": "Selektieren Sie ihren Geburtstag.",
+              "label": "Geburtstag",
+              "val": {
+                "required": true
+              }
+            }
+          ]
+        },
+        {
+          "group_title": "Eine Selektion vornehmen",
+          "group_subtitle": "Example (questionSelect)",
+          "group_id": "questionSelect",
+          "questions": [
+            {
+              "type": "questionSelect",
+              "var": "Messzeitpunkt",
+              "title": "Messzeitpunkt",
+              "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
+              "label": "Assessment (Erhebung)",
+              "val": {
+                "required": true
+              },
+              "options": [
+                {
+                  "value": "1",
+                  "label": "Eintritt"
                 },
-                "options": [{
-                    "value": "1",
-                    "var": "eintritt",
-                    "label": "Eintritt"
-                }, {
-                    "value": "2",
-                    "var": "austritt",
-                    "label": "Austritt"
-                }, {
-                    "value": "3",
-                    "var": "anderer",
-                    "label": "Anderer Messzeitpunkt"
-                }]
-            }]
-        }]
+                {
+                  "value": "2",
+                  "label": "Austritt"
+                },
+                {
+                  "value": "3",
+                  "label": "Anderer Messzeitpunkt"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "group_title": "Eine oder mehrere Möglichkeiten selektieren.",
+          "group_subtitle": "Example (questionMultiSelect)",
+          "group_id": "questionMultiSelect",
+          "questions": [
+            {
+              "type": "questionMultiSelect",
+              "var": "messzeitpunkte",
+              "var_prefix": "[",
+              "var_suffix": "]",
+              "title": "Messzeitpunkte",
+              "help": "Bei welchen Messzeitpunkten wurde eine Erhebung ausgeführt?",
+              "label": "Erhebungen",
+              "true_value": 1,
+              "false_value": 0,
+              "val": {
+                "required": true
+              },
+              "options": [
+                {
+                  "value": "1",
+                  "var": "eintritt",
+                  "label": "Eintritt"
+                },
+                {
+                  "value": "2",
+                  "var": "austritt",
+                  "label": "Austritt"
+                },
+                {
+                  "value": "3",
+                  "var": "anderer",
+                  "label": "Anderer Messzeitpunkt"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
-}
+  }

@@ -35,14 +35,16 @@
         <md-divider></md-divider>
         <h4 style="margin-top:36px;">Navigation</h4>
 
-        <div ng-repeat="g in survey_markup.question_groups">
+        <ul>
+          <li ng-repeat="g in survey_markup.question_groups">
             <a class="sidenav_link_valid" ng-if="$index < result.state.max_question_group" ng-click="goToQuestionGroup($index + 1)" href=""> 
-                <p>{{$index + 1}}.)&nbsp; {{g.group_title}}</p>
+                <p>{{g.group_title}}</p>
             </a>
             <p class="sidenav_link_invalid" ng-if="$index >= result.state.max_question_group">
-                {{$index + 1}}.)&nbsp; {{g.group_title}}
+                {{g.group_title}}
             </p>
-        </div>
+          </li>
+        </ul>
 
         <div layout="row">
           <div flex>&nbsp;</div>
