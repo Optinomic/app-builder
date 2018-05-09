@@ -1,10 +1,10 @@
-{% import "survey_markup/build/macros.nj" as m %}
+{% import "survey_markup/__build/macros.nj" as m %}
 
 <style>
-    {% include "survey_markup/build/_style.css" %}
+    {% include "survey_markup/__build/_style.css" %}
 </style>
 <script type="text/javascript">
-    {% include "survey_markup/build/_controller.js" %}
+    {% include "survey_markup/__build/_controller.js" %}
 </script>
 
 <span ng-init="result.extras = {}"></span>
@@ -12,7 +12,7 @@
 <span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
 
 <div ng-controller="ContentController">
-{% include "survey_markup/build/_sidenav.html" %}
+{% include "survey_markup/__build/_sidenav.html" %}
     
 <md-toolbar>
     <div class="md-toolbar-tools main_toolbar md-whiteframe-1dp">

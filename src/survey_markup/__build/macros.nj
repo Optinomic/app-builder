@@ -113,7 +113,7 @@
             {% if q.val.min !== undefined %}min="{{q.val.min}}"{% endif %}  
             {% if q.val.max !== undefined %}max="{{q.val.max}}"{% endif %}  
             >
-        {% include "survey_markup/build/validation.nj" %}
+        {% include "survey_markup/__build/validation.nj" %}
         {% if q.val.min !== undefined %}{% if q.val.max !== undefined %}
         <md-slider ng-model="result.{{ q.var }}" min="{{q.val.min}}" max="{{q.val.max}}" aria-label="{{ q.label }}" class="md-primary"></md-slider>
         {% endif %}{% endif %}
@@ -136,7 +136,7 @@
             {% if q.val.required %}required{% endif %} 
             {% if q.val.pattern %}ng-pattern="{{q.val.pattern}}"{% endif %} 
             >
-        {% include "survey_markup/build/validation.nj" %}
+        {% include "survey_markup/__build/validation.nj" %}
     </md-input-container>
 </md-card-content>
 {% endmacro %}
@@ -156,7 +156,7 @@
             md-open-on-focus
             {% if q.val.required %}required{% endif %}
             ></md-datepicker>
-        {% include "survey_markup/build/validation.nj" %}
+        {% include "survey_markup/__build/validation.nj" %}
     </md-input-container>
 </md-card-content>
 {% endmacro %}
@@ -175,7 +175,7 @@
             {% endfor %}
         </md-select>
         {% if q.val.required %}
-            {% include "survey_markup/build/validation.nj" %}
+            {% include "survey_markup/__build/validation.nj" %}
         {% endif %}
     </md-input-container>
 </md-card-content>
@@ -200,7 +200,7 @@
                 <md-checkbox style="visibility: hidden;" name="{{ q.var }}" ng-model="{{ q.var }}_fulfilled" aria-label="required" {% if q.val.required %}required{% endif %}>
                     Required - filfilled?
                 </md-checkbox>          
-                {% include "survey_markup/build/validation.nj" %}
+                {% include "survey_markup/__build/validation.nj" %}
             {% endif %}
     </md-input-container>
 </md-card-content>
