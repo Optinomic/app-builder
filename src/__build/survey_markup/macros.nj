@@ -151,6 +151,33 @@
 </md-card-content>
 {% endmacro %}
 
+
+{% macro questionTextarea(q, g, s, loop_index, loop_length) %}
+<md-card-content class="question_container">
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">
+            {% if s.survey.show_question_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{ q.title }}
+        </p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
+    </div>
+    <md-input-container class="md-block">
+        <label>{{ q.label }}</label>
+        <textarea 
+            name="{{ q.var }}" 
+            ng-model="result.{{ q.var }}" 
+            {% if q.val.required %}required{% endif %} 
+            {% if q.val.maxlength %}md-maxlength="{{q.val.maxlength}}"{% endif %} 
+            {% if q.val.rows %}rows="{{q.val.rows}}"{% endif %} 
+        ></textarea>
+        {% include "__build/survey_markup/validation.nj" %}
+    </md-input-container>
+</md-card-content>
+{% endmacro %}
+
+
 {% macro questionDate(q, g, s, loop_index, loop_length) %}
 <md-card-content class="question_container">
     <div style="margin-bottom:36px;">

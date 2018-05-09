@@ -89,6 +89,10 @@
                             {% if q.type == "questionText" %} 
                                 {{ m.questionText(q, qg, current_survey, loop.index, loop.length) }}
                             {% endif %} 
+
+                            {% if q.type == "questionTextarea" %} 
+                                {{ m.questionTextarea(q, qg, current_survey, loop.index, loop.length) }}
+                            {% endif %} 
                             
                             {% if q.type == "questionDate" %} 
                                 {{ m.questionDate(q, qg, current_survey, loop.index, loop.length) }} 

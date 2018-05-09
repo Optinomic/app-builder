@@ -171,6 +171,23 @@
         }]
       },
       {
+        "group_title": "Ein längerer Text erfassen",
+        "group_subtitle": "Example (questionTextarea)",
+        "group_id": "questionTextarea",
+        "questions": [{
+          "type": "questionTextarea",
+          "var": "panik_ursache",
+          "title": "Panikattacke",
+          "help": "Beschreiben Sie die möglichen Ursachen, der aktuellen Panikattacke.",
+          "label": "Panikattacke: Mögliche Ursache",
+          "val": {
+            "required": true,
+            "maxlength": 150,
+            "rows": 3
+          }
+        }]
+      },
+      {
         "group_title": "Eine Datum erfassen",
         "group_subtitle": "Example (questionDate)",
         "group_id": "questionDate",

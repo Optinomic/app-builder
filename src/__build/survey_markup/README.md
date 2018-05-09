@@ -139,6 +139,25 @@ Text input. You can define a `regex` pattern inside the validation key `val`. Th
 }
 ```
 
+### questionTextarea
+
+Text input into a textarea. Example:
+
+```JSON
+{
+  "type": "questionTextarea",
+  "var": "panik_ursache",
+  "title": "Panikattacke",
+  "help": "Beschreiben Sie die möglichen Ursachen, der aktuellen Panikattacke.",
+  "label": "Panikattacke: Mögliche Ursache",
+  "val": {
+    "required": true,
+    "maxlength": 150,
+    "rows": 3
+  }
+}
+```
+
 ### questionDate
 
 Datepicker! The result (`var`) will be stored in the [toISOString()](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString) Format.

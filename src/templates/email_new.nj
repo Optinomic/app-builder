@@ -1,4 +1,4 @@
-{% extends "__build/templates/email_cta.nj" %} 
+{% extends "__build/email/simple_cta.nj" %} 
 
 {# --- Sections ---#} 
 

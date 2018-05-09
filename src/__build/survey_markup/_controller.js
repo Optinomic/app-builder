@@ -141,9 +141,14 @@ app.controller('ContentController', ['$scope', '$mdSidenav', function ($scope, $
             };
         });
         $scope.timings.points.splice(-1, 1);
+
+        var total = 0;
         $scope.timings.points.forEach(function (p, pID) {
-            $scope.timings[p.name] = Math.round(p.s * 10) / 10;
+            var seconds = Math.round(p.s * 10) / 10;
+            $scope.timings[p.name] = seconds;
+            total = total + seconds;
         });
+        $scope.timings.total = total;
         delete $scope.timings.points;
 
         //result_store_timings
