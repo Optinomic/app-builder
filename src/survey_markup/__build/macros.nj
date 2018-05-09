@@ -10,7 +10,7 @@
     <md-card-title class="layout-margin">
         <md-card-title-text >
             <span class="md-headline" style="margin:0; color:#616161">
-            {% if s.show_question_groups_numbers === true %}
+            {% if s.survey.show_question_groups_numbers === true %}
                 {{loop_index}}.
             {% endif %}
             {{g.group_title}}
@@ -94,10 +94,15 @@
 
 {# --- Questions ---#} 
 
-{% macro questionNumber(q, g, loop_index, loop_length) %}
+{% macro questionNumber(q, g, s, loop_index, loop_length) %}
 <md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-display-1 p-color question">
+        {% if s.survey.show_question_numbers === true %}
+            {{loop_index}}.
+        {% endif %}
+        {{ q.title }}
+        </p>
         <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     
@@ -121,10 +126,15 @@
 </md-card-content>
 {% endmacro %}
 
-{% macro questionText(q, g, loop_index, loop_length) %}
+{% macro questionText(q, g, s, loop_index, loop_length) %}
 <md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-display-1 p-color question">
+            {% if s.survey.show_question_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{ q.title }}
+        </p>
         <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     <md-input-container class="md-block">
@@ -141,10 +151,15 @@
 </md-card-content>
 {% endmacro %}
 
-{% macro questionDate(q, g, loop_index, loop_length) %}
+{% macro questionDate(q, g, s, loop_index, loop_length) %}
 <md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-display-1 p-color question">
+            {% if s.survey.show_question_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{ q.title }}
+        </p>
         <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     <md-input-container class="md-block">
@@ -161,10 +176,15 @@
 </md-card-content>
 {% endmacro %}
 
-{% macro questionSelect(q, g, loop_index, loop_length) %}
+{% macro questionSelect(q, g, s, loop_index, loop_length) %}
 <md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-display-1 p-color question">
+            {% if s.survey.show_question_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{ q.title }}
+        </p>
         <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     <md-input-container class="md-block">
@@ -181,10 +201,15 @@
 </md-card-content>
 {% endmacro %}
 
-{% macro questionMultiSelect(q, g, loop_index, loop_length) %}
+{% macro questionMultiSelect(q, g, s, loop_index, loop_length) %}
 <md-card-content class="question_container">
     <div style="margin-bottom:36px;">
-        <p class="md-display-1 p-color question">{{ q.title }}</p>
+        <p class="md-display-1 p-color question">
+            {% if s.survey.show_question_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{ q.title }}
+        </p>
         <p class="md-body-1 f-color help">{{ q.help }}</p>
     </div>
     <md-input-container class="md-block">

@@ -21,7 +21,7 @@
 
     {% if q.val.pattern !== undefined %}
     <div ng-message="pattern">
-        Eingabe entspricht nicht dem gewünschten Pattern «{{ q.val.pattern }}».
+        Ihre Eingabe entspricht nicht dem gewünschten Format «{{ q.val.pattern }}».
     </div>
     {% endif %}
 </div>

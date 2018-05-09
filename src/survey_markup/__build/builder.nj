@@ -75,23 +75,23 @@
                         {% for q in qg.questions %} 
                         
                             {% if q.type == "questionSelect" %} 
-                                {{ m.questionSelect(q, qg, loop.index, loop.length)}} 
+                                {{ m.questionSelect(q, qg, current_survey, loop.index, loop.length)}} 
                             {% endif %} 
                             
                             {% if q.type == "questionMultiSelect" %} 
-                                {{ m.questionMultiSelect(q, qg, loop.index, loop.length) }} 
+                                {{ m.questionMultiSelect(q, qg, current_survey, loop.index, loop.length) }} 
                             {% endif %} 
                             
                             {% if q.type == "questionNumber" %} 
-                                {{ m.questionNumber(q, qg, loop.index, loop.length) }} 
+                                {{ m.questionNumber(q, qg, current_survey, loop.index, loop.length) }} 
                             {% endif %} 
                             
                             {% if q.type == "questionText" %} 
-                                {{ m.questionText(q, qg, loop.index, loop.length) }}
+                                {{ m.questionText(q, qg, current_survey, loop.index, loop.length) }}
                             {% endif %} 
                             
                             {% if q.type == "questionDate" %} 
-                                {{ m.questionDate(q, qg, loop.index, loop.length) }} 
+                                {{ m.questionDate(q, qg, current_survey, loop.index, loop.length) }} 
                             {% endif %} 
                             
                         {% endfor %} 

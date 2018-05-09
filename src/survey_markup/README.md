@@ -40,6 +40,7 @@ Inside the `survey` key you define the "configuration" of the given survey. Chec
     ],
     "show_welcome_page": true,
     "show_question_groups_numbers": false,
+    "show_question_numbers": false,
     "result_store_survey_markup": false,
     "result_store_timings": true,
     "empty_vars": null
