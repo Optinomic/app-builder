@@ -25,7 +25,7 @@
             </md-button>
         </div>
         <div ng-if="!result.state.current_question_group">
-            <md-button ng-click="surveyStart()" class="md-icon-button" aria-label="Menu">
+            <md-button class="md-icon-button" aria-label="Menu">
                 <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 5v14l11-7z"/>
                     <path d="M0 0h24v24H0z" fill="none"/>
@@ -76,6 +76,10 @@
                         
                             {% if q.type == "questionSelect" %} 
                                 {{ m.questionSelect(q, qg, current_survey, loop.index, loop.length)}} 
+                            {% endif %} 
+
+                            {% if q.type == "questionEmotion" %} 
+                                {{ m.questionEmotion(q, qg, current_survey, loop.index, loop.length)}} 
                             {% endif %} 
                             
                             {% if q.type == "questionMultiSelect" %} 

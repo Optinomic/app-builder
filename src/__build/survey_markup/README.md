@@ -158,6 +158,22 @@ Text input into a textarea. Example:
 }
 ```
 
+### questionEmotion
+
+Select a emotion. 0 (very bad) - 4 (very good)
+
+```JSON
+{
+  "type": "questionEmotion",
+  "var": "emotion",
+  "title": "Aktuelle Stimmung",
+  "help": "Wie ist Ihre aktuelle Stimmung?",
+  "val": {
+    "required": true
+  }
+}
+```
+
 ### questionDate
 
 Datepicker! The result (`var`) will be stored in the [toISOString()](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString) Format.

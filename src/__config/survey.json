@@ -155,6 +155,20 @@
         }]
       },
       {
+        "group_title": "Stimmung erfassen",
+        "group_subtitle": "Example (questionEmotion)",
+        "group_id": "questionEmotion",
+        "questions": [{
+          "type": "questionEmotion",
+          "var": "emotion",
+          "title": "Aktuelle Stimmung",
+          "help": "Wie ist Ihre aktuelle Stimmung?",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
         "group_title": "Ein Text erfassen",
         "group_subtitle": "Example (questionText)",
         "group_id": "questionText",
