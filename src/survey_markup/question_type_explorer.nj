@@ -4,5 +4,5 @@
 
 {# --- Content-Section ---#}
 {% block content %}
-{% include "survey_markup/__build/builder.nj" %}
+{% include "__build/survey_markup/builder.nj" %}
 {% endblock %}
