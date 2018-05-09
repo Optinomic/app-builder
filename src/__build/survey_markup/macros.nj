@@ -95,7 +95,7 @@
 {# --- Questions ---#} 
 
 {% macro questionNumber(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
         {% if s.survey.show_question_numbers === true %}
@@ -124,10 +124,11 @@
         {% endif %}{% endif %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}
 
 {% macro questionText(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
             {% if s.survey.show_question_numbers === true %}
@@ -149,10 +150,11 @@
         {% include "__build/survey_markup/validation.nj" %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}
 
 {% macro questionEmotion(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
             {% if s.survey.show_question_numbers === true %}
@@ -214,11 +216,12 @@
         {% include "__build/survey_markup/validation.nj" %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}
 
 
 {% macro questionTextarea(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
             {% if s.survey.show_question_numbers === true %}
@@ -240,11 +243,12 @@
         {% include "__build/survey_markup/validation.nj" %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}
 
 
 {% macro questionDate(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
             {% if s.survey.show_question_numbers === true %}
@@ -266,10 +270,11 @@
         {% include "__build/survey_markup/validation.nj" %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}
 
 {% macro questionSelect(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
             {% if s.survey.show_question_numbers === true %}
@@ -291,10 +296,11 @@
         {% endif %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}
 
 {% macro questionMultiSelect(q, g, s, loop_index, loop_length) %}
-<md-card-content class="question_container">
+<md-card-content {% if q.if !== "" %}ng-if="result.{{ q.if }}"{% endif %} class="question_container">
     <div style="margin-bottom:36px;">
         <p class="md-display-1 p-color question">
             {% if s.survey.show_question_numbers === true %}
@@ -321,4 +327,5 @@
             {% endif %}
     </md-input-container>
 </md-card-content>
+{% include "__build/survey_markup/empty.nj" %}
 {% endmacro %}

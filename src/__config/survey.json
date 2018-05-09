@@ -12,7 +12,7 @@
       "show_question_numbers": false,
       "result_store_survey_markup": false,
       "result_store_timings": true,
-      "empty_vars": null
+      "empty_vars": ""
     },
     "question_groups": [{
         "group_title": "Allgemeine Angaben",
@@ -135,7 +135,7 @@
       "show_question_numbers": false,
       "result_store_survey_markup": false,
       "result_store_timings": true,
-      "empty_vars": null
+      "empty_vars": ""
     },
     "question_groups": [{
         "group_title": "Eine Zahl erfassen",
@@ -147,6 +147,7 @@
           "title": "Ausbildungsjahre",
           "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 JaSchule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) Jahre Studium gibt 17 Ausbildungsjahre.",
           "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
+          "if": "",
           "val": {
             "required": true,
             "min": 6,
@@ -163,6 +164,7 @@
           "var": "emotion",
           "title": "Aktuelle Stimmung",
           "help": "Wie ist Ihre aktuelle Stimmung?",
+          "if": "Ausbildungsjahre > 12",
           "val": {
             "required": true
           }
@@ -178,6 +180,7 @@
           "title": "Wie lautet Ihre Email Adresse?",
           "help": "",
           "label": "Email",
+          "if": "Ausbildungsjahre > 12",
           "val": {
             "required": true,
             "pattern": "/^.+@.+\\..+$/"
@@ -194,6 +197,7 @@
           "title": "Panikattacke",
           "help": "Beschreiben Sie die möglichen Ursachen, der aktuellen Panikattacke.",
           "label": "Panikattacke: Mögliche Ursache",
+          "if": "Ausbildungsjahre > 12",
           "val": {
             "required": true,
             "maxlength": 150,
@@ -211,6 +215,7 @@
           "title": "Wann sind Sie geboren?",
           "help": "Selektieren Sie ihren Geburtstag.",
           "label": "Geburtstag",
+          "if": "Ausbildungsjahre > 12",
           "val": {
             "required": true
           }
@@ -226,6 +231,7 @@
           "title": "Messzeitpunkt",
           "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
           "label": "Assessment (Erhebung)",
+          "if": "Ausbildungsjahre > 12",
           "val": {
             "required": true
           },
@@ -258,6 +264,7 @@
           "label": "Erhebungen",
           "true_value": 1,
           "false_value": 0,
+          "if": "Ausbildungsjahre > 12",
           "val": {
             "required": true
           },

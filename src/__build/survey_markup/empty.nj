@@ -1,0 +1,20 @@
+<md-card-content {% if q.if !== "" %}ng-hide="result.{{ q.if }}"{% else %}ng-hide="1 == 1"{% endif %} class="question_container">
+    {% if loop_length == 1 %}
+
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">
+        {% if s.survey.show_question_numbers === true %}
+            {{loop_index}}.
+        {% endif %}
+        {{ q.title }}
+        </p>
+        <p class="md-body-1 f-color help">Keine Angabe benötigt!</p>
+    </div>
+
+    <p>Erfüllte Bedingung «{{ q.if }}».</p>
+    <!--
+    <span ng-init="result.{{ q.var }} = {{ s.survey.empty_vars | dump }}"></span>
+    -->
+    {% endif %}
+    
+</md-card-content>

@@ -14,7 +14,9 @@
     margin: 0
 }
 
-.help {}
+.help {
+    color: #424242;
+}
 
 .main_toolbar {
     position:fixed; 
