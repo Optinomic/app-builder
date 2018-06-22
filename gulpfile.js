@@ -8,6 +8,10 @@ var minify = require('gulp-minify');
 var cleanCSS = require('gulp-clean-css');
 var clean = require('gulp-clean');
 
+
+// -----------------------------------------------------------
+//  CONFIG
+// -----------------------------------------------------------
 var base_config = require('./src/__config/base_config.json');;
 var survey_config = require('./src/__config/survey.json');;
 
@@ -61,6 +65,10 @@ var clean_css_config = {
     }
 }
 
+
+// -----------------------------------------------------------
+//  FUNCTIONS
+// -----------------------------------------------------------
 
 function minImages() {
     // console.log("minImages...");
@@ -156,6 +164,11 @@ function copyCalculations() {
         .pipe(minify(jsminify_config))
         .pipe(gulp.dest(base_config.dist_root + '/calculations'));
 }
+
+
+// -----------------------------------------------------------
+//  TASKS
+// -----------------------------------------------------------
 
 gulp.task('build', function () {
     runSequence('clean-dist', ['build-templates', 'build-images', 'build-opapp'], 'cleanup');
