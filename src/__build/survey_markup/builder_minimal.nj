@@ -4,9 +4,7 @@
     {% include "__build/survey_markup/_style.css" %}
 </style>
 
-<span ng-init="result.extras = {'saved': ''}"></span>
-<span ng-init="result.state = { 'current_state': 'welcome', 'progress': 1}"></span>
-
+<span ng-init="result.state = { 'current_state': 'welcome' }"></span>
 
 {% if current_survey.val.required %}
 <span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
