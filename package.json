@@ -9,7 +9,7 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-jsbeautifier": "^2.1.2",
-    "npm": "^6.3.0",
+    "npm": "^6.13.4",
     "nunjucks": "^3.1.2"
   },
   "devDependencies": {
