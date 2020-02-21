@@ -1,0 +1,8 @@
+{% extends "__build/templates/ng_survey.nj" %} 
+{% set current_survey = rs13_survey %}
+
+
+{# --- Content-Section ---#}
+{% block content %}
+{% include "__build/survey_markup/builder_minimal.nj" %}
+{% endblock %}

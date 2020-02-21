@@ -1,0 +1,49 @@
+<link rel="import" href="polymer/polymer-element.html">
+
+<dom-module id="sample-element">
+  <template>
+    <style include="optinomic-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div class="">
+      <h2>sample-element</h2>
+      <p>Herzlich Willkommen</p>
+    </div>
+
+  </template>
+
+  <script>
+
+    class sampleElement extends Polymer.Element {
+
+      static get is() {
+        return 'sample-element';
+      }
+
+      static get properties() {
+        return {
+
+          something: {
+            type: Object
+          }
+        };
+      }
+     
+      constructor() {
+        super();
+      }
+
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {});
+      }
+
+    }
+
+    window.customElements.define(sampleElement.is, sampleElement);
+  </script>
+</dom-module>

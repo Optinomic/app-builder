@@ -1,0 +1,86 @@
+<link rel="import" href="polymer/polymer-element.html"> 
+{% block section_import %}{% endblock %}
+
+<dom-module id="optinomic-template">
+  <template>
+    <style include="optinomic-styles">
+      :host {
+        display: block;
+        --right-top-height: 100%;
+        --right-bottom-height: 0;
+      }
+
+      .fullscreen {
+        height: calc(100vh);
+        min-height: calc(100vh);
+      }
+
+      .page {
+        padding: 24px;
+      }
+
+      {% block section_style %}{% endblock %}
+    </style>
+
+    <!-- START APP -->
+    {% block section_html %}{% endblock %}
+    <!-- END APP -->
+
+  </template>
+
+  <script>
+    class optinomicTemplate extends Polymer.mixinBehaviors([
+      opappBehavior
+    ], ReduxBehavior(Polymer.Element)) {
+
+      static get is() {
+        return 'optinomic-template';
+      }
+
+      static get actions() {
+        return AsyncActionsBehavior.actions;
+      }
+
+      // Properties
+      static get properties() {
+        return {
+
+        };
+      }
+
+      // --------------- Functions ---------------
+
+      _doSomething() {
+        console.log('_doSomething');
+      }
+
+      // --------------- Events ---------------
+
+      _some_event(e) {
+        console.warn('_some_event', e.detail);
+      }
+
+
+      // --------------- Lifecycle ---------------
+
+      _init() {
+        this.set('survey_markup', {% block section_survey_markup %}{% endblock %});
+        console.warn('_init :: Survey - Markup Template', this.survey_markup);
+      }
+
+      constructor() {
+        super();
+      }
+
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {
+          this._init();
+        });
+      }
+    }
+
+    window.customElements.define(optinomicTemplate.is, optinomicTemplate);
+  </script>
+</dom-module>

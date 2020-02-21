@@ -1,0 +1,170 @@
+<link rel="import" href="polymer/polymer-element.html">
+
+<dom-module id="surveyresult-renderer">
+  <template>
+    <style include="optinomic-styles">
+      :host {
+        display: block;
+      }
+
+      .survey-container {
+        border-radius: 10px;
+        border: 1px solid #E0E0E0;
+        padding: 24px;
+        background-color: #FAFAFA;
+      }
+
+      .survey-container:hover {
+        background-color: #ffffff;
+        animation-name: fade;
+        animation-duration: 2s;
+        animation-direction: alternate;
+      }
+
+      .survey-title-container {
+        
+      }
+
+      .question-group-container {
+        margin-top: 12px;
+        margin-bottom: 24px;
+        padding-top: 12px;
+        display: block;
+        border-style: solid;
+        border-width: 1px 0 0 0;
+        border-color: #E0E0E0;
+      }
+
+      .question-container {
+        margin: 12px;
+        display: block;
+      }
+
+      @keyframes fade {
+        from {
+          background-color: #FAFAFA;
+        }
+        to {
+          background-color: #ffffff
+        }
+      }
+    </style>
+
+    <template is="dom-if" if="[[_init_done]]" restamp="true">
+      <div class="survey-container">
+        <div class="survey-title-container">
+          <div class="layout horizontal flex">
+            <div class="flex">
+              <optinomic-title h1="[[surveymarkup.survey.welcome_title]]" h2="[[surveymarkup.survey.welcome_subtitle]]" h3="[[surveymarkup.survey.version]]"></optinomic-title>
+            </div>
+            <div>
+              <template is="dom-if" if="[[_show_survey_details]]">
+                <paper-icon-button class="indigo" on-tap="__toggle_show_details" icon="info"></paper-icon-button>
+              </template>
+              <template is="dom-if" if="[[!_show_survey_details]]">
+                <paper-icon-button class="grey" on-tap="__toggle_show_details" icon="info"></paper-icon-button>
+              </template>
+            </div>
+          </div>
+          <template is="dom-if" if="[[_show_survey_details]]">
+            <h3>Instruktion</h3>
+            <template is="dom-repeat" items="[[surveymarkup.survey.welcome_text]]" as="t">
+              <p>[[t]]</p>
+            </template>
+          </template>
+        </div>
+        <template is="dom-repeat" items="[[surveymarkup.question_groups]]" as="qg">
+          <div class="question-group-container">
+            <h2 style="margin:0;padding:0">[[qg.group_title]]</h2>
+            <p style="margin:0;padding:0">[[qg.group_subtitle]]
+              <template is="dom-if" if="[[_show_survey_details]]">
+                &nbsp;|
+                <span class="caption">[[qg.group_id]]</span>
+              </template>
+            </p>
+
+            <template is="dom-repeat" items="[[qg.questions]]" as="q">
+              <div class="question-container">
+                <h3 style="margin:0;padding:0">[[q.title]]</h3>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <template is="dom-if" if="[[!_init_done]]" restamp="true">
+      <p>Initialisierung nicht abgeschlossen.</p>
+    </template>
+
+
+  </template>
+
+  <script>
+    class surveyresultRenderer extends Polymer.Element {
+
+      static get is() {
+        return 'surveyresult-renderer';
+      }
+
+      static get properties() {
+        return {
+          _show_survey_details: {
+            type: Boolean,
+            value: false
+          },
+
+          surveymarkup: {
+            type: Object,
+            value: null,
+            observer: 'surveymarkupChanged'
+          }
+        };
+      }
+
+      constructor() {
+        super();
+      }
+
+      // ---------------------------
+      // User Functions
+      // ---------------------------
+
+      __toggle_show_details() {
+        this.set('_show_survey_details', !this._show_survey_details);
+      }
+
+      // ---------------------------
+      // Obervers
+      // ---------------------------
+
+      surveymarkupChanged() {
+        Polymer.RenderStatus.afterNextRender(this, function () {
+          try {
+            if ((this.surveymarkup.survey !== null) && (this.surveymarkup.survey !== undefined)) {
+
+              this.set('_init_done', true);
+              console.log('YEAH', this.surveymarkup);
+            };
+          } catch (err) {
+            this.set('_init_done', false);
+            console.log(':-(  |  No surveymarkup data!');
+          }
+        });
+      }
+
+      // ---------------------------
+      // Lifecycle
+      // ---------------------------
+
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {});
+      }
+
+    }
+
+    window.customElements.define(surveyresultRenderer.is, surveyresultRenderer);
+  </script>
+</dom-module>

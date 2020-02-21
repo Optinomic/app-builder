@@ -1,2 +1,5 @@
 [template Start 6 6]
+__opapp_include(template/app.html)
+
+[template Simple 6 6]
 __opapp_include(template/start.html)

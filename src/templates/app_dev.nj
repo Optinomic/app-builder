@@ -1,0 +1,34 @@
+{% extends "__build/templates/optinomic_template_polymer2_dev.nj" %} 
+
+
+{# --- DATA-Section (Development State) ---#}
+{% block section_data %}
+{% include "javascript/app_dev_initialState.js" %}
+{% endblock %} 
+
+
+
+{# --- IMPORT-Section ---#}
+{% block section_import %}
+<link rel="import" href="iron-pages/iron-pages.html">
+<link rel="import" href="optinomic-elements/optinomic-title/optinomic-title.html">
+<link rel="import" href="optinomic-elements/optinomic-clipboard/optinomic-clipboard.html">
+
+{% include "templates/elements/sample-element.html" %}
+
+{% endblock %} 
+
+{# --- Style-Section ---#}
+{% block section_style %}
+{% include "css/app_style.css" %}
+{% endblock %}
+
+{# --- HTML-Section ---#}
+{% block section_html %}
+{% include "templates/app_template.html" %}
+{% endblock %}
+
+{# --- JS-Section ---#}
+{% block section_js %}
+{% include "javascript/app_script.js" %}
+{% endblock %}

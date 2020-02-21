@@ -3,43 +3,24 @@
 <style>
     {% include "__build/survey_markup/_style.css" %}
 </style>
-<script type="text/javascript">
-    {% include "__build/survey_markup/_controller.js" %}
-</script>
 
-<span ng-init="result.extras = {}"></span>
+<span ng-init="result.extras = {'saved': ''}"></span>
 <span ng-init="result.state = { 'current_state': 'welcome', 'progress': 1}"></span>
-<span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
 
-<div ng-controller="ContentController">
-{% include "__build/survey_markup/_sidenav.html" %}
+
+{% if current_survey.val.required %}
+<span ng-init="result.extras.survey_markup = {{ current_survey | dump }}"></span>
+{% endif %}
+
+<div>
     
-<md-toolbar>
-    <div class="md-toolbar-tools main_toolbar md-whiteframe-1dp">
-        <div ng-if="result.state.current_question_group">
-            <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Menu">
-                <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-                </svg>
-            </md-button>
-        </div>
-        <div ng-if="!result.state.current_question_group">
-            <md-button class="md-icon-button" aria-label="Menu">
-                <svg fill="#9E9E9E" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 5v14l11-7z"/>
-                    <path d="M0 0h24v24H0z" fill="none"/>
-                </svg>
-            </md-button>
-        </div>
-        <h2 flex md-truncate>{{current_survey.survey.welcome_title}}</h2>
-        <p md-truncate class="md-caption hide-xs hide-sm">{{current_survey.survey.welcome_subtitle}}</p>
-    </div>
-</md-toolbar>
     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
+    
 
         <div style="width:100%;max-width:1024px;">
+        
             <div ng-if="!thankyou">
+            
                 {% if current_survey.survey.show_welcome_page === true %}
                 <div ng-if="result.state.current_state === 'welcome'">
                     <md-card>
@@ -62,12 +43,12 @@
                         </div>
                         <md-divider></md-divider>
                         <md-card-actions layout="row" layout-align="end center">
-                            <md-button ng-click="surveyStart()">Jetzt starten</md-button>
+                            <md-button ng-click="result.state.current_state = 'start'">Jetzt starten</md-button>
                         </md-card-actions>
                     </md-card>
                 </div>
                 {% else %}
-                <span ng-init="surveyStart()"></span>
+                <span ng-init="result.state.current_state = 'start'"></span>
                 {% endif %}
                 <div ng-if="result.state.current_state === 'start'" ng-init="result.state.current_question_group = 1">
                     {% for qg in current_survey.question_groups %} 
@@ -113,6 +94,8 @@
             </div>
             <div ng-if="thankyou">
 
+                <span ng-init="result.state.current_state = 'success'"></span>
+                
                 {{ m.thankYouSimple(current_survey) }}
 
             </div>

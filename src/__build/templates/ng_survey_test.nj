@@ -37,8 +37,10 @@
                 $scope.thankyou = true;
 
                 console.warn('ng-survey - Tester!  Nothing is saved! Result:');
-                console.log(JSON.stringify($scope.result, null, 2));
-                console.log('$scope.result: ', $scope.result);
+
+                var saved_result = $scope.result;
+                console.log(JSON.stringify(saved_result, null, 2));
+                console.log('$scope.result: ', saved_result);
             };
 
             /* page: string variable that surveys may use for multi-page navigation     in combination with ng-switch. initialise with ng-init in survey */

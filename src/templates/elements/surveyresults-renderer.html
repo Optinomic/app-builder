@@ -1,0 +1,149 @@
+<link rel="import" href="polymer/polymer-element.html">
+
+<dom-module id="surveyresults-renderer">
+  <template>
+    <style include="optinomic-styles">
+      :host {
+        display: block;
+      }
+
+      li {
+        margin-top: 12px;
+      }
+    </style>
+
+    <template is="dom-if" if="[[_init_done]]" restamp="true">
+      <div id="toc" style="margin-left:-18px;margin-bottom:48px">
+        <h3 style="margin-left:24px;">Inhaltsverzeichnis (Fragebögen)</h3>
+        <nav style="margin-top:-6px;margin-bottom:24px;">
+          <ol>
+            <template is="dom-repeat" items="[[_survey_list]]" as="_survey_key">
+              <li>
+                <a on-click="__scroll_target" style="cursor:pointer;">
+                  [[_getSurveyTitle(_survey_key)]]
+                  <br>
+                  <span class="caption">[[_getSurveySubtitle(_survey_key)]]</span>
+                </a>
+              </li>
+            </template>
+          </ol>
+        </nav>
+      </div>
+      <template is="dom-repeat" items="[[_survey_list]]" as="_survey_key">
+        <div id$="[[_getID(_survey_key)]]">
+          <surveyresult-renderer surveymarkup$="[[_getMarkup(_survey_key)]]"></surveyresult-renderer>
+          <div class="layout horizontal flex" style="margin-top:-6px;margin-bottom:6px;">
+            <div class="flex">
+              &nbsp;
+            </div>
+            <a on-click="__scroll_toc" style="cursor:pointer;">
+              <p class="caption">[ Inhaltsverzeichnis ]</p>
+            </a>
+          </div>
+        </div>
+      </template>
+    </template>
+
+    <template is="dom-if" if="[[!_init_done]]" restamp="true">
+      <p>Survey-Markup ist nicht vorhanden.</p>
+    </template>
+
+
+  </template>
+
+  <script>
+    class surveyresultsRenderer extends Polymer.Element {
+
+      static get is() {
+        return 'surveyresults-renderer';
+      }
+
+      static get properties() {
+        return {
+          surveymarkup: {
+            type: Object,
+            value: null,
+            observer: 'surveymarkupChanged'
+          }
+        };
+      }
+
+      constructor() {
+        super();
+      }
+
+      // ---------------------------
+      // User Functions
+      // ---------------------------
+      _getID(key) {
+        const id = 'survey_' + key;
+        return id;
+      }
+
+      _getSurveyTitle(key) {
+        return this.surveymarkup[key].survey.welcome_title;
+      }
+
+      _getSurveySubtitle(key) {
+        return this.surveymarkup[key].survey.welcome_subtitle;
+      }
+
+      _getMarkup(key) {
+        return this.surveymarkup[key];
+      }
+
+      __scroll_toc() {
+        var name = '#toc';
+        var target = this.shadowRoot.querySelector(name)
+        console.log('(SCROLL) Inhalt');
+        target.scrollIntoView();
+      }
+
+      __scroll_target(e) {
+        var model = e.model.get('_survey_key');
+        var name = '#survey_' + model;
+        // var target = this.$.survey_tmt_example;
+        var target = this.shadowRoot.querySelector(name)
+        console.log('(SCROLL)', model, name, target);
+        target.scrollIntoView();
+      }
+
+      // ---------------------------
+      // Obervers
+      // ---------------------------
+      surveymarkupChanged() {
+        Polymer.RenderStatus.afterNextRender(this, function () {
+          try {
+            if ((this.surveymarkup !== null) && (this.surveymarkup !== undefined)) {
+
+              var _survey_list = [];
+              for (var key in this.surveymarkup) {
+                if (this.surveymarkup.hasOwnProperty(key)) {
+                  _survey_list.push(key);
+                };
+              };
+
+              this.set('_survey_list', _survey_list);
+              this.set('_init_done', true);
+            };
+          } catch (err) {
+            this.set('_init_done', false);
+            console.log(':-(  |  No surveymarkup data!');
+          }
+        });
+      }
+
+      // ---------------------------
+      // Lifecycle
+      // ---------------------------
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {});
+      }
+
+    }
+
+    window.customElements.define(surveyresultsRenderer.is, surveyresultsRenderer);
+  </script>
+</dom-module>

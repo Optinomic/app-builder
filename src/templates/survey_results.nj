@@ -1,0 +1,27 @@
+{% extends "__build/templates/optinomic_template_polymer2_survey.nj" %} 
+
+{# --- IMPORT-Section ---#}
+{% block section_import %}
+<link rel="import" href="optinomic-elements/optinomic-title/optinomic-title.html">
+<link rel="import" href="optinomic-elements/optinomic-clipboard/optinomic-clipboard.html">
+{% endblock %} 
+
+{# --- Style-Section ---#}
+{% block section_style %}
+{% include "css/app_style.css" %}
+{% endblock %}
+
+{# --- HTML-Section ---#}
+{% block section_html %}
+{% include "templates/survey_results_template.html" %}
+{% endblock %}
+
+{# --- JS-Section ---#}
+{% block section_js %}
+{% include "javascript/app_script.js" %}
+{% endblock %}
+
+{# --- Survey-Markup-Section ---#}
+{% block section_survey_markup %}
+{% include "__config/surveys.json" %}
+{% endblock %}

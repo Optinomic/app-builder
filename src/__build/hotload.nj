@@ -10,7 +10,7 @@
 The {{app_type}}-app `{{app_id}}` is currently HOTLOADED!
 
 [template Start 6 6]
-{% include dist_root + "/templates/start.html" %}
+{% include dist_root + "/templates/app.html" %}
 
 [javascript]
 {% include dist_root + "/javascript/main.js" %}

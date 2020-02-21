@@ -54,7 +54,7 @@ Documentation for your build process.
 
 ### Yarn
 
-Yarn must be installe - this is our package manager of choice: FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.
+Yarn must be installed - this is our package manager of choice: FAST, RELIABLE, AND SECURE DEPENDENCY MANAGEMENT.
 
 - [Install and update](https://yarnpkg.com/en/docs/install)
 - [Most common commands](https://yarnpkg.com/en/docs/usage)

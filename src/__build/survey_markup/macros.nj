@@ -41,7 +41,7 @@
         {% endif %}
         <p class="md-caption">{{loop_index}} / {{loop_length}}</p>
         <div ng-if="{{g.group_id}}.$valid">
-            <md-button ng-click="prepareSave()">Speichern</md-button>
+            <md-button ng-click="saveresult()">Speichern</md-button>
         </div>
         <div ng-if="{{g.group_id}}.$invalid">
             <md-button disabled>Speichern</md-button>
@@ -297,6 +297,55 @@
     </md-input-container>
 </md-card-content>
 {% include "__build/survey_markup/empty.nj" %}
+{% endmacro %}
+
+{% macro questionApproval(q, g, s, loop_index, loop_length) %}
+<md-card-content class="question_container">
+    <div style="margin-bottom:36px;">
+        <p class="md-display-1 p-color question">
+            {% if s.survey.show_question_numbers === true %}
+                {{loop_index}}.
+            {% endif %}
+            {{ q.title }}
+        </p>
+        <p class="md-body-1 f-color help">{{ q.help }}</p>
+    </div>
+    <span ng-init="result.{{ q.var }} === 1"></span>
+    <md-input-container class="md-block">
+        <md-radio-group {% if q.val.required %}required{% endif %} ng-model="result.{{ q.var }}" >
+        <div layout="row" layout-xs="column">
+          <div style="text-align:right;outline:none;width:100px" flex="10">
+            Nein, ich stimme nicht zu
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button class="md-primary" style="outline:none" value="1" aria-label="1" ng-click="result.{{ q.var }} = 1"></md-radio-button>
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button style="outline:none" value="2" aria-label="2" ng-click="result.{{ q.var }} = 2"></md-radio-button>
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button style="outline:none" value="3" aria-label="3" ng-click="result.{{ q.var }} = 3"></md-radio-button>
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button style="outline:none" value="4" aria-label="4" ng-click="result.{{ q.var }} = 4"></md-radio-button>
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button style="outline:none" value="5" aria-label="5" ng-click="result.{{ q.var }} = 5"></md-radio-button>
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button style="outline:none" value="6" aria-label="6" ng-click="result.{{ q.var }} = 6"></md-radio-button>
+          </div>
+          <div style="text-align:center;outline:none" flex flex-offset="5">
+                <md-radio-button style="outline:none" value="7" aria-label="7" ng-click="result.{{ q.var }} = 7"></md-radio-button>
+          </div>
+          <div style="text-align:left;outline:none;width:100px" flex="10">
+            Ja, ich stimme völlig zu
+          </div>
+        </div>
+        </md-radio-group>
+
+    </md-input-container>
+</md-card-content>
 {% endmacro %}
 
 {% macro questionMultiSelect(q, g, s, loop_index, loop_length) %}

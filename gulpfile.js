@@ -13,7 +13,7 @@ var clean = require('gulp-clean');
 //  CONFIG
 // -----------------------------------------------------------
 var base_config = require('./src/__config/base_config.json');;
-var survey_config = require('./src/__config/survey.json');;
+var survey_config = require('./src/__config/surveys.json');;
 
 var jsminify_config = {
     ext: {
@@ -174,7 +174,7 @@ gulp.task('build', function () {
     runSequence('clean-dist', ['build-templates', 'build-images', 'build-opapp'], 'cleanup');
     setTimeout(function () {
         runSequence('hotload');
-    }, 1000);
+    }, 2000);
 });
 
 gulp.task('build-images', function () {

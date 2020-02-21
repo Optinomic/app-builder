@@ -1,0 +1,34 @@
+<link rel="import" href="polymer/polymer-element.html">
+{% block section_import %}{% endblock %} 
+
+<dom-module id="optinomic-template">
+  <template>
+    <style include="optinomic-styles">
+      :host {
+        display: block;
+        --right-top-height: 100%;
+        --right-bottom-height: 0;
+      }
+
+      .fullscreen {
+        height: calc(100vh);
+        min-height: calc(100vh);
+      }
+
+      .page {
+        padding: 24px;
+      }
+
+      {% block section_style %}{% endblock %}  
+    </style>
+
+    <!-- START APP -->
+    {% block section_html %}{% endblock %}  
+    <!-- END APP -->
+
+  </template>
+
+  <script>
+    {% block section_js %}{% endblock %} 
+  </script>
+</dom-module>
