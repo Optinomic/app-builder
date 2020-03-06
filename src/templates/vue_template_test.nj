@@ -1,0 +1,10 @@
+{% extends "__build/templates/vuetify_test.nj" %} 
+
+{# --- HEAD-Section ---#}
+{% block head %}
+{% endblock %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+{% include "templates/start_simple_vue.html" %}
+{% endblock %}

@@ -10,13 +10,17 @@
 The {{app_type}}-app `{{app_id}}` is currently HOTLOADED!
 
 [template Start 6 6]
-{% include dist_root + "/templates/app.html" %}
+{% include dist_root + "/templates/vue_template.html" %}
+<script>
+{% include dist_root + "/javascript/vue_component_app_title.js" %}
+{% include dist_root + "/javascript/vue_init.js" %}
+</script>
 
 [javascript]
-{% include dist_root + "/javascript/main.js" %}
+{% include dist_root + "/javascript/helpers.js" %}
+
 
 [css]
-{% include dist_root + "/css/default.css" %}
 
-[calculation javascript my_calculation]
-{% include dist_root + "/calculations/full.js" %}
+[calculation rs13_score javascript]
+{% include dist_root + "/calculations/rs13_score.js" %}
