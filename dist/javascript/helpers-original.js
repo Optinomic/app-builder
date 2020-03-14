@@ -122,6 +122,11 @@ createPatientExtras = function (patient) {
 
     patient.extras.name = patient.last_name + ' ' + patient.first_name;
 
+    var birthYear = new Date(patient.birthdate);
+    birthYear = birthYear.getFullYear();
+    patient.extras.birth_year = birthYear;
+    patient.extras.secure = patient.last_name.substring(0, 2) + '. ' + patient.first_name.substring(0, 1) + '. (' + birthYear + ')';
+
     if (patient.gender === 'male') {
         patient.extras.ansprache = 'Herr';
         patient.extras.anrede = 'Herr ' + patient.last_name;

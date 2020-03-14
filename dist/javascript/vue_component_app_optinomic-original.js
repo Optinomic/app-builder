@@ -12,6 +12,11 @@ Vue.component('app-optinomic', {
     },
     created(){
         this.$store.dispatch('getSurveyResponses');
+        this.$store.dispatch('getUser');
+        if (helpers.getPatientID() !== 0) {
+            this.$store.dispatch('getPatient');
+        };
+        this.$store.dispatch('getClinic');
     },
     computed: {
         sr () {
@@ -53,7 +58,7 @@ Vue.component('app-optinomic', {
             <v-content>
                 <v-container>
                     <app-title :subtitle="subtitle" :title="title"></app-title>
-        
+
                     <div v-if="loaded">
                         <div v-if="sr.have_data">
                             <div v-if="missing_data" class="mb-2">

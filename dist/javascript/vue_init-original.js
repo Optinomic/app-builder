@@ -1,13 +1,15 @@
+// Init Vue
 new Vue({
     el: '#optinomic_app',
     vuetify: new Vuetify(),
-
     store: new Vuex.Store({
         state: {
             count: 0,
             apps: {},
             current_app: null,
             sr: null,
+            user: null,
+            patient: null,
             clinic: null
         },
         mutations: {
@@ -18,41 +20,7 @@ new Vue({
                 // console.error('state', d.root, d.data);
                 state[d.root] = d.data;
                 console.warn('state :: ', new Date(), state);
-            },
-            saveClinic(state, req) {
-
-                if (req.status == 200) {
-
-                    console.log(req);
-
-                    var resp = req.data;
-                    var clinic = resp.clinic;
-
-                    var clinic_obj = {};
-                    clinic.forEach(function (current, ID) {
-                        clinic_obj[current[0]] = current[1];
-                    });
-
-                    var response = {
-                        data: {
-                            "error": false,
-                            "clinic_array": clinic,
-                            "clinic_obj": clinic_obj
-                        }
-                    };
-
-                    console.log('(✔) Data (/clinic):', response);
-                } else {
-                    var response = {
-                        "error": true,
-                        "error_message": "Failed with status code: " + req.status,
-                        "status_code": req.status
-                    };
-                    console.error('(!) Error: ', response);
-                };
-
-                state.clinic = response;
-            },
+            }
         },
         actions: {
             getSurveyResponses({
@@ -353,137 +321,273 @@ new Vue({
 
                 // Do async task
                 helpers.callAPI('GET', api_url, parameters, {}, function (req) {
-                  if (req.status == 200) {
-      
-                    var resp = JSON.parse(req.response);
-                    var hotloaded = [];
-      
-                    // Sortieren nach App-Name
-                    if ("patient_modules" in resp) {
-                      if (resp.patient_modules.length > 0) {
-                        resp.patient_modules.sort(function (a, b) {
-                          var nameA = a.module.name.toUpperCase(); // ignore upper and lowercase
-                          var nameB = b.module.name.toUpperCase(); // ignore upper and lowercase
-                          if (nameA < nameB) {
-                            return -1;
-                          }
-                          if (nameA > nameB) {
-                            return 1;
-                          }
-                          return 0;
+                    if (req.status == 200) {
+
+                        var resp = JSON.parse(req.response);
+                        var hotloaded = [];
+
+                        // Sortieren nach App-Name
+                        if ("patient_modules" in resp) {
+                            if (resp.patient_modules.length > 0) {
+                                resp.patient_modules.sort(function (a, b) {
+                                    var nameA = a.module.name.toUpperCase(); // ignore upper and lowercase
+                                    var nameB = b.module.name.toUpperCase(); // ignore upper and lowercase
+                                    if (nameA < nameB) {
+                                        return -1;
+                                    }
+                                    if (nameA > nameB) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                });
+
+                                resp.patient_modules.forEach(function (m, mID) {
+                                    m.first_template = {
+                                        "found": "false",
+                                        "name": null
+                                    };
+
+                                    // Safty - not breakting thins
+                                    m.identifier = m.module.identifier;
+
+                                    if (m.module.templates.length > 0) {
+                                        m.first_template.name = m.module.templates["0"].name;
+                                        m.first_template.found = true;
+                                    };
+
+                                    if (m.module_activation.data.overwritten) {
+                                        hotloaded.push(m);
+                                    };
+
+                                    if (m.identifier === helpers.getAppID()) {
+                                        commit({
+                                            type: 'saveData',
+                                            root: 'current_app',
+                                            data: m
+                                        });
+                                    };
+
+                                });
+
+                            };
+                        };
+                        if ("user_modules" in resp) {
+
+                            if (resp.user_modules.length > 0) {
+                                resp.user_modules.sort(function (a, b) {
+                                    var nameA = a.module.name.toUpperCase(); // ignore upper and lowercase
+                                    var nameB = b.module.name.toUpperCase(); // ignore upper and lowercase
+                                    if (nameA < nameB) {
+                                        return -1;
+                                    }
+                                    if (nameA > nameB) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                });
+
+                                resp.user_modules.forEach(function (m, mID) {
+                                    m.first_template = {
+                                        "found": "false",
+                                        "name": null
+                                    };
+
+                                    // Safty - not breakting thins
+                                    m.identifier = m.module.identifier;
+
+                                    if (m.module.templates.length > 0) {
+                                        m.first_template.name = m.module.templates["0"].name;
+                                        m.first_template.found = true;
+                                    };
+
+                                    if (m.module_activation.data.overwritten) {
+                                        hotloaded.push(m);
+                                    };
+
+                                    if (m.identifier === helpers.getAppID()) {
+                                        commit({
+                                            type: 'saveData',
+                                            root: 'current_app',
+                                            data: m
+                                        });
+                                    };
+
+                                });
+                            };
+                        };
+
+                        var response = {
+                            "data": {
+                                "patient_modules": resp.patient_modules,
+                                "user_modules": resp.user_modules,
+                                "errors": resp.errors,
+                                "hotloaded": hotloaded
+                            }
+                        };
+
+                        response = addOptinomicExtras(response, api_url);
+
+
+                        commit({
+                            type: 'saveData',
+                            root: 'apps',
+                            data: response
                         });
-      
-                        resp.patient_modules.forEach(function (m, mID) {
-                          m.first_template = {
-                            "found": "false",
-                            "name": null
-                          };
-                          
-                          // Safty - not breakting thins
-                          m.identifier = m.module.identifier;
-      
-                          if (m.module.templates.length > 0) {
-                            m.first_template.name = m.module.templates["0"].name;
-                            m.first_template.found = true;
-                          };
-      
-                          if (m.module_activation.data.overwritten) {
-                            hotloaded.push(m);
-                          };
 
-                          if (m.identifier === helpers.getAppID()) {
-                            commit({
-                                type: 'saveData',
-                                root: 'current_app',
-                                data: m
-                            });    
-                          };
-      
+
+                        console.log('(✔) Data (' + api_url + '):', response, parameters);
+                    } else {
+                        // Errorhandling
+                        // While what action with what params error happend
+                        var error_action = {
+                            "name": "getApps",
+                            "params": []
+                        };
+
+                        dispatch({
+                            "type": "ERROR",
+                            "error": handleError(req, error_action)
                         });
-      
-                      };
                     };
-                    if ("user_modules" in resp) {
-      
-                      if (resp.user_modules.length > 0) {
-                        resp.user_modules.sort(function (a, b) {
-                          var nameA = a.module.name.toUpperCase(); // ignore upper and lowercase
-                          var nameB = b.module.name.toUpperCase(); // ignore upper and lowercase
-                          if (nameA < nameB) {
-                            return -1;
-                          }
-                          if (nameA > nameB) {
-                            return 1;
-                          }
-                          return 0;
-                        });
-      
-                        resp.user_modules.forEach(function (m, mID) {
-                          m.first_template = {
-                            "found": "false",
-                            "name": null
-                          };
-      
-                          // Safty - not breakting thins
-                          m.identifier = m.module.identifier;
-      
-                          if (m.module.templates.length > 0) {
-                            m.first_template.name = m.module.templates["0"].name;
-                            m.first_template.found = true;
-                          };
-      
-                          if (m.module_activation.data.overwritten) {
-                            hotloaded.push(m);
-                          };
 
-                          if (m.identifier === helpers.getAppID()) {
-                            commit({
-                                type: 'saveData',
-                                root: 'current_app',
-                                data: m
-                            });    
-                          };
-
-                        });
-                      };
-                    };
-      
-                    var response = {
-                      "data": {
-                        "patient_modules": resp.patient_modules,
-                        "user_modules": resp.user_modules,
-                        "errors": resp.errors,
-                        "hotloaded": hotloaded
-                      }
-                    };
-      
-                    response = addOptinomicExtras(response, api_url);
-
-
-                    commit({
-                        type: 'saveData',
-                        root: 'apps',
-                        data: response
-                    });
-                    
-      
-                    console.log('(✔) Data (' + api_url + '):', response, parameters);
-                  } else {
-                    // Errorhandling
-                    // While what action with what params error happend
-                    var error_action = {
-                      "name": "getApps",
-                      "params": []
-                    };
-      
-                    dispatch({
-                      "type": "ERROR",
-                      "error": handleError(req, error_action)
-                    });
-                  };
-      
                 });
-                
+
+            },
+            getUser({
+                commit
+            }) {
+
+                const api_url = '/users/' + helpers.getUserID();
+                var parameters = {}
+
+                // Do async task
+                helpers.callAPI('GET', api_url, parameters, {}, function (req) {
+                    if (req.status == 200) {
+
+                        var resp = JSON.parse(req.response);
+                        var data_return = resp.user.data;
+                        data_return.id = resp.user.id;
+                        data_return.uid = resp.user.id;
+                        data_return.isAdmin = false;
+                        if (resp.user.data.role === "Admin") {
+                            data_return.isAdmin = true;
+                        };
+
+                        var response = {
+                            "id": resp.user.id,
+                            "date": new Date(),
+                            "data": data_return
+                        };
+                        console.log('(✔) Data (' + api_url + '):', response);
+
+                        commit({
+                            type: 'saveData',
+                            root: 'user',
+                            data: response
+                        });
+
+                    } else {
+                        var response = {
+                            "error": true,
+                            "api_url": api_url,
+                            "error_message": "Failed with status code: " + req.status,
+                            "status_code": req.status,
+                            "req": req
+                        };
+                        console.error('(!) Error: ', response);
+                    };
+
+                });
+
+            },
+            getPatient({
+                commit
+            }) {
+
+                const api_url = '/patients/' + helpers.getPatientID();
+                var parameters = {}
+
+                // Do async task
+                helpers.callAPI('GET', api_url, parameters, {}, function (req) {
+                    if (req.status == 200) {
+
+                        var resp = JSON.parse(req.response);
+                        var data_return = resp.patient.data;
+                        data_return.id = resp.patient.id;
+                        data_return.pid = resp.patient.id;
+                        data_return.extras = createPatientExtras(data_return);
+
+                        var response = {
+                            "date": new Date(),
+                            "data": data_return
+                        };
+                        console.log('(✔) Data (' + api_url + '):', response);
+
+                        commit({
+                            type: 'saveData',
+                            root: 'patient',
+                            data: response
+                        });
+
+                    } else {
+                        var response = {
+                            "error": true,
+                            "api_url": api_url,
+                            "error_message": "Failed with status code: " + req.status,
+                            "status_code": req.status,
+                            "req": req
+                        };
+                        console.error('(!) Error: ', response);
+                    };
+
+                });
+
+            },
+            getClinic({
+                commit
+            }) {
+
+                const api_url = '/clinic';
+                var parameters = {}
+
+                // Do async task
+                helpers.callAPI('GET', api_url, parameters, {}, function (req) {
+                    if (req.status == 200) {
+
+                        var resp = JSON.parse(req.response);
+
+                        // All fields are coming as array: Make Object out of it:
+                        var json_data = {};
+                        resp.clinic.forEach(function (item, itemIndex) {
+                            json_data[item[0]] = item[1];
+                        });
+
+                        var response = {
+                            "date": new Date(),
+                            "data": json_data
+                        };
+                        response.data.array = resp.clinic;
+                        console.log('(✔) Data (' + api_url + '):', response);
+
+                        commit({
+                            type: 'saveData',
+                            root: 'clinic',
+                            data: response
+                        });
+
+                    } else {
+                        var response = {
+                            "error": true,
+                            "api_url": api_url,
+                            "error_message": "Failed with status code: " + req.status,
+                            "status_code": req.status,
+                            "req": req
+                        };
+                        console.error('(!) Error: ', response);
+                    };
+
+                });
+
             },
             myincrement({
                 commit
@@ -502,52 +606,5 @@ new Vue({
             }
         }
     }),
-    methods: {
-        'buttonClick': function () {
-            this.$store.commit('increment')
-        },
-        'getClinic': function () {
-            helpers.callAPI('GET', '/clinic', {}, {}, function (req) {
-                if (req.status == 200) {
-
-                    var resp = JSON.parse(req.response);
-                    var clinic = resp.clinic;
-
-                    var clinic_obj = {};
-                    clinic.forEach(function (current, ID) {
-                        clinic_obj[current[0]] = current[1];
-                    });
-
-                    var response = {
-                        data: {
-                            "error": false,
-                            "clinic_array": clinic,
-                            "clinic_obj": clinic_obj
-                        }
-                    };
-
-                    console.log('(✔) Data (/clinic):', response);
-                } else {
-                    var response = {
-                        "error": true,
-                        "error_message": "Failed with status code: " + req.status,
-                        "status_code": req.status
-                    };
-                    console.error('(!) Error: ', response);
-                };
-
-            });
-        },
-        'buttonTest': function () {
-            var api_url = 'clinic';
-
-            axios
-                .get(helpers.getApiURL() + "clinic")
-                .then(response => {
-                    console.log('RESP', response);
-                    this.$store.commit('saveClinic', response);
-                })
-                .catch(error => console.log('Error: ' + api_url + ': ', error))
-        },
-    }
+    methods: {}
 });
