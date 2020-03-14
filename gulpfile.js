@@ -7,6 +7,7 @@ var rename = require("gulp-rename");
 var minify = require('gulp-minify');
 var cleanCSS = require('gulp-clean-css');
 var clean = require('gulp-clean');
+var jsonminify = require('gulp-jsonminify');
 
 
 // -----------------------------------------------------------
@@ -165,16 +166,22 @@ function copyCalculations() {
         .pipe(gulp.dest(base_config.dist_root + '/calculations'));
 }
 
+function copySurveyJSON() {
+    return gulp.src('src/__config/*.json')
+        .pipe(jsonminify())
+        .pipe(gulp.dest(base_config.dist_root + '/javascript'));
+}
+
 
 // -----------------------------------------------------------
 //  TASKS
 // -----------------------------------------------------------
 
 gulp.task('build', function () {
-    runSequence('clean-dist', ['build-templates', 'build-images', 'build-opapp'], 'cleanup');
-    setTimeout(function () {
-        runSequence('hotload');
-    }, 2000);
+    runSequence('clean-dist', 'build-templates', 'build-images', 'build-opapp', 'cleanup');
+    // setTimeout(function () {
+    //      runSequence('hotload');
+    // }, 3000);
 });
 
 gulp.task('build-images', function () {
@@ -208,6 +215,7 @@ gulp.task('cleanup', function () {
     copyJS();
     copyCalculations();
     copyCSS();
+    copySurveyJSON();
 });
 
 gulp.task('watch', function () {

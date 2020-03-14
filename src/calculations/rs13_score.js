@@ -35,8 +35,6 @@ function main(responses) {
 
         var return_text = "";
 
-        console.log('ddddd', resp);
-
         if (d.patient.data.gender === "male") {
             return_text = "Herr " + d.patient.data.last_name;
         } else {

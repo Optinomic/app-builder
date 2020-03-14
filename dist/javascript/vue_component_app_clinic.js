@@ -1,0 +1,1 @@
+Vue.component("app-clinic",{props:{},created(){this.$store.dispatch("getApps")},computed:{},template:"\n        <p>Clinic Info</p>\n    "});

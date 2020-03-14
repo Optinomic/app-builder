@@ -7,8 +7,8 @@ new Vue({
             count: 0,
             apps: {},
             current_app: null,
-            sr: {},
-            clinic: {}
+            sr: null,
+            clinic: null
         },
         mutations: {
             increment(state) {

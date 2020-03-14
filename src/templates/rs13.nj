@@ -1,0 +1,15 @@
+{% extends "__build/templates/vuetify.nj" %} 
+
+{# --- HEAD-Section ---#}
+{% block head %}
+{% endblock %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+
+<app-optinomic subtitle="Resilienzfragebogen (RS-13)" title="Psychische Widerstandskraft">
+    <app-rs13></app-rs13>
+</app-optinomic>
+
+
+{% endblock %}

@@ -1,15 +1,14 @@
 {% raw %}
 
-<app-title title="Resilienzfragebogen (RS-13)" subtitle="Psychische Widerstandskraft"></app-title>
 
+<app-optinomic title="Resilienzfragebogen (RS-13)" subtitle="Psychische Widerstandskraft">
+    <app-rs13></app-rs13>
+    <div>
+        <v-btn class="ma-2" outlined v-on:click="buttonClick">Increment</v-btn>
+        <v-btn class="ma-2" outlined v-on:click="getClinic">getClinic</v-btn>
+        <v-btn class="ma-2" outlined v-on:click="buttonTest">Dispatch: Clinic Data</v-btn>
+    </div>
+</app-optinomic>
 
-<div>
-    <div>{{ $store.state.count }}</div>
-    <v-btn class="ma-2" outlined v-on:click="buttonClick">Increment</v-btn>
-    <v-btn class="ma-2" outlined v-on:click="getClinic">getClinic</v-btn>
-    
-    <div>{{ $store.state.clinic }}</div>
-    <v-btn class="ma-2" outlined v-on:click="buttonTest">Dispatch: Clinic Data</v-btn>
-</div>
 
 {% endraw %}
