@@ -110,16 +110,19 @@ function main(responses) {
                 "from": 13,
                 "to": 66,
                 "interpretation_de": "niedrige Widerstandskraft (Resilienz)",
+                "short_de": "Niedrig",
                 "result_color": "#F44336"
             }, {
                 "from": 67,
                 "to": 72,
                 "interpretation_de": "moderate Widerstandskraft (Resilienz)",
+                "short_de": "Moderat",
                 "result_color": "#FF9800"
             }, {
                 "from": 73,
                 "to": 91,
                 "interpretation_de": "hohe Widerstandskraft (Resilienz)",
+                "short_de": "Hoch",
                 "result_color": "#4CAF50"
             }];
 
