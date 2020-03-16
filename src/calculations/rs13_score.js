@@ -107,31 +107,31 @@ function main(responses) {
             var current_range = {};
 
             var ranges = [{
-                "from": 13,
-                "to": 66,
+                "range_start": 13,
+                "range_stop": 66,
                 "interpretation_de": "niedrige Widerstandskraft (Resilienz)",
-                "short_de": "Niedrig",
-                "result_color": "#F44336"
+                "text": "Niedrig",
+                "color": "#F44336"
             }, {
-                "from": 67,
-                "to": 72,
+                "range_start": 67,
+                "range_stop": 72,
                 "interpretation_de": "moderate Widerstandskraft (Resilienz)",
-                "short_de": "Moderat",
-                "result_color": "#FF9800"
+                "text": "Moderat",
+                "color": "#FF9800"
             }, {
-                "from": 73,
-                "to": 91,
+                "range_start": 73,
+                "range_stop": 91,
                 "interpretation_de": "hohe Widerstandskraft (Resilienz)",
-                "short_de": "Hoch",
-                "result_color": "#4CAF50"
+                "text": "Hoch",
+                "color": "#4CAF50"
             }];
 
             current_range = ranges[0];
 
-            if (myResults.rs13_score >= ranges[1].from) {
+            if (myResults.rs13_score >= ranges[1].range_start) {
                 current_range = ranges[1];
             };
-            if (myResults.rs13_score >= ranges[2].from) {
+            if (myResults.rs13_score >= ranges[2].range_start) {
                 current_range = ranges[2];
             };
 

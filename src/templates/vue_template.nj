@@ -6,5 +6,4 @@
 
 {# --- Content-Section ---#}
 {% block content %}
-{% include "templates/rs13.html" %}
 {% endblock %}

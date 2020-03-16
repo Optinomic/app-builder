@@ -1,0 +1,6 @@
+{% extends "__build/templates/content_only.nj" %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+{% include "templates/optinomic_polymer_components.html" %}
+{% endblock %}

@@ -4,7 +4,56 @@ Vue.component('app-rs13', {
     created() {},
     data: function () {
         return {
-            pdf_content: []
+            pdf_content: [],
+            "options": {
+                "min": 0,
+                "max": 100,
+                "item_height": 50,
+                "item_text_left": 60,
+                "item_text_right": 60,
+                "color_skin": "indigo_grey_pink",
+                "color_grid": "#9E9E9E",
+                "color_clinic_sample": "#673AB7",
+                "show_baseline": true,
+                "show_scale_text": false,
+                "show_score_vertical_line": true,
+                "show_score_profile_line": false,
+                "show_score_circles": true,
+                "show_settings_block": false,
+                "show_ranges_overview": false,
+                "allow_toggle_settings_block": false,
+                "range_alpha": 0.08,
+                "vertical_grid_every_x": 10,
+                "response_title_path": "calculation.resilienz_score.range.interpretation_de",
+                "response_date_path": "date"
+            },
+            "scales": [{
+                "left_title": "Niedrige Resilienz",
+                "left_text": "",
+                "right_title": "Hohe Resilienz",
+                "right_text": "",
+                "score_path": "calculation.resilienz_score.rs13_score",
+                "clinic_sample_var": null
+            }],
+            "ranges": [{
+                "range_start": 13,
+                "range_stop": 66,
+                "interpretation_de": "niedrige Widerstandskraft (Resilienz)",
+                "text": "Niedrig",
+                "color": "#F44336"
+            }, {
+                "range_start": 67,
+                "range_stop": 72,
+                "interpretation_de": "moderate Widerstandskraft (Resilienz)",
+                "text": "Moderat",
+                "color": "#FF9800"
+            }, {
+                "range_start": 73,
+                "range_stop": 91,
+                "interpretation_de": "hohe Widerstandskraft (Resilienz)",
+                "text": "Hoch",
+                "color": "#4CAF50"
+            }]
         }
     },
     computed: {
@@ -12,6 +61,14 @@ Vue.component('app-rs13', {
             // return data
             try {
                 return this.$store.state.sr.data;
+            } catch (e) {
+                return [];
+            };
+        },
+        sr_full() {
+            // return data
+            try {
+                return this.$store.state.sr;
             } catch (e) {
                 return [];
             };
@@ -62,7 +119,7 @@ Vue.component('app-rs13', {
                 <v-divider></v-divider>
             </div>
             <div style="margin-bottom:24px;">
-            
+
                 <v-card class="mx-auto" outlined v-for="sr in sr_data" :key="sr.event_id">
                     <v-card-text v-if="sr.calculation_found">
                         <div>
@@ -71,8 +128,14 @@ Vue.component('app-rs13', {
                         </div>
                         <p class="display-1 text--primary" v-html="formatDateCH(sr.date)">
                         </p>
+                        
+                        <div>
+                            <optinomic-chart-profile v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)" v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)"></optinomic-chart-profile>
+                        </div>
+                        
                         <p>Interpretation</p>
                         <div class="text--primary" v-html="sr.calculation.resilienz_score.interpretation"></div>
+                        
                     </v-card-text>
                     <v-card-text v-else>
                         <div>Resilienz</div>

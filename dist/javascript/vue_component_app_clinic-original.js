@@ -1,4 +1,4 @@
-// Optinomic App-Header
+// Optinomic app-clinic
 Vue.component('app-clinic', {
     props: {
     },
