@@ -9,7 +9,7 @@ Vue.component('app-rs13', {
                 "min": 0,
                 "max": 100,
                 "item_height": 50,
-                "item_text_left": 60,
+                "item_text_left": 83,
                 "item_text_right": 60,
                 "color_skin": "indigo_grey_pink",
                 "color_grid": "#9E9E9E",
@@ -20,7 +20,7 @@ Vue.component('app-rs13', {
                 "show_score_profile_line": false,
                 "show_score_circles": true,
                 "show_settings_block": false,
-                "show_ranges_overview": false,
+                "show_ranges_overview": true,
                 "allow_toggle_settings_block": false,
                 "range_alpha": 0.08,
                 "vertical_grid_every_x": 10,
@@ -122,19 +122,15 @@ Vue.component('app-rs13', {
 
                 <v-card class="mx-auto" outlined v-for="sr in sr_data" :key="sr.event_id">
                     <v-card-text v-if="sr.calculation_found">
-                        <div>
-                            <span>∑</span> Resilienz-Summenscore: <span
-                                v-html="sr.calculation.resilienz_score.rs13_score"></span>
+                        <div class="overline">
+                            <span>∑</span> Resilienz-Summenscore: 
+                            <span v-html="sr.calculation.resilienz_score.rs13_score"></span>
                         </div>
-                        <p class="display-1 text--primary" v-html="formatDateCH(sr.date)">
-                        </p>
-                        
-                        <div>
-                            <optinomic-chart-profile v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)" v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)"></optinomic-chart-profile>
-                        </div>
-                        
-                        <p>Interpretation</p>
-                        <div class="text--primary" v-html="sr.calculation.resilienz_score.interpretation"></div>
+                        <p class="headline text--primary" v-html="formatDateCH(sr.date)"></p>
+
+                        <p class="overline">Auswertung / Interpretation</p>
+                        <div class="text--primary body-1 mb-4" v-html="sr.calculation.resilienz_score.interpretation"></div>
+                        <optinomic-chart-profile v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)" v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)"></optinomic-chart-profile>
                         
                     </v-card-text>
                     <v-card-text v-else>
