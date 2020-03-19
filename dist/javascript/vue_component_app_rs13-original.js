@@ -4,7 +4,7 @@ Vue.component('app-rs13', {
     created() {},
     data: function () {
         return {
-            pdf_content: [],
+            "pdf_content": [],
             "options": {
                 "min": 0,
                 "max": 100,
@@ -15,7 +15,7 @@ Vue.component('app-rs13', {
                 "color_grid": "#9E9E9E",
                 "color_clinic_sample": "#673AB7",
                 "show_baseline": true,
-                "show_scale_text": false,
+                "show_scale_text": true,
                 "show_score_vertical_line": true,
                 "show_score_profile_line": false,
                 "show_score_circles": true,
@@ -28,10 +28,8 @@ Vue.component('app-rs13', {
                 "response_date_path": "date"
             },
             "scales": [{
-                "left_title": "Niedrige Resilienz",
-                "left_text": "",
-                "right_title": "Hohe Resilienz",
-                "right_text": "",
+                "left_text": "Niedrige Resilienz",
+                "right_text": "Hohe Resilienz",
                 "score_path": "calculation.resilienz_score.rs13_score",
                 "clinic_sample_var": null
             }],
@@ -57,12 +55,38 @@ Vue.component('app-rs13', {
         }
     },
     computed: {
+        patient_secure() {
+            // return data
+            try {
+                return this.$store.state.patient.data.extras.secure;
+            } catch (e) {
+                return "";
+            };
+        },
         sr_data() {
             // return data
             try {
                 return this.$store.state.sr.data;
             } catch (e) {
                 return [];
+            };
+        },
+        sr_count_text() {
+            // return data
+            try {
+                var ret_text = "";
+                if (this.$store.state.sr.data.length === 0) {
+                    ret_text = "Keine Erfassung";
+                };
+                if (this.$store.state.sr.data.length === 1) {
+                    ret_text = "Eine Erfassung";
+                };
+                if (this.$store.state.sr.data.length > 1) {
+                    ret_text = "Erfassungen (" + this.$store.state.sr.data.length + ")";
+                };
+                return ret_text;
+            } catch (e) {
+                return "";
             };
         },
         sr_full() {
@@ -77,7 +101,7 @@ Vue.component('app-rs13', {
             // return data
             try {
                 if (this.$store.state.sr.data.length) {
-
+                    
                     var pdf = [];
 
                     pdf.push(makepdf._suedhang_logo_anschrift());
@@ -85,19 +109,31 @@ Vue.component('app-rs13', {
                     var title = makepdf._title("Psychische Wiederstandskraft", "Resilienzfragebogen (RS-13)");
                     pdf.push(title);
 
-                    pdf.push(makepdf._heading("Interpretation", null, "h2"));
 
                     if (this.$store.state.sr.data.length > 0) {
 
+                        pdf.push(makepdf._heading("Auswertung / Interpretation", null, "h2"));
+
                         this.$store.state.sr.data.forEach(function (d) {
                             if (d.calculation_found) {
+
                                 var interpret = makepdf._text(d.calculation.resilienz_score.interpretation);
                                 pdf.push(makepdf._keepTogether(interpret));
+
+                                pdf.push(makepdf._horizontalLine(100, "#F5F5F5"));
+                                var pdf_chart = makepdf._pdf_chart_profile("de", this.options, {}, {}, [], this.scales, this.$store.state.sr, this.ranges);
+                                pdf.push(pdf_chart);
+                                pdf.push(makepdf._horizontalLine(100, "#F5F5F5"));
+
+                            } else {
+                                pdf.push(makepdf._noData("Resilienz", "Calculation noch nicht berechnet.", 6));
                             };
-                        });
+                        }.bind(this));
+                        
+                        // pdf.push(makepdf._stamp(this.patient_secure, 6));
 
                     } else {
-                        pdf.push(makepdf._noData("Resilienz", 6));
+                        pdf.push(makepdf._noData("Resilienz", "Keine Daten vorhanden", 6));
                     };
 
 
@@ -108,17 +144,25 @@ Vue.component('app-rs13', {
                 };
 
             } catch (e) {
+                console.error('ERROR: pdf_ready', e);
                 return false;
             };
         }
     },
     template: `
         <div>
-            <div style="margin-bottom:24px;">
+            <optinomic-content-block title="Erfassungen" :subtitle="sr_count_text" id="id_erfassungen"></optinomic-content-block>
+            <div class="mb-3">
                 <h3 class="font-weight-light">Erfassungen (<span v-html="sr_data.length"></span>)</h3>
                 <v-divider></v-divider>
             </div>
+            
+            <div>
+                
+            </div>
             <div style="margin-bottom:24px;">
+            
+            
 
                 <v-card class="mx-auto" outlined v-for="sr in sr_data" :key="sr.event_id">
                     <v-card-text v-if="sr.calculation_found">
@@ -147,7 +191,7 @@ Vue.component('app-rs13', {
             <div style="margin-bottom:24px;" v-if="pdf_ready">
                 <h3 class="font-weight-light">Druckvorlage (PDF)</h3>
                 <v-divider></v-divider>
-                <optinomic-pdfmake header-left="Herr Muster" footer-left="Resilienz" header-right="Klinik Südhang" document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
+                <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienz" header-right="Klinik Südhang" document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
             </div>
         </div>
     `

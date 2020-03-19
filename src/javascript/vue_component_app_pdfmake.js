@@ -73,8 +73,7 @@ Vue.component('optinomic-pdfmake', {
             
             dd.content = this.content;
             dd = makepdf._addFooter(dd, this.footerLeft, this.hidePageNumbers);
-            consol
-            e.log('PDF | download :: ' + this.doc_title, dd);
+            console.log('PDF | download :: ' + this.doc_title, dd);
             pdfMake.createPdf(dd).download(doc_title);
         }
     },

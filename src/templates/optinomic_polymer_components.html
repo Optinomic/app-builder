@@ -22,9 +22,9 @@
 <link rel="import"
     href="https://cdn.rawgit.com/Optinomic/polymer-cdn/optinomic-0.1.36/lib/optinomic-clinic-sample-selector/optinomic-clinic-sample-selector.html">
 
-
-<dom-module id="optinomic-chart-profile">
-    <template>
+<div>
+    <dom-module id="optinomic-chart-profile">
+        <template>
         <style include="iron-flex iron-flex-alignment">
             :host {
                 display: block;
@@ -804,25 +804,22 @@
                 </iron-pages>
             </div>
         </div>
-    </template>
-    <script>__opapp_include(dist/javascript/polymer/chart_profile.js)</script>
-</dom-module>
-<dom-module id="svg-container">
-    <template>
-        <svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%"
-            preserveAspectRatio="xMinYMin meet"></svg>
-        <content select="svg-component"></content>
-    </template>
-    <script>__opapp_include(dist/javascript/polymer/svg_container.js)</script>
-</dom-module>
-<dom-module id="svg-component">
-    <template>
-        <content select="svg-component"></content>
-    </template>
-    <script>__opapp_include(dist/javascript/polymer/svg_component.js)</script>
-</dom-module>
-<dom-module id="optinomic-pdf-chart-profile">
-    <script>__opapp_include(dist/javascript/polymer/pdf_chart_profile.js)</script>
-</dom-module>
-
+        </template>
+        <script>__opapp_include(../../dist/javascript/polymer/chart_profile.js)</script>
+    </dom-module>
+    <dom-module id="svg-container">
+        <template>
+            <svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%"
+                preserveAspectRatio="xMinYMin meet"></svg>
+            <content select="svg-component"></content>
+        </template>
+        <script> __opapp_include(../../dist/javascript/polymer/svg_container.js) </script>
+    </dom-module>
+    <dom-module id="svg-component">
+        <template>
+            <content select="svg-component"></content>
+        </template>
+        <script> __opapp_include(../../dist/javascript/polymer/svg_component.js) </script>
+    </dom-module>
+</div>
 {% endraw %}
