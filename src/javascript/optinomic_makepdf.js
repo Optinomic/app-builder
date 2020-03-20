@@ -1396,8 +1396,7 @@ var makepdf = (function () {
 
                 _return.stack.push(_inner);
             } catch (e) {
-                // Anweisungen für jeden Fehler
-                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+                console.error('_pdf_chart_profile | _ks', e);
             };
 
             return _return;
