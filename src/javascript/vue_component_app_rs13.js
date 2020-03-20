@@ -276,9 +276,10 @@ Vue.component('app-rs13', {
                     Calculation noch nicht berechnet.
                 </div>
             </div>
+            
         </optinomic-content-block>
 
-        <optinomic-content-block title="Daten" subtitle="Tabelle" id="id_data">
+        <optinomic-content-block :title="sr_count_text" subtitle="Daten - Tabelle" id="id_data">
             <optinomic-data-table :rows="data_table.rows"></optinomic-data-table>
         </optinomic-content-block>  
     
