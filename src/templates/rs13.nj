@@ -7,7 +7,7 @@
 {# --- Content-Section ---#}
 {% block content %}
 
-<app-optinomic subtitle="Resilienzfragebogen (RS-13)" title="Psychische Widerstandskraft">
+<app-optinomic title="Resilienzfragebogen (RS-13)" subtitle="Psychische Widerstandskraft">
     <app-rs13></app-rs13>
 </app-optinomic>
 
