@@ -10,7 +10,7 @@ Vue.component('app-optinomic', {
             default: "App"
         }
     },
-    created(){
+    created() {
         this.$store.dispatch('getSurveyResponses');
         this.$store.dispatch('getUser');
         if (helpers.getPatientID() !== 0) {
@@ -19,7 +19,7 @@ Vue.component('app-optinomic', {
         this.$store.dispatch('getClinic');
     },
     computed: {
-        sr () {
+        sr() {
             // get survey_response
             try {
                 return this.$store.state.sr;
@@ -27,26 +27,26 @@ Vue.component('app-optinomic', {
                 return {};
             };
         },
-        loaded () {
+        loaded() {
             // get survey_response
             try {
                 if ((this.$store.state.sr.have_data === true) || (this.$store.state.sr.have_data === false)) {
-                    return true;    
+                    return true;
                 }
             } catch (e) {
                 return false;
             };
         },
-        missing_data () {
+        missing_data() {
             // get survey_response
             if (this.$store.state.sr === null) {
                 return false;
             } else {
                 var sr = this.$store.state.sr.data;
                 var data_errors = false;
-                sr.forEach(function(item){
+                sr.forEach(function (item) {
                     if (item.all_found === false) {
-                        data_errors = true;    
+                        data_errors = true;
                     };
                 });
                 return data_errors;
@@ -54,17 +54,15 @@ Vue.component('app-optinomic', {
         }
     },
     template: `
+    <template>
         <v-app>
             <v-content>
                 <v-container>
-                    <app-title :subtitle="subtitle" :title="title"></app-title>
+                    <app-title :title="title" :subtitle="subtitle" class="mt-4"></app-title>
 
-                    <div v-if="loaded">
+                    <div v-if="loaded && sr.have_data">
                         <div v-if="sr.have_data">
-                            <div v-if="missing_data" class="mb-2">
-                                <h2 class="font-weight-light">Hinweis</h2>
-                                <v-divider></v-divider>
-                            </div>
+                            <optinomic-content-block title="Hinweis" subtitle="Daten" id="data_note" v-if="missing_data">
                             <div v-for="r in sr.data">
                                 <div v-if="r.all_found === false">
                                     <v-alert dense outlined text type="error">
@@ -85,6 +83,7 @@ Vue.component('app-optinomic', {
                                     </v-alert>
                                 </div>
                             </div>
+                            </optinomic-content-block>
                             <slot></slot>
                         </div>
                         <div v-else>
@@ -101,5 +100,6 @@ Vue.component('app-optinomic', {
                 </v-container>
             </v-content>
         </v-app>
+    </template>
     `
 });

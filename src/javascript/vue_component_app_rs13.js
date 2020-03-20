@@ -54,6 +54,36 @@ Vue.component('app-rs13', {
             }]
         }
     },
+    methods: {
+        getTitle: function (r) {
+            var ret_string = "Erfassung";
+            console.log(r)
+            try {
+                if (r.calculation_found) {
+                    const name = r.calculation.resilienz_score.range.interpretation_de;
+                    const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+                    ret_string = nameCapitalized;
+                }
+            } catch (e) {
+                // Anweisungen für jeden Fehler
+                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+            }
+            return ret_string;
+        },
+        getSubtitle: function (r) {
+            var ret_string = "::";
+            try {
+                ret_string = formatDateCH(r.date);
+                if (r.calculation_found) {
+                    ret_string = ret_string + " | ∑ Resilienz-Summenscore: " + r.calculation.resilienz_score.rs13_score;
+                }
+            } catch (e) {
+                // Anweisungen für jeden Fehler
+                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+            }
+            return ret_string;
+        }
+    },
     computed: {
         patient_secure() {
             // return data
@@ -101,7 +131,7 @@ Vue.component('app-rs13', {
             // return data
             try {
                 if (this.$store.state.sr.data.length) {
-                    
+
                     var pdf = [];
 
                     pdf.push(makepdf._suedhang_logo_anschrift());
@@ -129,7 +159,7 @@ Vue.component('app-rs13', {
                                 pdf.push(makepdf._noData("Resilienz", "Calculation noch nicht berechnet.", 6));
                             };
                         }.bind(this));
-                        
+
                         // pdf.push(makepdf._stamp(this.patient_secure, 6));
 
                     } else {
@@ -150,49 +180,34 @@ Vue.component('app-rs13', {
         }
     },
     template: `
-        <div>
-            <optinomic-content-block title="Erfassungen" :subtitle="sr_count_text" id="id_erfassungen"></optinomic-content-block>
-            <div class="mb-3">
-                <h3 class="font-weight-light">Erfassungen (<span v-html="sr_data.length"></span>)</h3>
-                <v-divider></v-divider>
+    <div>
+        <optinomic-content-block :title="getTitle(sr)" :subtitle="getSubtitle(sr)" id="id_erfassungen" v-for="sr in sr_data"
+            :key="sr.event_id">
+    
+            <div v-if="sr.calculation_found">
+                <p class="overline">Auswertung / Interpretation</p>
+                <div class="text--primary body-1 mb-4" v-html="sr.calculation.resilienz_score.interpretation"></div>
+                <optinomic-chart-profile style="border-top:1px solid #fafafa;border-bottom:1px solid #fafafa;" v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)"
+                    v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)">
+                </optinomic-chart-profile>
+            </div>
+            <div v-else>
+                <div>Resilienz</div>
+                <p class="display-1 text--primary" v-html="formatDateCH(sr.date)">
+                </p>
+                <p>Hinweis</p>
+                <div class="text--primary">
+                    Calculation noch nicht berechnet.
+                </div>
             </div>
             
-            <div>
-                
-            </div>
-            <div style="margin-bottom:24px;">
-            
-            
-
-                <v-card class="mx-auto" outlined v-for="sr in sr_data" :key="sr.event_id">
-                    <v-card-text v-if="sr.calculation_found">
-                        <div class="overline">
-                            <span>∑</span> Resilienz-Summenscore: 
-                            <span v-html="sr.calculation.resilienz_score.rs13_score"></span>
-                        </div>
-                        <p class="headline text--primary" v-html="formatDateCH(sr.date)"></p>
-
-                        <p class="overline">Auswertung / Interpretation</p>
-                        <div class="text--primary body-1 mb-4" v-html="sr.calculation.resilienz_score.interpretation"></div>
-                        <optinomic-chart-profile v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)" v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)"></optinomic-chart-profile>
-                        
-                    </v-card-text>
-                    <v-card-text v-else>
-                        <div>Resilienz</div>
-                        <p class="display-1 text--primary" v-html="formatDateCH(sr.date)">
-                        </p>
-                        <p>Hinweis</p>
-                        <div class="text--primary">
-                            Calculation noch nicht berechnet.
-                        </div>
-                    </v-card-text>
-                </v-card>
-            </div>
-            <div style="margin-bottom:24px;" v-if="pdf_ready">
-                <h3 class="font-weight-light">Druckvorlage (PDF)</h3>
-                <v-divider></v-divider>
-                <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienz" header-right="Klinik Südhang" document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
-            </div>
-        </div>
+        </optinomic-content-block>
+    
+    
+        <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf">
+            <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienz" header-right="Klinik Südhang"
+                document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
+        </optinomic-content-block>
+    </div>
     `
 });

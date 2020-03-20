@@ -23,10 +23,10 @@ Vue.component('app-title', {
         }
     },
     template: `
-        <div style="margin-bottom:24px;">
+        <div>
             <h1 v-html="title" class="display-1 font-weight-thin"></h1>
-            <p v-html="subtitle" style="margin-left:3px"></p>
-            <v-divider></v-divider>
+            <p v-html="subtitle" style="margin-left:3px;color:#8b0042"></p>
+            <v-divider light></v-divider>
             <v-expansion-panels flat light tile v-if="readme_html === null">
                 <v-expansion-panel disabled>
                     <v-expansion-panel-header style="padding:0">
@@ -37,15 +37,15 @@ Vue.component('app-title', {
         
             <v-expansion-panels flat light tile v-if="readme_html !== null">
                 <v-expansion-panel>
-                    <v-expansion-panel-header style="padding:0">
-                        <h3 class="font-weight-light">Dokumentation (Readme)</h3>
+                    <v-expansion-panel-header style="margin:0; padding:0; max-height: 72px;">
+                        <optinomic-content-block title="Dokumentation" subtitle="Readme" id="id_readme"></optinomic-content-block>
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <div v-html="readme_html"></div>
+                    <v-expansion-panel-content style="margin:0; padding:0;">
+                        <div class="mt-8" v-html="readme_html"></div>
+                        <v-divider></v-divider>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
-            <v-divider></v-divider>
         </div>
     `
 });

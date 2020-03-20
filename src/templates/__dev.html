@@ -1,0 +1,29 @@
+<div>
+    <optinomic-content-block :title="getTitle(sr)" :subtitle="getSubtitle(sr)" id="id_erfassungen" v-for="sr in sr_data"
+        :key="sr.event_id">
+
+        <div v-if="sr.calculation_found">
+            <p class="overline">Auswertung / Interpretation</p>
+            <div class="text--primary body-1 mb-4" v-html="sr.calculation.resilienz_score.interpretation"></div>
+            <optinomic-chart-profile v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)"
+                v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)">
+            </optinomic-chart-profile>
+        </div>
+        <div v-else>
+            <div>Resilienz</div>
+            <p class="display-1 text--primary" v-html="formatDateCH(sr.date)">
+            </p>
+            <p>Hinweis</p>
+            <div class="text--primary">
+                Calculation noch nicht berechnet.
+            </div>
+        </div>
+        
+    </optinomic-content-block>
+
+
+    <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf">
+        <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienz" header-right="Klinik Südhang"
+            document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
+    </optinomic-content-block>
+</div>
