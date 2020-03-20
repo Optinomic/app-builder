@@ -78,7 +78,7 @@ Vue.component('optinomic-pdfmake', {
         }
     },
     template: `
-        <div style="margin-bottom:24px;">
+        <div>
             <v-container fluid>
                 <v-row>
                     <v-col cols="12">
@@ -96,7 +96,6 @@ Vue.component('optinomic-pdfmake', {
                             
                         </v-row>
                     </v-col>
-
                 </v-row>
             </v-container>
         </div>

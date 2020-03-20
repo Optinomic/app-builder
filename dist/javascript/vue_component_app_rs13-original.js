@@ -4,6 +4,13 @@ Vue.component('app-rs13', {
     created() {},
     data: function () {
         return {
+            "base_config": {
+                "dist_root": "dist",
+                "app_id": "ch.suedhang.apps.rs13.production",
+                "app_name": "Resilienzfragebogen (RS-13)",
+                "app_short_description": "Psychische Widerstandskraft",
+                "app_type": "patient"
+            },
             "pdf_content": [],
             "options": {
                 "min": 0,
@@ -51,7 +58,80 @@ Vue.component('app-rs13', {
                 "interpretation_de": "hohe Widerstandskraft (Resilienz)",
                 "text": "Hoch",
                 "color": "#4CAF50"
-            }]
+            }],
+            "data_table": {
+                "rows": [{
+                        name: 'Wenn ich Pläne habe, verfolge ich sie auch.',
+                        variable: 'rs13_01',
+                        path: 'response.rs13_01'
+                    },
+                    {
+                        name: 'Normalerweise schaffe ich alles irgendwie.',
+                        variable: 'rs13_02',
+                        path: 'response.rs13_02'
+                    },
+                    {
+                        name: 'Ich lasse mich nicht so schnell aus der Bahn werfen.',
+                        variable: 'rs13_03',
+                        path: 'response.rs13_03'
+                    },
+                    {
+                        name: 'Ich mag mich.',
+                        variable: 'rs13_04',
+                        path: 'response.rs13_04'
+                    },
+                    {
+                        name: 'Ich kann mehrere Dinge gleichzeitig bewältigen.',
+                        variable: 'rs13_05',
+                        path: 'response.rs13_05'
+                    },
+                    {
+                        name: 'Ich bin entschlossen.',
+                        variable: 'rs13_06',
+                        path: 'response.rs13_06'
+                    },
+                    {
+                        name: 'Ich nehme die Dinge wie sie kommen.',
+                        variable: 'rs13_07',
+                        path: 'response.rs13_07'
+                    },
+                    {
+                        name: 'Ich behalte an vielen Dingen Interesse.',
+                        variable: 'rs13_08',
+                        path: 'response.rs13_08'
+                    },
+                    {
+                        name: 'Normalerweise kann ich eine Situation aus mehreren Perspektiven betrachten.',
+                        variable: 'rs13_09',
+                        path: 'response.rs13_09'
+                    },
+                    {
+                        name: 'Ich kann mich auch überwinden, Dinge zu tun, die ich eigentlich nicht machen will.',
+                        variable: 'rs13_10',
+                        path: 'response.rs13_10'
+                    },
+                    {
+                        name: 'Wenn ich in einer schwierigen Situation bin, finde ich gewöhnlich einen Weg heraus.',
+                        variable: 'rs13_11',
+                        path: 'response.rs13_11'
+                    },
+                    {
+                        name: 'In mir steckt genügend Energie, um alles zu machen, was ich machen muss.',
+                        variable: 'rs13_12',
+                        path: 'response.rs13_12'
+                    },
+                    {
+                        name: 'Ich kann es akzeptieren, wenn mich nicht alle Leute mögen.',
+                        variable: 'rs13_13',
+                        path: 'response.rs13_13'
+                    },
+                    {
+                        name: 'Resilienz Summenscore',
+                        variable: 'rs13_score',
+                        path: 'calculation.resilienz_score.rs13_score'
+                    }
+                ]
+            }
         }
     },
     methods: {
@@ -134,11 +214,10 @@ Vue.component('app-rs13', {
 
                     var pdf = [];
 
-                    pdf.push(makepdf._suedhang_logo_anschrift());
+                    // pdf.push(makepdf._suedhang_logo_anschrift());
 
-                    var title = makepdf._title("Psychische Wiederstandskraft", "Resilienzfragebogen (RS-13)");
+                    var title = makepdf._title(this.base_config.app_short_description, this.base_config.app_name);
                     pdf.push(title);
-
 
                     if (this.$store.state.sr.data.length > 0) {
 
@@ -159,13 +238,10 @@ Vue.component('app-rs13', {
                                 pdf.push(makepdf._noData("Resilienz", "Calculation noch nicht berechnet.", 6));
                             };
                         }.bind(this));
-
                         // pdf.push(makepdf._stamp(this.patient_secure, 6));
-
                     } else {
                         pdf.push(makepdf._noData("Resilienz", "Keine Daten vorhanden", 6));
                     };
-
 
                     this.pdf_content = pdf;
                     return true;
@@ -200,11 +276,13 @@ Vue.component('app-rs13', {
                     Calculation noch nicht berechnet.
                 </div>
             </div>
-            
         </optinomic-content-block>
+
+        <optinomic-content-block title="Daten" subtitle="Tabelle" id="id_data">
+            <optinomic-data-table :rows="data_table.rows"></optinomic-data-table>
+        </optinomic-content-block>  
     
-    
-        <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf">
+        <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf" v-if="pdf_ready">
             <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienz" header-right="Klinik Südhang"
                 document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
         </optinomic-content-block>
