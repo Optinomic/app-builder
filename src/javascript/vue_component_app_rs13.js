@@ -145,7 +145,8 @@ Vue.component('app-rs13', {
                     ret_string = nameCapitalized;
                 }
             } catch (e) {
-                console.error('getTitle', e);
+                // Anweisungen für jeden Fehler
+                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
             }
             return ret_string;
         },
@@ -157,7 +158,8 @@ Vue.component('app-rs13', {
                     ret_string = ret_string + " | ∑ Resilienz-Summenscore: " + r.calculation.resilienz_score.rs13_score;
                 }
             } catch (e) {
-                console.error('getSubtitle', e);
+                // Anweisungen für jeden Fehler
+                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
             }
             return ret_string;
         }
@@ -277,7 +279,7 @@ Vue.component('app-rs13', {
             
         </optinomic-content-block>
 
-        <optinomic-content-block :title="sr_count_text" subtitle="Daten - Tabelle" id="id_data">
+        <optinomic-content-block :subtitle="sr_count_text" title="Datentabelle" id="id_data_table">
             <optinomic-data-table :rows="data_table.rows"></optinomic-data-table>
         </optinomic-content-block>  
     

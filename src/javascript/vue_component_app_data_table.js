@@ -38,7 +38,8 @@ Vue.component('optinomic-data-table', {
                     }
                 }
             } catch (e) {
-                console.error('flattenObject', e);
+                // Anweisungen für jeden Fehler
+                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
             }
             return toReturn;
         }
@@ -83,6 +84,7 @@ Vue.component('optinomic-data-table', {
               :items-per-page="rows.length"
               hide-default-footer
               dense
+              
             ></v-data-table>
             </optinomic-content-block>
         </div>

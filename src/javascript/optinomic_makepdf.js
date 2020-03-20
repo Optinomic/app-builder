@@ -402,7 +402,7 @@ var makepdf = (function () {
 
     var _noData = function (title, text, space) {
         title = title === undefined ? null : title;
-        text = text === undefined ? "Keine Daten vorhanden." : title;
+        text = text === undefined ? "Keine Daten vorhanden." : text;
         space = space === undefined ? 24 : space;
 
         var date = new Date();
@@ -1396,7 +1396,7 @@ var makepdf = (function () {
 
                 _return.stack.push(_inner);
             } catch (e) {
-                console.error('_pdf_chart_profile | _ks', e);
+                // console.error('_pdf_chart_profile | _ks', e);
             };
 
             return _return;

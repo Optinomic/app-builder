@@ -10,7 +10,7 @@ Vue.component('app-optinomic', {
             default: "App"
         }
     },
-    created() {
+    created(){
         this.$store.dispatch('getSurveyResponses');
         this.$store.dispatch('getUser');
         if (helpers.getPatientID() !== 0) {
@@ -19,7 +19,7 @@ Vue.component('app-optinomic', {
         this.$store.dispatch('getClinic');
     },
     computed: {
-        sr() {
+        sr () {
             // get survey_response
             try {
                 return this.$store.state.sr;
@@ -27,26 +27,26 @@ Vue.component('app-optinomic', {
                 return {};
             };
         },
-        loaded() {
+        loaded () {
             // get survey_response
             try {
                 if ((this.$store.state.sr.have_data === true) || (this.$store.state.sr.have_data === false)) {
-                    return true;
+                    return true;    
                 }
             } catch (e) {
                 return false;
             };
         },
-        missing_data() {
+        missing_data () {
             // get survey_response
             if (this.$store.state.sr === null) {
                 return false;
             } else {
                 var sr = this.$store.state.sr.data;
                 var data_errors = false;
-                sr.forEach(function (item) {
+                sr.forEach(function(item){
                     if (item.all_found === false) {
-                        data_errors = true;
+                        data_errors = true;    
                     };
                 });
                 return data_errors;
@@ -55,10 +55,14 @@ Vue.component('app-optinomic', {
     },
     template: `
     <template>
-        <v-app>
+        <v-app id="top">
             <v-content>
-                <v-container>
+                <v-container class="mt-10 mb-4 pt-8 pb-12 pl-10 pr-8 elevation-1">
+                
+                    <optinomic-toc></optinomic-toc>
+                    
                     <app-title :title="title" :subtitle="subtitle" class="mt-4"></app-title>
+                    
 
                     <div v-if="loaded && sr.have_data">
                         <div v-if="sr.have_data">
@@ -100,6 +104,6 @@ Vue.component('app-optinomic', {
                 </v-container>
             </v-content>
         </v-app>
-    </template>
+        </template>
     `
 });

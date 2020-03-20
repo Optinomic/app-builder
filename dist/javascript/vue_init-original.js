@@ -6,6 +6,7 @@ new Vue({
         state: {
             count: 0,
             apps: {},
+            table_of_contents: [],
             current_app: null,
             sr: null,
             user: null,
