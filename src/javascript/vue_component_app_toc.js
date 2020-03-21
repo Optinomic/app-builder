@@ -1,10 +1,12 @@
 // Optinomic optinomic-toc
 Vue.component('optinomic-toc', {
+    props: {},
+
     computed: {
         toc_data() {
             // return data
             try {
-                console.log('TOC', this.$store.state.table_of_contents);
+                //console.log('TOC', this.$store.state.table_of_contents);
                 return this.$store.state.table_of_contents;
             } catch (e) {
                 return [];
@@ -12,9 +14,9 @@ Vue.component('optinomic-toc', {
         }
     },
     template: `
-        <div class="d-flex flex-row justify-end mr-12">
+        <div class="d-flex flex-row justify-start">
         
-            <div class="mb-12 mt-2 ml-1 mr-12">
+            <div class="mb-12 mt-2">
                 <div class="ml-5 mb-2">
                     <p class="overline" style="color:#8b0042">Table of Contents</p>
                     <h2 class="headline font-weight-light text--secondary" style="margin-top:-22px">Inhaltsverzeichnis</h2>
