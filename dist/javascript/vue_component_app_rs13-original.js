@@ -262,7 +262,7 @@ Vue.component('app-rs13', {
     
             <div v-if="sr.calculation_found">
                 <p class="overline">Auswertung / Interpretation</p>
-                <div class="text--primary body-1 mb-4" v-text="sr.calculation.resilienz_score.interpretation"></div>
+                <optinomic-clipboard-text :text="sr.calculation.resilienz_score.interpretation"></optinomic-clipboard-text>
                 <optinomic-chart-profile style="border-top:1px solid #fafafa;border-bottom:1px solid #fafafa;" v-bind:options="JSON.stringify(options)" v-bind:scales="JSON.stringify(scales)"
                     v-bind:ranges="JSON.stringify(ranges)" v-bind:scores="JSON.stringify(sr_full)">
                 </optinomic-chart-profile>

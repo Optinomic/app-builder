@@ -1,7 +1,6 @@
 // Optinomic optinomic-toc
 Vue.component('optinomic-toc', {
     props: {},
-
     computed: {
         toc_data() {
             // return data
@@ -15,7 +14,6 @@ Vue.component('optinomic-toc', {
     },
     template: `
         <div class="d-flex flex-row justify-start">
-        
             <div class="mb-12 mt-2">
                 <div class="ml-5 mb-2">
                     <p class="overline" style="color:#8b0042">Table of Contents</p>

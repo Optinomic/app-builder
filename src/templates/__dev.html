@@ -1,60 +1,20 @@
-<template>
-    <v-app id="top" style="background-color:#f8f8f8!important;">
-        <v-content>
-            <v-container class="mt-10 mb-4 pt-8 pb-12 pl-10 pr-8 elevation-1" style="background-color:white!important;">
+<div>
+    <v-tooltip left>
+        <template v-slot:activator="{ on }">
+            <span v-on="on" style="float:right;">
+                <v-btn @click="copyClipboard" icon color="indigo">
+                    <v-icon>mdi-content-copy</v-icon>
+                </v-btn>
+            </span>
+        </template>
+        <span>Kopiere in die Zwischenablage.</span>
+    </v-tooltip>
 
-                <v-row>
-                    <v-col cols="12" sm="6">
-                        <img v-if="clinic_data" :src="clinic_data.clinic_logo" :alt="clinic_data.clinic_slogan" height="46">
-                        <v-skeleton-loader v-if="!clinic_data" min-height="46" max-width="237" type="image"></v-skeleton-loader>
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                        <optinomic-toc></optinomic-toc>
-                    </v-col>
-                </v-row>
+    <p class="text--primary body-1" v-text="text">optinomic-clipboard-text</p>
 
-                <app-title :title="title" :subtitle="subtitle" class="mt-4"></app-title>
-
-                <div v-if="loaded && sr.have_data">
-                    <div v-if="sr.have_data">
-                        <optinomic-content-block title="Missings" subtitle="Datenhinweis" id="data_note"
-                            v-if="missing_data">
-                            <div v-for="r in sr.data">
-                                <div v-if="r.all_found === false">
-                                    <v-alert dense outlined text type="error">
-                                        <p style="margin:0;padding:0">Bei der Messung vom <span
-                                                v-html="formatDateCH(r.date)"></span> sind nicht alle Daten vorhanden:
-                                        </p>
-                                        <p style="margin:0;padding:0" v-if="r.calculation_found === false">
-                                            - Calculation nicht gefunden / noch nicht berechnet!
-                                        </p>
-                                        <p style="margin:0;padding:0" v-if="r.event_found === false">
-                                            - Event <span v-html="r.event_id"></span> nicht gefunden.
-                                        </p>
-                                        <p style="margin:0;padding:0" v-if="r.patient_found === false">
-                                            - Patient <span v-html="r.patient_id"></span> nicht gefunden.
-                                        </p>
-                                        <p style="margin:0;padding:0" v-if="r.stay_found === false">
-                                            - Fall <span v-html="r.stay_id"></span> nicht gefunden.
-                                        </p>
-                                    </v-alert>
-                                </div>
-                            </div>
-                        </optinomic-content-block>
-                        <slot></slot>
-                    </div>
-                    <div v-else>
-                        <v-alert prominent text type="error">
-                            Keine Daten vorhanden.
-                        </v-alert>
-                    </div>
-                </div>
-                <div v-else>
-                    <v-sheet class="px-3 pt-3 pb-3">
-                        <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
-                    </v-sheet>
-                </div>
-            </v-container>
-        </v-content>
-    </v-app>
-</template>
+    <input type="hidden" id="clipboard-text" :value="text">
+    
+    <v-snackbar v-model="snackbar" :timeout="timeout" :color="alert_color">
+        <span v-text="alert_text"></span>
+    </v-snackbar>
+</div>
