@@ -10,7 +10,7 @@ Vue.component('app-optinomic', {
             default: "App"
         }
     },
-    created(){
+    created() {
         this.$store.dispatch('getSurveyResponses');
         this.$store.dispatch('getUser');
         if (helpers.getPatientID() !== 0) {
@@ -19,7 +19,7 @@ Vue.component('app-optinomic', {
         this.$store.dispatch('getClinic');
     },
     computed: {
-        sr () {
+        sr() {
             // get survey_response
             try {
                 return this.$store.state.sr;
@@ -27,25 +27,25 @@ Vue.component('app-optinomic', {
                 return {};
             };
         },
-        loaded () {
+        loaded() {
             // get survey_response
             try {
                 if ((this.$store.state.sr.have_data === true) || (this.$store.state.sr.have_data === false)) {
-                    return true;    
+                    return true;
                 };
             } catch (e) {
                 return false;
             };
         },
-        user_text () {
+        user_text() {
             // get survey_response
             try {
-                return this.$store.state.user.data.first_name + " " + this.$store.state.user.data.last_name+ " (" + this.$store.state.user.data.initials + ")";
+                return this.$store.state.user.data.first_name + " " + this.$store.state.user.data.last_name + " (" + this.$store.state.user.data.initials + ")";
             } catch (e) {
                 return '';
             };
         },
-        clinic_data () {
+        clinic_data() {
             // get survey_response
             try {
                 return this.$store.state.clinic.data;
@@ -53,16 +53,16 @@ Vue.component('app-optinomic', {
                 return false;
             };
         },
-        missing_data () {
+        missing_data() {
             // get survey_response
             if (this.$store.state.sr === null) {
                 return false;
             } else {
                 var sr = this.$store.state.sr.data;
                 var data_errors = false;
-                sr.forEach(function(item){
+                sr.forEach(function (item) {
                     if (item.all_found === false) {
-                        data_errors = true;    
+                        data_errors = true;
                     };
                 });
                 return data_errors;
@@ -91,7 +91,7 @@ Vue.component('app-optinomic', {
 
                     <div v-if="loaded">
                         <div v-if="sr.have_data">
-                            <optinomic-content-block title="Missings" subtitle="Datenhinweis" id="data_note"
+                            <optinomic-content-block title="Missings" subtitle="Datenhinweis" id="data_note" 
                                 v-if="missing_data">
                                 <div v-for="r in sr.data">
                                     <div v-if="r.all_found === false">
@@ -118,7 +118,7 @@ Vue.component('app-optinomic', {
                             <slot></slot>
                         </div>
                         <div v-else>
-                            <optinomic-content-block subtitle="Hinweis" title="Keine Messdaten" id="in_no_data">
+                            <optinomic-content-block subtitle="Hinweis" title="Keine Messdaten" id="in_no_data" show_in_toc="false">
                                 <v-alert prominent text type="error">
                                     Es sind keine Messdaten vorhanden.
                                 </v-alert>
@@ -137,6 +137,9 @@ Vue.component('app-optinomic', {
                                     v-text="clinic_data.clinic_slogan" v-if="clinic_data"></p>
                             </v-col>
                             <v-col cols="12" sm="6" class="px-0">
+                                <v-btn class="ml-1" style="float:right;" icon x-small color="#8b0042" @click="$vuetify.goTo('#top')">
+                                    <v-icon dark>mdi-arrow-up</v-icon>
+                                </v-btn>
                                 <p class="caption font-weight-light text-right" v-text="user_text"></p>
                             </v-col>
                         </v-row>
