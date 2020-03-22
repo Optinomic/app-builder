@@ -14,9 +14,6 @@ new Vue({
             clinic: null
         },
         mutations: {
-            increment(state) {
-                state.count++
-            },
             saveData(state, d) {
                 // console.error('state', d.root, d.data);
                 state[d.root] = d.data;
@@ -588,21 +585,6 @@ new Vue({
 
                 });
 
-            },
-            myincrement({
-                commit
-            }) {
-
-                var api_url = 'clinic';
-
-                axios
-                    .get(helpers.getApiURL() + "clinic")
-                    .then(response => {
-                        console.log('RESP', response);
-                        commit('saveClinic', response);
-                        commit('increment');
-                    })
-                    .catch(error => console.log('Error: ' + api_url + ': ', error))
             }
         }
     }),
