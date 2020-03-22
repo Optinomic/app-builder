@@ -53,7 +53,6 @@ Vue.component('app-title', {
     },
     template: `
         <div>
-
             <h1 v-text="title" class="display-1 font-weight-medium"></h1>
             <p style="margin-left:1px;color:#8b0042">
                 <span v-text="subtitle"></span>
@@ -92,7 +91,7 @@ Vue.component('app-title', {
                                 <template v-slot:default>
                                     <tbody>
                                         <tr>
-                                            <td>Lizenz</td>
+                                            <td>Licensed</td>
                                             <td>
                                                 <a :href="clinic_data.clinic_www" target="_blank" v-text="clinic_data.clinic_name + ', ' + clinic_data.clinic_address"></a>
                                             </td>
@@ -104,8 +103,9 @@ Vue.component('app-title', {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Last Update, Identifier</td>
-                                            <td v-text="formatDateCH(app_data.module_activation.data.last_update)  + ', ' +  app_data.module.identifier">
+                                            <td>Updated @ <span v-text="formatDateCH(app_data.module_activation.data.last_update)"></span></td>
+                                            <td>
+                                                <a :href="'https://github.com/Optinomic/' + app_data.module.identifier" target="_blank" v-text="app_data.module.identifier"></a>
                                             </td>
                                         </tr>
                                     </tbody>

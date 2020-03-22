@@ -4,13 +4,18 @@ Vue.component('optinomic-data-table', {
         rows: {
             type: Array,
             default: []
+        },
+        interpretations: {
+            type: Object,
+            default: {}
         }
     },
     data() {
         return {
             headers: [{
                     text: 'Variable',
-                    value: 'variable'
+                    value: 'variable',
+                    width: 20
                 },
                 {
                     text: 'Frage | Item',
@@ -38,8 +43,7 @@ Vue.component('optinomic-data-table', {
                     }
                 }
             } catch (e) {
-                // Anweisungen für jeden Fehler
-                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+                console.log('flattenObject', e);
             }
             return toReturn;
         }
@@ -65,7 +69,24 @@ Vue.component('optinomic-data-table', {
                                 this.headers.push(new_header);
                                 sr_pushed = item_index;
                             };
-                            row[computed_variablename] = r_flat[row.path];
+
+                            // Interpretation
+                            try {
+                                if (row.interpretation !== null) {
+                                    var current_interpretation = this.interpretations[row.interpretation].slice();
+
+                                    var value = r_flat[row.path];
+                                    current_interpretation.forEach(function (i) {
+                                        if ((i.value + '') === (value + '')) {
+                                            value = i.value + ', ' + i.text;    
+                                        };
+                                    }.bind(this));
+                                    row[computed_variablename] = value;
+                                };
+                            } catch (e) {
+                                row[computed_variablename] = r_flat[row.path];
+                            };
+
                         }.bind(this));
                     }.bind(this));
                 };
@@ -84,8 +105,12 @@ Vue.component('optinomic-data-table', {
               :items-per-page="rows.length"
               hide-default-footer
               dense
-              
-            ></v-data-table>
+            >
+                <template v-slot:item.variable="{ item }">
+                <kbd v-text="item.variable">v</kbd>
+
+                </template>
+            </v-data-table>
             </optinomic-content-block>
         </div>
     `

@@ -1,4 +1,4 @@
-{% extends "__build/templates/vuetify.nj" %} 
+{% extends "__build/templates/vuetify_polymer.nj" %} 
 
 {# --- HEAD-Section ---#}
 {% block head %}
@@ -11,5 +11,8 @@
     <app-rs13></app-rs13>
 </app-optinomic>
 
+{% raw %}
+ __opapp_include(../../dist/includes/vue_includes_rs13.html) 
+{% endraw %}
 
 {% endblock %}

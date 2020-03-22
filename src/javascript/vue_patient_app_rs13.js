@@ -145,8 +145,7 @@ Vue.component('app-rs13', {
                     ret_string = nameCapitalized;
                 }
             } catch (e) {
-                // Anweisungen für jeden Fehler
-                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+                console.error('getTitle', e);
             }
             return ret_string;
         },
@@ -158,12 +157,11 @@ Vue.component('app-rs13', {
                     ret_string = ret_string + " | ∑ Resilienz-Summenscore: " + r.calculation.resilienz_score.rs13_score;
                 }
             } catch (e) {
-                // Anweisungen für jeden Fehler
-                logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+                console.error('getSubtitle', e);
             }
             return ret_string;
         }
-    },
+     },
     computed: {
         patient_secure() {
             // return data

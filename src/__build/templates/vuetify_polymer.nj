@@ -13,7 +13,7 @@
 </head>
 
 <div id="optinomic_app">
-  <v-app>
+  <v-app style="background:#f8f8f8;background-color:#f8f8f8;">
     <v-content>
       <v-container>
           <!-- START APP -->
@@ -24,6 +24,7 @@
   </v-app>
 </div>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/vfs_fonts.js"></script>
+
+__opapp_include(../../dist/templates/optinomic_polymer_components.html)

@@ -1,0 +1,18 @@
+{% extends "__build/templates/vuetify_polymer.nj" %} 
+
+{# --- HEAD-Section ---#}
+{% block head %}
+{% endblock %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+
+<app-optinomic title="HoNOS" subtitle="Health of the Nations Outcome Scale">
+    <app-honos></app-honos>
+</app-optinomic>
+
+{% raw %}
+ __opapp_include(../../dist/includes/vue_includes_honos.html) 
+{% endraw %}
+
+{% endblock %}
