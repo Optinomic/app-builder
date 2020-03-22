@@ -1,0 +1,534 @@
+<link href="polymer/polymer-element.html" rel="import"><link href="optinomic-elements/optinomic-title/optinomic-title.html" rel="import"><link href="optinomic-elements/optinomic-clipboard/optinomic-clipboard.html" rel="import"><dom-module id="optinomic-template"><template><style include="optinomic-styles">:host{display:block;--right-top-height:100%;--right-bottom-height:0}.fullscreen{height:calc(100vh);min-height:calc(100vh)}.page{padding:24px}.background{background:#f5f5f5;background-color:#f5f5f5;color:#424242}.bg-primary{background:#3f51b5;background-color:#3f51b5;color:#fff}.bg-primary_dark{background:#1a237e;background-color:#1a237e;color:#e8eaf6}.bg-secondary{background:#e91e63;background-color:#e91e63;color:#fff}.bg-secondary_dark{background:#ad1457;background-color:#ad1457;color:#fce4ec}.rcorners{border-radius:10px;border:2px solid #e0e0e0;padding:24px;background-color:#fafafa}.rcorners:hover{background-color:#fff}</style><div class="page"><optinomic-title h1="Erfassungen" h2="Anzeigen und Ausdrucken" h3="Survey-Results"></optinomic-title><surveyresults-renderer surveymarkup="[[survey_markup]]"></surveyresults-renderer></div></template><script>class optinomicTemplate extends Polymer.mixinBehaviors([
+      opappBehavior
+    ], ReduxBehavior(Polymer.Element)) {
+
+      static get is() {
+        return 'optinomic-template';
+      }
+
+      static get actions() {
+        return AsyncActionsBehavior.actions;
+      }
+
+      // Properties
+      static get properties() {
+        return {
+
+        };
+      }
+
+      // --------------- Functions ---------------
+
+      _doSomething() {
+        console.log('_doSomething');
+      }
+
+      // --------------- Events ---------------
+
+      _some_event(e) {
+        console.warn('_some_event', e.detail);
+      }
+
+
+      // --------------- Lifecycle ---------------
+
+      _init() {
+        this.set('survey_markup', 
+{
+  "tmt_example": {
+    "survey": {
+      "survey_id": "tmt_example",
+      "version": "1.0",
+      "welcome_title": "TMT",
+      "welcome_subtitle": "Trail Making Test (TMT)",
+      "welcome_text": [
+        "Mit dem TMT wird die Fähigkeit zum visuellen Scannen, die psychomotorische Geschwindigkeit (TMT A) sowie die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B) erfasst."
+      ],
+      "show_welcome_page": true,
+      "show_question_groups_numbers": false,
+      "show_question_numbers": false,
+      "result_store_survey_markup": false,
+      "result_store_timings": true,
+      "empty_vars": ""
+    },
+    "question_groups": [{
+        "group_title": "Allgemeine Angaben",
+        "group_subtitle": "Angaben zum Messzeitpunkt",
+        "group_id": "allgemeine_angaben",
+        "questions": [{
+          "type": "questionSelect",
+          "var": "Messzeitpunkt",
+          "title": "Messzeitpunkt",
+          "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
+          "label": "Assessment (Erhebung)",
+          "val": {
+            "required": true
+          },
+          "options": [{
+              "value": "1",
+              "label": "Eintritt"
+            },
+            {
+              "value": "2",
+              "label": "Austritt"
+            },
+            {
+              "value": "3",
+              "label": "Anderer Messzeitpunkt"
+            }
+          ]
+        }]
+      },
+      {
+        "group_title": "Patientenangaben",
+        "group_subtitle": "Angaben über den Patienten",
+        "group_id": "weitere_angaben",
+        "questions": [{
+          "type": "questionNumber",
+          "var": "Ausbildungsjahre",
+          "title": "Ausbildungsjahre",
+          "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 Jahre Schule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) + 5 Jahre Studium gibt 17 Ausbildungsjahre.",
+          "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
+          "val": {
+            "required": true,
+            "min": 6,
+            "max": 40
+          }
+        }]
+      },
+      {
+        "group_title": "TMT A",
+        "group_subtitle": "Psychomotorische Geschwindigkeit (TMT A)",
+        "group_id": "tmt",
+        "questions": [{
+            "type": "questionNumber",
+            "var": "TMTATime",
+            "title": "Zeit",
+            "help": "Zeit in Sekunden.",
+            "label": "TMT A (Zeit in Sekunden)",
+            "val": {
+              "required": true,
+              "min": 10,
+              "max": 180
+            }
+          },
+          {
+            "type": "questionNumber",
+            "var": "TMTAError",
+            "title": "Fehler",
+            "help": "Anzahl der Fehler bei der Ausführung des TMT A.",
+            "label": "TMT A (Anzahl Fehler)",
+            "val": {
+              "required": true,
+              "min": 0,
+              "max": 999
+            }
+          }
+        ]
+      },
+      {
+        "group_title": "TMT B",
+        "group_subtitle": "Die Leistungen der exekutiven Funktionen, insbesondere kognitive Flexibilität und Switching (TMT B)",
+        "group_id": "tmt",
+        "questions": [{
+            "type": "questionNumber",
+            "var": "TMTBTime",
+            "title": "Zeit",
+            "help": "Zeit in Sekunden.",
+            "label": "TMT B (Zeit in Sekunden)",
+            "val": {
+              "required": true,
+              "min": 10,
+              "max": 180
+            }
+          },
+          {
+            "type": "questionNumber",
+            "var": "TMTBError",
+            "title": "Fehler",
+            "help": "Anzahl der Fehler bei der Ausführung des TMT B.",
+            "label": "TMT B (Anzahl Fehler)",
+            "val": {
+              "required": true,
+              "min": 0,
+              "max": 999
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "another_survey": {
+    "survey": {
+      "survey_id": "another_survey",
+      "version": "1.0",
+      "welcome_title": "Testsurvey",
+      "welcome_subtitle": "Question-Type-Explorer",
+      "welcome_text": [
+        "Ziel: Vermittlung und Darstellung aller möglichen Fragetypen und deren Funktionen.",
+        "Have a nice day! :-)"
+      ],
+      "show_welcome_page": false,
+      "show_question_groups_numbers": true,
+      "show_question_numbers": false,
+      "result_store_survey_markup": false,
+      "result_store_timings": true,
+      "empty_vars": ""
+    },
+    "question_groups": [{
+        "group_title": "Eine Zahl erfassen",
+        "group_subtitle": "Example (questionNumber)",
+        "group_id": "questionNumber",
+        "questions": [{
+          "type": "questionNumber",
+          "var": "Ausbildungsjahre",
+          "title": "Ausbildungsjahre",
+          "help": "Ausbildungsjahre meint Schuljahre und Jahre der ersten Berufsausbildung, z.B. 9 JaSchule + 3 Jahre Berufslehre gibt 12 Ausbildungsjahre, oder 12 Jahre Schule (z.B. Matur) Jahre Studium gibt 17 Ausbildungsjahre.",
+          "label": "Bis 12 Jahre vs. mehr als 12 Jahre Ausbildung",
+          "if": "",
+          "val": {
+            "required": true,
+            "min": 6,
+            "max": 40
+          }
+        }]
+      },
+      {
+        "group_title": "Stimmung erfassen",
+        "group_subtitle": "Example (questionEmotion)",
+        "group_id": "questionEmotion",
+        "questions": [{
+          "type": "questionEmotion",
+          "var": "emotion",
+          "title": "Aktuelle Stimmung",
+          "help": "Wie ist Ihre aktuelle Stimmung?",
+          "if": "Ausbildungsjahre > 12",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Ein Text erfassen",
+        "group_subtitle": "Example (questionText)",
+        "group_id": "questionText",
+        "questions": [{
+          "type": "questionText",
+          "var": "email",
+          "title": "Wie lautet Ihre Email Adresse?",
+          "help": "",
+          "label": "Email",
+          "if": "Ausbildungsjahre > 12",
+          "val": {
+            "required": true,
+            "pattern": "/^.+@.+\\..+$/"
+          }
+        }]
+      },
+      {
+        "group_title": "Ein längerer Text erfassen",
+        "group_subtitle": "Example (questionTextarea)",
+        "group_id": "questionTextarea",
+        "questions": [{
+          "type": "questionTextarea",
+          "var": "panik_ursache",
+          "title": "Panikattacke",
+          "help": "Beschreiben Sie die möglichen Ursachen, der aktuellen Panikattacke.",
+          "label": "Panikattacke: Mögliche Ursache",
+          "if": "Ausbildungsjahre > 12",
+          "val": {
+            "required": true,
+            "maxlength": 150,
+            "rows": 3
+          }
+        }]
+      },
+      {
+        "group_title": "Eine Datum erfassen",
+        "group_subtitle": "Example (questionDate)",
+        "group_id": "questionDate",
+        "questions": [{
+          "type": "questionDate",
+          "var": "birthday",
+          "title": "Wann sind Sie geboren?",
+          "help": "Selektieren Sie ihren Geburtstag.",
+          "label": "Geburtstag",
+          "if": "Ausbildungsjahre > 12",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Eine Selektion vornehmen",
+        "group_subtitle": "Example (questionSelect)",
+        "group_id": "questionSelect",
+        "questions": [{
+          "type": "questionSelect",
+          "var": "Messzeitpunkt",
+          "title": "Messzeitpunkt",
+          "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
+          "label": "Assessment (Erhebung)",
+          "if": "Ausbildungsjahre > 12",
+          "val": {
+            "required": true
+          },
+          "options": [{
+              "value": "1",
+              "label": "Eintritt"
+            },
+            {
+              "value": "2",
+              "label": "Austritt"
+            },
+            {
+              "value": "3",
+              "label": "Anderer Messzeitpunkt"
+            }
+          ]
+        }]
+      },
+      {
+        "group_title": "Eine oder mehrere Möglichkeiten selektieren.",
+        "group_subtitle": "Example (questionMultiSelect)",
+        "group_id": "questionMultiSelect",
+        "questions": [{
+          "type": "questionMultiSelect",
+          "var": "messzeitpunkte",
+          "var_prefix": "[",
+          "var_suffix": "]",
+          "title": "Messzeitpunkte",
+          "help": "Bei welchen Messzeitpunkten wurde eine Erhebung ausgeführt?",
+          "label": "Erhebungen",
+          "true_value": 1,
+          "false_value": 0,
+          "if": "Ausbildungsjahre > 12",
+          "val": {
+            "required": true
+          },
+          "options": [{
+              "value": "1",
+              "var": "eintritt",
+              "label": "Eintritt"
+            },
+            {
+              "value": "2",
+              "var": "austritt",
+              "label": "Austritt"
+            },
+            {
+              "value": "3",
+              "var": "anderer",
+              "label": "Anderer Messzeitpunkt"
+            }
+          ]
+        }]
+      }
+    ]
+  },
+  "rs13_survey": {
+    "survey": {
+      "survey_id": "rs13_survey",
+      "version": "1.0",
+      "welcome_title": "Resilienzfragebogen",
+      "welcome_subtitle": "RS-13",
+      "welcome_text": [
+        "Im folgenden Fragebogen finden Sie eine Reihe von Feststellungen. Bitte lesen Sie sich jede Feststellung durch und kreuzen Sie an, wie sehr die Aussagen im Allgemeinen auf Sie zutreffen, d.h. wie sehr ihr übliches Denken und Handeln durch diese Aussagen beschrieben wird."
+      ],
+      "show_welcome_page": true,
+      "show_question_groups_numbers": false,
+      "show_question_numbers": false,
+      "result_store_survey_markup": false,
+      "result_store_timings": false,
+      "empty_vars": ""
+    },
+    "question_groups": [{
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_01",
+          "title": "Wenn ich Pläne habe, verfolge ich sie auch.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_02",
+          "title": "Normalerweise schaffe ich alles irgendwie.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_03",
+          "title": "Ich lasse mich nicht so schnell aus der Bahn werfen.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_04",
+          "title": "Ich mag mich.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_05",
+          "title": "Ich kann mehrere Dinge gleichzeitig bewältigen.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13_06",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_06",
+          "title": "Ich bin entschlossen.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_07",
+          "title": "Ich nehme die Dinge wie sie kommen.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_08",
+          "title": "Ich behalte an vielen Dingen Interesse.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_09",
+          "title": "Normalerweise kann ich eine Situation aus mehreren Perspektiven betrachten.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_10",
+          "title": "Ich kann mich auch überwinden, Dinge zu tun, die ich eigentlich nicht machen will.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_11",
+          "title": "Wenn ich in einer schwierigen Situation bin, finde ich gewöhnlich einen Weg heraus.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_12",
+          "title": "In mir steckt genügend Energie, um alles zu machen, was ich machen muss.",
+          "val": {
+            "required": true
+          }
+        }]
+      },
+      {
+        "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
+        "group_subtitle": "Resilienzfragebogen (RS-13)",
+        "group_id": "rs13",
+        "questions": [{
+          "type": "questionApproval",
+          "var": "rs13_13",
+          "title": "Ich kann es akzeptieren, wenn mich nicht alle Leute mögen.",
+          "val": {
+            "required": true
+          }
+        }]
+      }
+    ]
+  }
+}
+);
+        console.warn('_init :: Survey - Markup Template', this.survey_markup);
+      }
+
+      constructor() {
+        super();
+      }
+
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {
+          this._init();
+        });
+      }
+    }
+
+    window.customElements.define(optinomicTemplate.is, optinomicTemplate);</script></dom-module>
