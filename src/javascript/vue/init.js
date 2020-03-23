@@ -23,10 +23,21 @@ new Vue({
         actions: {
             getSurveyResponses({
                 commit
-            }) {
+            }, params) {
+
                 var module_identifier = helpers.getAppID();
                 var current_pid = parseInt(helpers.getPatientID());
                 var current_stay_id = parseInt(helpers.getStayID());
+
+                try {
+                    module_identifier = params.identifier;
+                } catch (err) {};
+                try {
+                    current_pid = params.pid;
+                } catch (err) {};
+                try {
+                    current_stay_id = params.sid;
+                } catch (err) {};
 
                 var base_data = {
                     "date": new Date(),
@@ -60,9 +71,6 @@ new Vue({
 
                 // Do async task
                 helpers.callAPI('GET', api_url, {}, {}, function (req) {
-                    
-                    
-
 
                     var app_id = helpers.getAppID();
 

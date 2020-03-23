@@ -44,9 +44,7 @@ Vue.component('optinomic-pdfmake', {
             doc_title: makepdf._create_document_name(this.documentTitle, this.headerLeft)
         }
     },
-    mounted() {
-
-    },
+    mounted() {},
     computed: {
         sr_data() {
             // return data
@@ -61,7 +59,7 @@ Vue.component('optinomic-pdfmake', {
         __open_pdf: function () {
 
             var dd = makepdf._create_document(this.documentTitle, this.headerLeft, this.headerRight, this.footerLeft, this.pageSize, this.pageOrientation, this.hideLogo, this.hidePageNumbers);
-            
+
             dd.content = this.content;
             dd = makepdf._addFooter(dd, this.footerLeft, this.hidePageNumbers);
 
@@ -72,7 +70,7 @@ Vue.component('optinomic-pdfmake', {
         __download_pdf: function () {
 
             var dd = makepdf._create_document(this.documentTitle, this.headerLeft, this.headerRight, this.footerLeft, this.pageSize, this.pageOrientation, this.hideLogo, this.hidePageNumbers);
-            
+
             dd.content = this.content;
             dd = makepdf._addFooter(dd, this.footerLeft, this.hidePageNumbers);
             console.log('PDF | download :: ' + this.doc_title, dd);
