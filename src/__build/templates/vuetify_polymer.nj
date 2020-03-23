@@ -12,6 +12,10 @@
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
 </head>
 
+<script>
+{% block scripts %}{% endblock %} 
+</script>
+
 <div id="optinomic_app">
   <v-app style="background:#f8f8f8;background-color:#f8f8f8;">
     <v-content>
@@ -23,6 +27,7 @@
     </v-content>
   </v-app>
 </div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/vfs_fonts.js"></script>
