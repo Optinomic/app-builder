@@ -91,21 +91,21 @@ Vue.component('app-title', {
                                 <template v-slot:default>
                                     <tbody>
                                         <tr>
+                                            <td>App (updated @ <span v-text="formatDateCH(app_data.module_activation.data.last_update)"></span>)</td>
+                                            <td>
+                                                <a :href="'https://github.com/Optinomic/' + app_data.module.identifier" target="_blank" v-text="app_data.module.identifier"></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Licensed</td>
                                             <td>
                                                 <a :href="clinic_data.clinic_www" target="_blank" v-text="clinic_data.clinic_name + ', ' + clinic_data.clinic_address"></a>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Administrator</td>
+                                            <td>Support</td>
                                             <td>
                                                 <a :href="'mailto:'+ clinic_data.admin_email" v-text="clinic_data.admin_name"></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Updated @ <span v-text="formatDateCH(app_data.module_activation.data.last_update)"></span></td>
-                                            <td>
-                                                <a :href="'https://github.com/Optinomic/' + app_data.module.identifier" target="_blank" v-text="app_data.module.identifier"></a>
                                             </td>
                                         </tr>
                                     </tbody>
