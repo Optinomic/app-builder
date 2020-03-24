@@ -163,6 +163,9 @@ Vue.component('app-rs13', {
         }
      },
     computed: {
+        isAdmin() {
+            return this.$store.getters.isAdmin
+        },
         patient_secure() {
             // return data
             try {
@@ -287,6 +290,12 @@ Vue.component('app-rs13', {
                 <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienzfragebogen (RS-13)" header-right="Klinik Südhang"
                     document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
             </optinomic-content-block>
+
+
+            <optinomic-content-block title="Administrator" v-if="isAdmin" subtitle="Admin only" id="id_admin_only">
+                <pdf-auswertung-gesamt></pdf-auswertung-gesamt>
+            </optinomic-content-block>  
+
         </div>
     `
 });

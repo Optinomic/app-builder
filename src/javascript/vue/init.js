@@ -11,13 +11,54 @@ new Vue({
             sr: null,
             user: null,
             patient: null,
-            clinic: null
+            clinic: null,
+            data_apps: {}
+        },
+        getters: {
+            isAdmin: state => {
+                try {
+                    return state.user.data.isAdmin;
+                } catch (err) {
+                    return false;
+                };
+            }
         },
         mutations: {
             saveData(state, d) {
-                // console.error('state', d.root, d.data);
-                state[d.root] = d.data;
-                console.warn('state :: ', new Date(), state);
+                try {
+                    state[d.root] = d.data;
+                    // console.warn('state :: ', new Date(), state);
+                } catch (err) {
+                    console.error('Error: saveData', err);
+                };
+            },
+            saveAppData(state, pl) {
+                var d = Object.assign({}, pl);
+                var da = Object.assign({}, state.data_apps);
+                try {
+                    da.base.forEach(function (app, appID) {
+                        if (app.app_id === d.root) {
+                            app.init = true;
+                            app = Object.assign(app, d.data);
+                        };
+                    });
+
+                    if (d.data.loaded === true) {
+                        da.data_init_array.push(d.root);
+                    } else {
+                        da.data_loaded_array.push(d.root);
+                        da.count = state.data_apps.count + 1;
+                    };
+
+                    // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
+                    // Vue.set(da, state.data_apps);
+                    // state.data_apps = { ...state.data_apps, da };
+                    state.data_apps = Object.assign({}, da);
+
+                    // console.warn('state :: ', new Date(), state);
+                } catch (err) {
+                    console.error('Error: saveAppData', err);
+                };
             }
         },
         actions: {
@@ -25,24 +66,49 @@ new Vue({
                 commit
             }, params) {
 
+                if (params === undefined) {
+                    params = {};
+                };
+
+                var is_defined = function (val) {
+                    if ((val === undefined) || (val === null)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
+
                 var module_identifier = helpers.getAppID();
                 var current_pid = parseInt(helpers.getPatientID());
-                var current_stay_id = parseInt(helpers.getStayID());
+                var current_stay_id = parseInt(helpers.getStayID());;
+                var store_root = 'sr';
 
                 try {
-                    module_identifier = params.identifier;
-                } catch (err) {};
-                try {
-                    current_pid = params.pid;
-                } catch (err) {};
-                try {
-                    current_stay_id = params.sid;
-                } catch (err) {};
+                    if (is_defined(params.identifier)) {
+                        module_identifier = params.identifier;
+                    }
+
+                    if (is_defined(params.pid)) {
+                        current_pid = params.pid;
+                    }
+
+                    if (is_defined(params.sid)) {
+                        current_stay_id = params.sid;
+                    }
+
+                    if (is_defined(params.root)) {
+                        store_root = params.root;
+                    }
+                } catch (err) {
+                    // console.error('getSurveyResponses - Params', err);
+                };
+
 
                 var base_data = {
                     "date": new Date(),
                     "data": null,
                     "calculations_all": null,
+                    "loaded": false,
                     "have_data": false,
                     "possible_data": true,
                     "request": null,
@@ -51,11 +117,18 @@ new Vue({
                     "app_id": module_identifier
                 };
 
-                console.log('(?) getSurveyResponses', module_identifier, current_pid, current_stay_id);
+                console.log('(?) getSurveyResponses', module_identifier, current_pid, current_stay_id, store_root);
+
+
+                var savetype = 'saveData';
+                if (store_root !== 'sr') {
+                    savetype = 'saveAppData';
+                };
+
 
                 commit({
-                    type: 'saveData',
-                    root: 'sr',
+                    type: savetype,
+                    root: store_root,
                     data: base_data
                 });
 
@@ -274,6 +347,7 @@ new Vue({
                                     "data": return_array,
                                     "calculations_all": calculation_results,
                                     "have_data": have_data,
+                                    "loaded": true,
                                     "possible_data": true,
                                     "request": data_request,
                                     "pid": current_pid,
@@ -284,8 +358,8 @@ new Vue({
 
 
                                 commit({
-                                    type: 'saveData',
-                                    root: 'sr',
+                                    type: savetype,
+                                    root: store_root,
                                     data: response
                                 });
 
