@@ -180,7 +180,7 @@ var makepdf = (function () {
 
         datum_str = y + "_" + m + "_" + t;
 
-        doc_name = doc_name + datum_str + " - " + title + " - " + left;
+        doc_name = doc_name + datum_str + " - " + title.replace(/\./g,'') + " - " + left.replace(/\./g,'');
         doc_name = doc_name + ".pdf";
 
         // console.log('doc_name', doc_name);
@@ -279,7 +279,7 @@ var makepdf = (function () {
         subtitle = subtitle === undefined ? "" : subtitle;
 
         return {
-            "id": "title",
+            "id": title + "_" + subtitle,
             "stack": [
                 // second column consists of paragraphs
                 {
@@ -346,7 +346,6 @@ var makepdf = (function () {
         text = text === undefined ? "Optinomic" : text;
 
         return {
-            "id": "text",
             "text": " " + text,
             "style": "p"
         };
@@ -357,7 +356,6 @@ var makepdf = (function () {
         text = text === undefined ? "Optinomic" : text;
 
         return {
-            "id": "caption",
             "text": text,
             "style": "caption"
         };
@@ -366,7 +364,6 @@ var makepdf = (function () {
     var _pageBreak = function (when) {
         when = when === undefined ? "after" : when;
         return {
-            "id": "peagebreak_" + when,
             "fontSize": 0,
             "text": "",
             "pageOrientation": "portrait",
@@ -383,7 +380,6 @@ var makepdf = (function () {
         var length = 514 / 100 * width;
 
         var return_obj = {
-            "id": "horizontal_line",
             "margin": [0, space, 0, 0],
             "canvas": [{
                 "type": "line",
@@ -413,7 +409,6 @@ var makepdf = (function () {
         };
 
         var no_data = {
-            "id": "no_data",
             "table": {
                 "widths": [24, "*"],
                 "body": [
