@@ -455,27 +455,31 @@ Vue.component('pdf-auswertung-gesamt', {
     },
     template: `
     <div>
-
-        <div v-if="!pdf_finished">
+        <div v-if="!pdf_finished" class="pt-2">
 
             <div v-if="pdf_building" class="d-flex flex-row justify-space-between align-center mr-4">
-                <p v-text="pdf_status"></p>
+                <div class="mb-3 mr-2">
+                    <v-icon color="#8b0042">mdi-file-pdf</v-icon>
+                </div>
+                <p class="mr-auto mt-2" v-text="pdf_status"></p>
 
                 <div v-for="index in this.pdf_create_count" :key="index" style="margin-top:-12px;">
-                    <v-badge color="green" dot> </v-badge>
+                    <v-badge class="ml-4" color="green" dot> </v-badge>
                 </div>
                 <div v-for="index in data_apps_array.length - this.pdf_create_count" :key="index" style="margin-top:-12px;">
-                    <v-badge color="blue" dot> </v-badge>
+                    <v-badge class="ml-4" color="blue" dot> </v-badge>
                 </div>
-
             </div>
             <div v-else class="d-flex flex-row justify-space-between align-center mr-4">
-                <p v-text="pdf_status"></p>
+                <div class="mb-3 mr-2">
+                    <v-icon color="#8b0042">mdi-file-pdf</v-icon>
+                </div>
+                <p class="mr-auto mt-2" v-text="pdf_status"></p>
 
                 <div v-for="app in data_apps_array" style="margin-top:-12px;">
-                    <v-badge v-if="(app.init === true) && (app.loaded !== true)  && (app.pdf_created !== true)" color="grey"
+                    <v-badge class="ml-4" v-if="(app.init === true) && (app.loaded !== true)  && (app.pdf_created !== true)" color="grey"
                         dot> </v-badge>
-                    <v-badge v-if="(app.init === true) && (app.loaded === true)  && (app.pdf_created !== true)" color="blue"
+                    <v-badge class="ml-4" v-if="(app.init === true) && (app.loaded === true)  && (app.pdf_created !== true)" color="blue"
                         dot></v-badge>
                 </div>
             </div>
