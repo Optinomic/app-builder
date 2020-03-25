@@ -1,3 +1,4 @@
+
 // Init Vue
 new Vue({
     el: '#optinomic_app',
@@ -11,6 +12,7 @@ new Vue({
             sr: null,
             user: null,
             patient: null,
+            stays: null,
             clinic: null,
             data_apps: {}
         },
@@ -27,7 +29,7 @@ new Vue({
             saveData(state, d) {
                 try {
                     state[d.root] = d.data;
-                    // console.warn('state :: ', new Date(), state);
+                    console.warn('state :: ', new Date(), state);
                 } catch (err) {
                     console.error('Error: saveData', err);
                 };
@@ -606,6 +608,63 @@ new Vue({
                             type: 'saveData',
                             root: 'patient',
                             data: response
+                        });
+
+                    } else {
+                        var response = {
+                            "error": true,
+                            "api_url": api_url,
+                            "error_message": "Failed with status code: " + req.status,
+                            "status_code": req.status,
+                            "req": req
+                        };
+                        console.error('(!) Error: ', response);
+                    };
+
+                });
+
+            },
+            getPatientStays({
+                commit
+            }) {
+
+                const api_url = '/patients/' + helpers.getPatientID() + '/stays/';
+                var parameters = {}
+
+                // Do async task
+                helpers.callAPI('GET', api_url, parameters, {}, function (req) {
+                    if (req.status == 200) {
+
+                        var resp = JSON.parse(req.response);
+                        var stays = resp.stays;
+
+                        var current_stay_id = parseInt(helpers.getStayID());
+
+                        var stay_response = {
+                            "all": stays,
+                            "current": {
+                                "id": current_stay_id,
+                                "data": null,
+                                "found": false
+                            }
+                        }
+
+                        stays.forEach(function(stay, stayID) {
+                            stay.data = createStayExtras(stay.data);
+                            stay.data.id = stay.id;
+                            stay.data.fid = stay.id;
+                            if (current_stay_id === stay.id) {
+                                stay_response.current.data = stay.data;
+                                stay_response.current.found = true;
+                            };
+                        });
+
+                        console.log('(✔) Data (' + api_url + '):', stay_response);
+
+                        commit({
+                            type: 'saveData',
+                            root: 'stays',
+                            data: stay_response
                         });
 
                     } else {

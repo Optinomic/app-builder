@@ -15,6 +15,7 @@ Vue.component('app-optinomic', {
         this.$store.dispatch('getUser');
         if (helpers.getPatientID() !== 0) {
             this.$store.dispatch('getPatient');
+            this.$store.dispatch('getPatientStays');
         };
         this.$store.dispatch('getClinic');
     },
@@ -88,7 +89,7 @@ Vue.component('app-optinomic', {
                 <v-content class="mb-12">
                     <v-container class="mt-10 mb-12 pt-8 pb-12 pl-10 pr-8 elevation-1"
                         style="background-color:white!important;">
-        
+
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <img v-if="clinic_data" :src="clinic_data.clinic_logo" :alt="clinic_data.clinic_slogan"
@@ -100,9 +101,9 @@ Vue.component('app-optinomic', {
                                 <optinomic-toc></optinomic-toc>
                             </v-col>
                         </v-row>
-        
+
                         <app-title :title="title" :subtitle="subtitle" class="mt-4"></app-title>
-        
+
                         <div v-if="loaded">
                             <div v-if="could_have_data">
                                 <div v-if="sr.have_data">
