@@ -200,13 +200,13 @@ new Vue({
 
                                             current_event.data.id = current_event.id;
                                             return_obj.event = current_event.data;
+                                            return_obj.event.extras = createEventExtras(current_event.data);
                                             return_obj.patient_uses_module_id = current_event.data.patient_uses_module_id;
                                             return_obj.patient_id = current_event.data.patient_id;
                                             return_obj.app_id = current_event.data.module;
                                             app_id = return_obj.app_id;
                                         };
                                     });
-
 
                                     if (return_obj.event_found) {
                                         resp.patients.forEach(function (current_patient, patientID) {

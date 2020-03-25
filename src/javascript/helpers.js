@@ -226,7 +226,7 @@ createStayExtras = function (current_stay) {
         current_stay.extras.from_to = current_stay.extras.from_to + "Unbekannt";
     };
 
-    return current_stay.extras;
+    return current_stay;
 };
 
 createEventExtras = function (current_event) {
