@@ -39,9 +39,7 @@ Vue.component('optinomic-pdfmake', {
     },
     data: function () {
         return {
-            pdf_request_possible: true,
-            loadingString: "...",
-            doc_title: makepdf._create_document_name(this.documentTitle, this.headerLeft)
+            loadingString: "..."
         }
     },
     mounted() {},
@@ -52,6 +50,47 @@ Vue.component('optinomic-pdfmake', {
                 return this.$store.state.sr.data;
             } catch (e) {
                 return [];
+            };
+        },
+        doc_title() {
+            // return data
+            try {
+                var doc_name = "";
+    
+                var d = new Date();
+                var y = d.getFullYear();
+                var m = d.getMonth() + 1;
+                var t = d.getUTCDate();
+        
+                if (m < 10) {
+                    m = "0" + m;
+                };
+        
+                if (t < 10) {
+                    t = "0" + t;
+                };
+        
+                datum_str = y + "_" + m + "_" + t;
+        
+
+                // Demo Muster (21.5.1973 | 46) => Hr_DeM_1973
+                var pat_string = "";
+                if (this.$store.state.patient.data.gender === "male") {
+                    pat_string = "Hr_";
+                } else {
+                    pat_string = "Fr_";
+                };
+                pat_string = pat_string + this.$store.state.patient.data.last_name.substring(0, 2);
+                pat_string = pat_string + this.$store.state.patient.data.first_name.substring(0, 1);
+                pat_string = pat_string + "_";
+                pat_string = pat_string + this.$store.state.patient.data.birthdate.substring(0, 4);
+
+                doc_name = doc_name + datum_str + " - " + this.documentTitle + " - " + pat_string;
+                doc_name = doc_name + ".pdf";
+
+                return doc_name;
+            } catch (e) {
+                return "";
             };
         }
     },
@@ -76,6 +115,12 @@ Vue.component('optinomic-pdfmake', {
             console.log('PDF | download :: ' + this.doc_title, dd);
             this.pdf_request_possible = false;
             pdfMake.createPdf(dd).download(this.doc_title);
+        },
+        create_document_name: function () {
+
+    
+            // console.log('doc_name', doc_name);
+            return doc_name
         }
     },
     template: `
@@ -85,13 +130,12 @@ Vue.component('optinomic-pdfmake', {
         
             <p v-text="doc_title" class="mr-auto"></p>
         
-            <v-btn v-if="pdf_request_possible" outlined small rounded color="#a1a1a1" class="mr-1" v-on:click="__download_pdf">
+            <v-btn outlined small rounded color="#a1a1a1" class="mr-1" v-on:click="__download_pdf">
                 Herunterladen
             </v-btn>
-            <v-btn v-if="pdf_request_possible" outlined small rounded color="#8b0042" class="mr-1" v-on:click="__open_pdf">
+            <v-btn outlined small rounded color="#8b0042" class="mr-1" v-on:click="__open_pdf">
                 Öffnen
             </v-btn>
-            <p v-if="!pdf_request_possible" class="caption">PDF created.</p>
         </div>
     `
 });
