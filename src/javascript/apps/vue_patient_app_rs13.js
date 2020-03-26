@@ -72,7 +72,7 @@ Vue.component('app-rs13', {
                         "interpretation": "mz"
                     },
                     {
-                        "name": "Erfassung",
+                        "name": "Erfassungsdatum",
                         "variable": "rs13_date",
                         "path": "response.rs13_date"
                     },
