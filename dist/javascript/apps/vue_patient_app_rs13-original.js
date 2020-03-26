@@ -194,9 +194,6 @@ Vue.component('app-rs13', {
         }
     },
     computed: {
-        isAdmin() {
-            return this.$store.getters.isAdmin
-        },
         patient_secure() {
             // return data
             try {
@@ -304,7 +301,7 @@ Vue.component('app-rs13', {
                 </div>
                 <div v-else>
                     <optinomic-content-block :title="'Erfassung vom ' + formatDateCH(sr.date)" subtitle="Hinweis zur" id="id_no_calculation">
-                        <v-alert prominent outlined text type="error">
+                        <v-alert outlined text type="error">
                             Calculation noch nicht berechnet.
                         </v-alert>
                     </optinomic-content-block>
