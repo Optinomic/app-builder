@@ -313,7 +313,7 @@ Vue.component('app-rs13', {
             </div>
 
             <optinomic-content-block :subtitle="sr_count_text" title="Datentabelle" id="id_data_table">
-                <optinomic-data-table :rows="data_table.rows" :interpretations="interpretations"></optinomic-data-table>
+                <optinomic-data-table :rows="data_table.rows" :interpretations="data_table.interpretations"></optinomic-data-table>
             </optinomic-content-block>
 
             <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf" v-if="pdf_ready">
