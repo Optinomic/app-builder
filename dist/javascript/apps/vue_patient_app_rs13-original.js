@@ -291,11 +291,6 @@ Vue.component('app-rs13', {
                     document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
             </optinomic-content-block>
 
-
-            <optinomic-content-block title="Administrator" v-if="isAdmin" subtitle="Admin only" id="id_admin_only">
-                <pdf-auswertung-gesamt></pdf-auswertung-gesamt>
-            </optinomic-content-block>  
-
         </div>
     `
 });

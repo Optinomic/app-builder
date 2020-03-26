@@ -261,7 +261,7 @@
     <md-input-container class="md-block">
         <md-datepicker
             name="{{ q.var }}" 
-            ng-change="result.{{ q.var }} = Date(date_{{ q.var }})" 
+            ng-change="result.{{ q.var }} = date_{{ q.var }}.toISOString()"
             ng-model="date_{{ q.var }}" 
             md-placeholder="{{ q.label }}" 
             md-open-on-focus

@@ -17,6 +17,7 @@
 {# --- Scripts-Section ---#}
 {% block scripts %}
 {% raw %}
+
 // Current App Components
 __opapp_include(../../dist/javascript/apps/vue_patient_app_honos.js)
 

@@ -343,6 +343,44 @@
       "empty_vars": ""
     },
     "question_groups": [{
+        "group_title": "Messzeitpunkt",
+        "group_subtitle": "Erhebung (RS-13)",
+        "group_id": "mz_rs13",
+        "questions": [{
+          "type": "questionSelect",
+          "var": "rs13_messzeitpunkt",
+          "title": "Messzeitpunkt",
+          "help": "Bei welchem Messzeitpunkt wurde die Erhebung ausgeführt?",
+          "label": "Assessment (Erhebung)",
+          "if": "",
+          "val": {
+            "required": true
+          },
+          "options": [{
+              "value": "1",
+              "label": "Eintritt"
+            },
+            {
+              "value": "2",
+              "label": "Austritt"
+            },
+            {
+              "value": "3",
+              "label": "Anderer Messzeitpunkt"
+            }
+          ]
+        }, {
+          "type": "questionDate",
+          "var": "rs13_date",
+          "title": "Datum der Erfassung",
+          "help": "Wann wurde die Erfassung vorgenommen?",
+          "label": "Datum",
+          "if": "",
+          "val": {
+            "required": true
+          }
+        }]
+      }, {
         "group_title": "Wie sehr trifft folgende Aussage auf Sie zu?",
         "group_subtitle": "Resilienzfragebogen (RS-13)",
         "group_id": "rs13",
