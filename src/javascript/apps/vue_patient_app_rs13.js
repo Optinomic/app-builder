@@ -251,7 +251,7 @@ Vue.component('app-rs13', {
                 };
 
             } catch (e) {
-                console.error('ERROR: pdf_ready', e);
+                // console.error('ERROR: pdf_ready', e);
                 return false;
             };
         }

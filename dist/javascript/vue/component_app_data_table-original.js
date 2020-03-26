@@ -92,7 +92,7 @@ Vue.component('optinomic-data-table', {
                 };
                 return new_rows;
             } catch (e) {
-                console.error('rows_extended', e);
+                // console.error('rows_extended', e);
                 return this.rows;
             }
         }
