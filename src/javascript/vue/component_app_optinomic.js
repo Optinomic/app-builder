@@ -12,34 +12,40 @@ Vue.component('app-optinomic', {
     },
     created() {
         this.$store.dispatch('getSurveyResponses');
-        this.$store.dispatch('getUser');
         if (helpers.getPatientID() !== 0) {
             this.$store.dispatch('getPatient');
             this.$store.dispatch('getPatientStays');
         };
+        this.$store.dispatch('getUser');
         this.$store.dispatch('getClinic');
     },
     computed: {
         sr() {
-            // get survey_response
             try {
                 return this.$store.state.sr;
             } catch (e) {
                 return {};
             };
         },
-        loaded() {
-            // get survey_response
+        isAdmin() {
             try {
-                if ((this.$store.state.sr.have_data === true) || (this.$store.state.sr.have_data === false)) {
+                return this.$store.state.user.data.isAdmin;
+            } catch (e) {
+                return {};
+            };
+        },
+        loaded() {
+            try {
+                if (this.$store.state.sr.loaded === true) {
                     return true;
+                } else {
+                    return false;   
                 };
             } catch (e) {
                 return false;
             };
         },
         user_text() {
-            // get survey_response
             try {
                 return this.$store.state.user.data.first_name + " " + this.$store.state.user.data.last_name + " (" + this.$store.state.user.data.initials + ")";
             } catch (e) {
@@ -47,7 +53,6 @@ Vue.component('app-optinomic', {
             };
         },
         clinic_data() {
-            // get survey_response
             try {
                 return this.$store.state.clinic.data;
             } catch (e) {
@@ -55,12 +60,11 @@ Vue.component('app-optinomic', {
             };
         },
         could_have_data() {
-            // get survey_response
             try {
                 var ret_bool = false;
 
                 if (this.$store.state.current_app.module.surveys.length > 0) {
-                    ret_bool = true;    
+                    ret_bool = true;
                 }
                 return ret_bool;
             } catch (e) {
@@ -68,19 +72,48 @@ Vue.component('app-optinomic', {
             };
         },
         missing_data() {
-            // get survey_response
-            if (this.$store.state.sr === null) {
+            try {
+                if (this.$store.state.sr === null) {
+                    return false;
+                } else {
+                    var sr = this.$store.state.sr.data;
+                    var data_errors = false;
+                    sr.forEach(function (item) {
+                        if (item.all_found === false) {
+                            data_errors = true;
+                        };
+                    });
+                    return data_errors;
+                };
+            } catch (e) {
                 return false;
-            } else {
-                var sr = this.$store.state.sr.data;
-                var data_errors = false;
-                sr.forEach(function (item) {
-                    if (item.all_found === false) {
-                        data_errors = true;
-                    };
-                });
-                return data_errors;
             };
+        }
+    },
+    methods: {
+        logState: function (pretty) {
+            try {
+                var log = Object.assign({}, this.$store.state);
+                var dateObj = new Date();
+                const options = {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                };
+                var title = "STATE :: " + dateObj.toLocaleDateString('de-DE', options);
+
+                if (pretty === true) {
+                    var str = JSON.stringify(log, null, 2);
+                    console.log(title, str);
+                } else {
+                    console.log(title, log);
+                };
+
+            } catch (e) {
+                console.log('logState', e);
+            }
         }
     },
     template: `
@@ -144,13 +177,34 @@ Vue.component('app-optinomic', {
                                 </div>
                             </div>
                             <div v-else>
-                                <slot></slot>    
+                                <slot></slot>
                             </div>
                         </div>
                         <div v-else lass="mx-3 mt-3">
                             <v-sheet class="px-3 pt-3 pb-3">
                                 <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
                             </v-sheet>
+                        </div>
+                        <!-- ADMIN - Tools -->
+                        <div v-if="isAdmin">
+                            <optinomic-content-block title="Administrator" subtitle="Only for" id="admin_tools"
+                                show_in_toc="false">
+                                <v-simple-table dense>
+                                    <tbody>
+                                        <tr>
+                                            <td>State (Check Console)</td>
+                                            <td>
+                                                <v-btn text small @click="logState(true)">
+                                                    beautify
+                                                </v-btn>
+                                                <v-btn text small color="#8b0042" @click="logState(false)">
+                                                    log
+                                                </v-btn>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </v-simple-table>
+                            </optinomic-content-block>
                         </div>
                         <!-- FOOTER -->
                         <div class="mt-12 pt-12 ml-4 mr-6">
@@ -171,6 +225,6 @@ Vue.component('app-optinomic', {
                     </v-container>
                 </v-content>
             </v-app>
-        </template>
+        </template> 
     `
 });

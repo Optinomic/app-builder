@@ -74,7 +74,8 @@ Vue.component('app-rs13', {
                     {
                         "name": "Erfassungsdatum",
                         "variable": "rs13_date",
-                        "path": "response.rs13_date"
+                        "path": "response.rs13_date",
+                        "interpretation": "date"
                     },
                     {
                         "name": "Wenn ich Pläne habe, verfolge ich sie auch.",
@@ -167,14 +168,9 @@ Vue.component('app-rs13', {
     },
     methods: {
         getTitle: function (r) {
-            var ret_string = "Erfassung";
-            console.log(r)
             try {
-                if (r.calculation_found) {
-                    const name = r.calculation.resilienz_score.range.interpretation_de;
-                    const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
-                    ret_string = nameCapitalized;
-                }
+                var ret_string = "Erfassung vom ";
+                ret_string = ret_string + formatDateCH(r.date);
             } catch (e) {
                 console.error('getTitle', e);
             }
@@ -183,10 +179,13 @@ Vue.component('app-rs13', {
         getSubtitle: function (r) {
             var ret_string = "::";
             try {
-                ret_string = formatDateCH(r.date);
                 if (r.calculation_found) {
-                    ret_string = ret_string + " | ∑ Resilienz-Summenscore: " + r.calculation.resilienz_score.rs13_score;
-                }
+                    const name = r.calculation.resilienz_score.range.interpretation_de;
+                    ret_string = name.charAt(0).toUpperCase() + name.slice(1);
+                } else {
+                    ret_string = "Calculation wird berechnet...";
+                };
+                return ret_string;
             } catch (e) {
                 console.error('getSubtitle', e);
             }
@@ -288,7 +287,7 @@ Vue.component('app-rs13', {
             <div v-for="sr in sr_data" :key="sr.event_id">
 
                 <div v-if="sr.calculation_found">
-                    <optinomic-content-block :title="getTitle(sr)" :subtitle="getSubtitle(sr)" id="id_erfassungen">
+                    <optinomic-content-block :title="getTitle(sr)" :subtitle="getSubtitle(sr)" :id="'id_erfassung_' + sr.event_id">
                         <p class="overline">Auswertung / Interpretation</p>
                         <optinomic-clipboard-text :text="sr.calculation.resilienz_score.interpretation">
                         </optinomic-clipboard-text>

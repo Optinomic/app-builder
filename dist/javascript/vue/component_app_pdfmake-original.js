@@ -44,34 +44,26 @@ Vue.component('optinomic-pdfmake', {
     },
     mounted() {},
     computed: {
-        sr_data() {
-            // return data
-            try {
-                return this.$store.state.sr.data;
-            } catch (e) {
-                return [];
-            };
-        },
         doc_title() {
             // return data
             try {
                 var doc_name = "";
-    
+
                 var d = new Date();
                 var y = d.getFullYear();
                 var m = d.getMonth() + 1;
                 var t = d.getUTCDate();
-        
+
                 if (m < 10) {
                     m = "0" + m;
                 };
-        
+
                 if (t < 10) {
                     t = "0" + t;
                 };
-        
+
                 datum_str = y + "_" + m + "_" + t;
-        
+
 
                 // Demo Muster (21.5.1973 | 46) => Hr_DeM_1973
                 var pat_string = "";
@@ -92,11 +84,22 @@ Vue.component('optinomic-pdfmake', {
             } catch (e) {
                 return "";
             };
+        },
+        pdf_ready() {
+            // return data
+            try {
+                if (this.doc_title !== "") {
+                    return true;
+                } else {
+                    return false;
+                };
+            } catch (e) {
+                return false;
+            };
         }
     },
     methods: {
         __open_pdf: function () {
-
             var dd = makepdf._create_document(this.documentTitle, this.headerLeft, this.headerRight, this.footerLeft, this.pageSize, this.pageOrientation, this.hideLogo, this.hidePageNumbers);
 
             dd.content = this.content;
@@ -107,7 +110,6 @@ Vue.component('optinomic-pdfmake', {
             pdfMake.createPdf(dd).open();
         },
         __download_pdf: function () {
-
             var dd = makepdf._create_document(this.documentTitle, this.headerLeft, this.headerRight, this.footerLeft, this.pageSize, this.pageOrientation, this.hideLogo, this.hidePageNumbers);
 
             dd.content = this.content;
@@ -115,16 +117,10 @@ Vue.component('optinomic-pdfmake', {
             console.log('PDF | download :: ' + this.doc_title, dd);
             this.pdf_request_possible = false;
             pdfMake.createPdf(dd).download(this.doc_title);
-        },
-        create_document_name: function () {
-
-    
-            // console.log('doc_name', doc_name);
-            return doc_name
         }
     },
     template: `
-        <div class="d-flex flex-row justify-space-between align-center pt-2 mb-1">
+        <div v-if="pdf_ready" class="d-flex flex-row justify-space-between align-center pt-2 mb-1">
             <div class="mb-3 mr-2">
                 <v-icon color="#8b0042">mdi-file-pdf</v-icon>
             </div>

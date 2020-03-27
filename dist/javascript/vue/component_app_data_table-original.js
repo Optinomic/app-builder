@@ -70,21 +70,36 @@ Vue.component('optinomic-data-table', {
                                 sr_pushed = item_index;
                             };
 
-                            // Interpretation
-                            try {
-                                if (row.interpretation !== null) {
-                                    var current_interpretation = this.interpretations[row.interpretation].slice();
+                            if ((r_flat[row.path] === "") || (r_flat[row.path] === undefined) || (r_flat[row.path] === null)) {
+                                // Missings
+                                row[computed_variablename] = "-"
+                            } else {
+                                // Interpretation
+                                try {
+                                    if (row.interpretation !== null) {
+                                        if (row.interpretation === 'date') {
+                                            var dateObj = new Date(r_flat[row.path]);
+                                            const options = {
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric'
+                                            };
+                                            row[computed_variablename] = dateObj.toLocaleDateString('de-DE', options);
+                                        } else {
+                                            var current_interpretation = this.interpretations[row.interpretation].slice();
 
-                                    var value = r_flat[row.path];
-                                    current_interpretation.forEach(function (i) {
-                                        if ((i.value + '') === (value + '')) {
-                                            value = i.value + ', ' + i.text;    
+                                            var value = r_flat[row.path];
+                                            current_interpretation.forEach(function (i) {
+                                                if ((i.value + '') === (value + '')) {
+                                                    value = i.value + ', ' + i.text;
+                                                };
+                                            }.bind(this));
+                                            row[computed_variablename] = value;
                                         };
-                                    }.bind(this));
-                                    row[computed_variablename] = value;
+                                    };
+                                } catch (e) {
+                                    row[computed_variablename] = r_flat[row.path];
                                 };
-                            } catch (e) {
-                                row[computed_variablename] = r_flat[row.path];
                             };
 
                         }.bind(this));

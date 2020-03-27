@@ -16,32 +16,35 @@ Vue.component('optinomic-content-block', {
         show_in_toc: {
             type: Boolean,
             default: true
-        },
-        toc_pushed: {
-            type: Boolean,
-            default: false
         }
     },
-    data: () => ({}),
     created() {
-        if ((this.toc_pushed === false) && (this.show_in_toc === true)) {
+        // Push to table_of_contents if needed.
+        if (this.show_in_toc === true) {
             var toc = this.$store.state.table_of_contents.slice(0);
             var toc_entry = {
                 title: this.title,
                 subtitle: this.subtitle,
                 id: this.id
             };
-            toc.push(toc_entry);
-            this.toc_pushed = true;
+            var have_to_push = true;
+            toc.forEach(function (item) {
+                if (item.id === this.id) {
+                    have_to_push = false;
+                };
+            }.bind(this));
 
-            this.$store.commit({
-                type: 'saveData',
-                root: 'table_of_contents',
-                data: toc
-            });
+            if (have_to_push) {
+                toc.push(toc_entry);
+
+                this.$store.commit({
+                    type: 'saveData',
+                    root: 'table_of_contents',
+                    data: toc
+                });
+            };
         };
     },
-    computed: {},
     template: `
         <div class="mb-6 pt-8" :id="id">
             <div class="d-flex flex-row justify-space-between align-end">
