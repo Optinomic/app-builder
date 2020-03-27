@@ -332,7 +332,6 @@ Vue.component('app-rs13', {
                 </optinomic-content-block>
             </div>
 
-
         </div>
     `
 });
