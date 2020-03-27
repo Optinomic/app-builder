@@ -201,6 +201,18 @@ Vue.component('app-rs13', {
                 return "";
             };
         },
+        all_calculations() {
+            // return data
+            try {
+                if (this.$store.state.sr.data.length === this.$store.state.sr.calculations_all.length) {
+                    return true;
+                } else {
+                    return false;
+                };
+            } catch (e) {
+                return false;
+            };
+        },
         sr_data() {
             // return data
             try {
@@ -285,7 +297,7 @@ Vue.component('app-rs13', {
     template: `
         <div>
 
-            <div v-if="sr.calculation_found">
+            <div v-if="all_calculations">
                 <optinomic-content-block title="Übersicht" subtitle="Grafik" id="rs13_chart">
                     <optinomic-chart-profile v-bind:options="JSON.stringify(rs_13_chart.options)"
                         v-bind:scales="JSON.stringify(rs_13_chart.scales)" v-bind:ranges="JSON.stringify(rs_13_chart.ranges)"
@@ -312,11 +324,14 @@ Vue.component('app-rs13', {
                 </optinomic-data-table>
             </optinomic-content-block>
 
-            <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf" v-if="pdf_ready">
-                <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienzfragebogen (RS-13)"
-                    header-right="Klinik Südhang" document-title="Resilienz" :content="pdf_content" hide-logo>
-                </optinomic-pdfmake>
-            </optinomic-content-block>
+            <div v-if="all_calculations">
+                <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf" v-if="pdf_ready">
+                    <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienzfragebogen (RS-13)"
+                        header-right="Klinik Südhang" document-title="Resilienz" :content="pdf_content" hide-logo>
+                    </optinomic-pdfmake>
+                </optinomic-content-block>
+            </div>
+
 
         </div>
     `
