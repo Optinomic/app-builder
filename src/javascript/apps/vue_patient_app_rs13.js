@@ -299,7 +299,7 @@ Vue.component('app-rs13', {
                     </optinomic-content-block>
                 </div>
                 <div v-else>
-                    <optinomic-content-block :title="'Erfassung vom ' + formatDateCH(sr.date)" subtitle="Hinweis zur" id="id_no_calculation">
+                    <optinomic-content-block :title="'Erfassung vom ' + formatDateCH(sr.date)" subtitle="Hinweis zur" :id="'id_erfassung_' + sr.event_id">
                         <v-alert outlined text type="error">
                             Calculation noch nicht berechnet.
                         </v-alert>
