@@ -68,7 +68,7 @@ Vue.component('app-rs13', {
                 "rows": [{
                         "name": "Messzeitpunkt",
                         "variable": "rs13_mz",
-                        "path": "response.rs13_mz",
+                        "path": "response.rs13_messzeitpunkt",
                         "interpretation": "mz"
                     },
                     {
@@ -284,37 +284,36 @@ Vue.component('app-rs13', {
     },
     template: `
         <div>
+
+            <optinomic-content-block title="Übersicht" subtitle="Grafik" id="rs13_chart">
+                <optinomic-chart-profile v-bind:options="JSON.stringify(rs_13_chart.options)"
+                    v-bind:scales="JSON.stringify(rs_13_chart.scales)" v-bind:ranges="JSON.stringify(rs_13_chart.ranges)"
+                    v-bind:scores="JSON.stringify(sr_full)">
+                </optinomic-chart-profile>
+            </optinomic-content-block>
+
             <div v-for="sr in sr_data" :key="sr.event_id">
 
                 <div v-if="sr.calculation_found">
-                    <optinomic-content-block :title="getTitle(sr)" :subtitle="getSubtitle(sr)" :id="'id_erfassung_' + sr.event_id">
+                    <optinomic-content-block :title="getTitle(sr)" :subtitle="getSubtitle(sr)"
+                        :id="'id_erfassung_' + sr.event_id">
                         <p class="overline">Auswertung / Interpretation</p>
                         <optinomic-clipboard-text :text="sr.calculation.resilienz_score.interpretation">
                         </optinomic-clipboard-text>
-
-                        <optinomic-chart-profile style="border-top:1px solid #fafafa;border-bottom:1px solid #fafafa;"
-                            v-bind:options="JSON.stringify(rs_13_chart.options)" v-bind:scales="JSON.stringify(rs_13_chart.scales)"
-                            v-bind:ranges="JSON.stringify(rs_13_chart.ranges)" v-bind:scores="JSON.stringify(sr_full)">
-                        </optinomic-chart-profile>
-                    </optinomic-content-block>
-                </div>
-                <div v-else>
-                    <optinomic-content-block :title="'Erfassung vom ' + formatDateCH(sr.date)" subtitle="Hinweis zur" :id="'id_erfassung_' + sr.event_id">
-                        <v-alert outlined text type="error">
-                            Calculation noch nicht berechnet.
-                        </v-alert>
                     </optinomic-content-block>
                 </div>
 
             </div>
 
             <optinomic-content-block :subtitle="sr_count_text" title="Datentabelle" id="id_data_table">
-                <optinomic-data-table :rows="data_table.rows" :interpretations="data_table.interpretations"></optinomic-data-table>
+                <optinomic-data-table :rows="data_table.rows" :interpretations="data_table.interpretations">
+                </optinomic-data-table>
             </optinomic-content-block>
 
             <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf" v-if="pdf_ready">
-                <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienzfragebogen (RS-13)" header-right="Klinik Südhang"
-                    document-title="Resilienz" :content="pdf_content" hide-logo></optinomic-pdfmake>
+                <optinomic-pdfmake :header-left="patient_secure" footer-left="Resilienzfragebogen (RS-13)"
+                    header-right="Klinik Südhang" document-title="Resilienz" :content="pdf_content" hide-logo>
+                </optinomic-pdfmake>
             </optinomic-content-block>
 
         </div>
