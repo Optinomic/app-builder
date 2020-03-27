@@ -83,6 +83,58 @@ Vue.component('pdf-auswertung-gesamt', {
                     "app_id": "ch.suedhang.apps.rs13.production"
                 }
             ]
+        },
+        "rs_13_chart": {
+            "options": {
+                "min": 0,
+                "max": 100,
+                "item_height": 50,
+                "item_text_left": 83,
+                "item_text_right": 60,
+                "color_skin": "indigo_grey_pink",
+                "color_grid": "#9E9E9E",
+                "color_clinic_sample": "#673AB7",
+                "show_baseline": true,
+                "show_scale_text": true,
+                "show_score_vertical_line": true,
+                "show_score_profile_line": false,
+                "show_score_circles": true,
+                "show_settings_block": false,
+                "show_ranges_overview": true,
+                "allow_toggle_settings_block": false,
+                "range_alpha": 0.08,
+                "vertical_grid_every_x": 10,
+                "response_title_path": "calculation.resilienz_score.range.interpretation_de",
+                "response_date_path": "date"
+            },
+            "scales": [{
+                "left_text": "Niedrige Resilienz",
+                "right_text": "Hohe Resilienz",
+                "score_path": "calculation.resilienz_score.rs13_score",
+                "clinic_sample_var": null
+            }],
+            "ranges": [{
+                    "range_start": 13,
+                    "range_stop": 66,
+                    "interpretation_de": "niedrige Widerstandskraft (Resilienz)",
+                    "text": "Niedrig",
+                    "color": "#F44336"
+                },
+                {
+                    "range_start": 67,
+                    "range_stop": 72,
+                    "interpretation_de": "moderate Widerstandskraft (Resilienz)",
+                    "text": "Moderat",
+                    "color": "#FF9800"
+                },
+                {
+                    "range_start": 73,
+                    "range_stop": 91,
+                    "interpretation_de": "hohe Widerstandskraft (Resilienz)",
+                    "text": "Hoch",
+                    "color": "#4CAF50"
+                }
+            ]
         }
     }),
     methods: {
@@ -124,12 +176,12 @@ Vue.component('pdf-auswertung-gesamt', {
                     block.push(makepdf._suedhang_logo_anschrift());
                     block.push(makepdf._title(this.title, this.subtitle));
                     block.push({
-                        "text": "Wir berichten über den Aufenthalt von " + this.patient_anrede + " vom VON/BIS " + ".",
+                        "text": "Wir berichten über den Aufenthalt von " + this.patient_extras.anrede + " vom " + this.stay_from_to + ".",
                         "style": "p"
                     });
                     block.push(makepdf._spacer(96));
                     block.push(makepdf._horizontalLine(62, "#F5F5F5"));
-                    block.push(makepdf._stamp(this.patient_anrede, 18));
+                    block.push(makepdf._stamp(this.patient_extras.full_name, 18));
                     block.push(makepdf._horizontalLine(62, "#F5F5F5"));
 
                     var title_block = {
@@ -154,22 +206,26 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var actinfo = function () {
-                    var data = this.getAppBaseData('actinfo_ein');
-                    console.error('actinfo', data);
+                    var pdf = [];
+                    var name = 'actinfo';
+                    try {
+                        var data_ein = this.getAppBaseData('actinfo_ein');
+                        var data_aus = this.getAppBaseData('actinfo_aus');
+                        // console.error('actinfo', data_ein, data_aus);
 
-                    var block = [];
+                        // Build PDF from Plugin
+                        var pdf = this.pdf_build_actinfo(data_ein, data_aus);
+                        this.pdf_create_count = this.pdf_create_count + 1;
 
-                    // Titel
-                    block.push(app_title(data));
-
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
-
+                    } catch (e) {
+                        pdf.push(makepdf._keepTogether(makepdf._indication('!', 'Error'), name + '_error'));
+                    };
 
                     this.pdf_create_count = this.pdf_create_count + 1;
-                    return block;
+                    return pdf;
                 }.bind(this);
                 pdf.push(actinfo());
+
 
 
                 // ------------------------------------------
@@ -391,10 +447,22 @@ Vue.component('pdf-auswertung-gesamt', {
                         ret_val = false;
                     };
                 }.bind(this));
+
+                if (this.$store.state.stays.current.found === false) {
+                    ret_val = false;
+                };
                 // console.error('computed data_apps_array_loaded', da);
                 return ret_val;
             } catch (e) {
                 return false;
+            };
+        },
+        stay_from_to() {
+            // return data
+            try {
+                return this.$store.state.stays.current.data.extras.from_to;
+            } catch (e) {
+                return "";
             };
         },
         patient_secure() {
@@ -405,10 +473,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 return "";
             };
         },
-        patient_anrede() {
+        patient_extras() {
             // return data
             try {
-                return this.$store.state.patient.data.extras.anrede;
+                return this.$store.state.patient.data.extras;
             } catch (e) {
                 return "";
             };

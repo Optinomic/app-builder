@@ -1,1 +1,0 @@
-Vue.component("pdf-auswertung-gesamt",{props:{rows:{type:Array,default:[]}},data:()=>({name:"Fallkonferenz",title:"Fragebogenauswertung",subtitle:"Eine Übersicht der wichtigsten Ergebnisse und Auswertungen."}),computed:{},methods:{doSomething(){}},created(){this.$store.dispatch("getApps")},template:"\n        <p>Clinic Info</p>\n    "});

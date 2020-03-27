@@ -5,7 +5,6 @@ new Vue({
     vuetify: new Vuetify(),
     store: new Vuex.Store({
         state: {
-            count: 0,
             apps: {},
             table_of_contents: [],
             current_app: null,
@@ -29,7 +28,7 @@ new Vue({
             saveData(state, d) {
                 try {
                     state[d.root] = d.data;
-                    console.warn('state :: ', new Date(), state);
+                    // console.warn('state :: ', new Date(), state);
                 } catch (err) {
                     console.error('Error: saveData', err);
                 };
