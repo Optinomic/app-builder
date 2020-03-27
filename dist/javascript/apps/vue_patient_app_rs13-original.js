@@ -285,12 +285,14 @@ Vue.component('app-rs13', {
     template: `
         <div>
 
-            <optinomic-content-block title="Übersicht" subtitle="Grafik" id="rs13_chart">
-                <optinomic-chart-profile v-bind:options="JSON.stringify(rs_13_chart.options)"
-                    v-bind:scales="JSON.stringify(rs_13_chart.scales)" v-bind:ranges="JSON.stringify(rs_13_chart.ranges)"
-                    v-bind:scores="JSON.stringify(sr_full)">
-                </optinomic-chart-profile>
-            </optinomic-content-block>
+            <div v-if="sr.calculation_found">
+                <optinomic-content-block title="Übersicht" subtitle="Grafik" id="rs13_chart">
+                    <optinomic-chart-profile v-bind:options="JSON.stringify(rs_13_chart.options)"
+                        v-bind:scales="JSON.stringify(rs_13_chart.scales)" v-bind:ranges="JSON.stringify(rs_13_chart.ranges)"
+                        v-bind:scores="JSON.stringify(sr_full)">
+                    </optinomic-chart-profile>
+                </optinomic-content-block>
+            </div>
 
             <div v-for="sr in sr_data" :key="sr.event_id">
 
