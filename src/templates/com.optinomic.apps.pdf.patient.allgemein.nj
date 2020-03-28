@@ -1,0 +1,31 @@
+{% extends "__build/templates/vuetify.nj" %} 
+
+{# --- HEAD-Section ---#}
+{% block head %}
+{% endblock %} 
+
+{# --- Content-Section ---#}
+{% block content %}
+
+<app-optinomic title="Druckvorlagen (PDF)" subtitle="Allgeime (Patienten-)Druckvorlagen">
+    <app-druckvorlagen></app-druckvorlagen>
+</app-optinomic>
+
+{% endblock %}
+
+
+{# --- Scripts-Section ---#}
+{% block scripts %}
+{% raw %}
+
+// Current App Components
+__opapp_include(../../dist/javascript/apps/vue_patient_app_druckvorlagen.js)
+
+// Some more App-PDF's 
+__opapp_include(../../dist/javascript/vue/plugins/app_rs13.js)
+
+// General Includes
+__opapp_include(../../dist/includes/vue_general_includes.html) 
+
+{% endraw %}
+{% endblock %}
