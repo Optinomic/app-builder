@@ -26,10 +26,11 @@ const optinomic_globals = {
             computed: {
                 missings() {
                     try {
-                        if (this.$store.state.sr === null) {
+                        var d = this.$store.state.data_apps.data_object[helpers.getAppID()];
+                        if (d === null) {
                             return false;
                         } else {
-                            var sr = this.$store.state.sr.data;
+                            var sr = d.data;
                             var data_errors = false;
                             sr.forEach(function (item) {
                                 if (item.all_found === false) {
