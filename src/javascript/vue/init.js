@@ -7,12 +7,16 @@ new Vue({
             apps: {},
             table_of_contents: [],
             current_app: null,
-            sr: null,
             user: null,
             patient: null,
             stays: null,
             clinic: null,
-            data_apps: {}
+            data_apps: {
+                count: 0,
+                init_array: [],
+                loaded_array: [],
+                data_object: {}
+            }
         },
         getters: {
             isAdmin: state => {
@@ -36,18 +40,12 @@ new Vue({
                 var d = Object.assign({}, pl);
                 var da = Object.assign({}, state.data_apps);
                 try {
-                    da.base.forEach(function (app, appID) {
-                        if (app.app_id === d.root) {
-                            app.init = true;
-                            app = Object.assign(app, d.data);
-                        };
-                    });
-
-                    if (d.data.loaded === true) {
-                        da.data_init_array.push(d.root);
+                    if (d.data.loaded !== true) {
+                        da.init_array.push(d.root);
                     } else {
-                        da.data_loaded_array.push(d.root);
-                        da.count = state.data_apps.count + 1;
+                        da.data_object[d.root] = Object.assign({}, d.data);
+                        da.loaded_array.push(d.root);
+                        da.count = da.count + 1;
                     };
 
                     // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
@@ -124,7 +122,6 @@ new Vue({
                 if (store_root !== 'sr') {
                     savetype = 'saveAppData';
                 };
-
 
                 commit({
                     type: savetype,

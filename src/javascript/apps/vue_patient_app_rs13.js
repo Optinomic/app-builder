@@ -107,19 +107,26 @@ Vue.component('app-rs13', {
             }
         }
     },
-    methods: {
-    },
+    methods: {},
     computed: {
         patient_secure() {
             try {
                 return this.$store.state.patient.data.extras.secure;
+
             } catch (e) {
                 return "";
             };
         },
+        sr_full() {
+            try {
+                return this.$store.state.data_apps.data_object[helpers.getAppID()];
+            } catch (e) {
+                return null;
+            };
+        },
         sr_data() {
             try {
-                return this.$store.state.sr.data;
+                return this.sr_full.data;
             } catch (e) {
                 return [];
             };
@@ -134,25 +141,18 @@ Vue.component('app-rs13', {
         sr_count_text() {
             try {
                 var ret_text = "";
-                if (this.$store.state.sr.data.length === 0) {
+                if (this.sr_data.length === 0) {
                     ret_text = "Keine Erfassung";
                 };
-                if (this.$store.state.sr.data.length === 1) {
+                if (this.sr_data.length === 1) {
                     ret_text = "Eine Erfassung";
                 };
-                if (this.$store.state.sr.data.length > 1) {
-                    ret_text = "Erfassungen (" + this.$store.state.sr.data.length + ")";
+                if (this.sr_data.length > 1) {
+                    ret_text = "Erfassungen (" + this.sr_data.length + ")";
                 };
                 return ret_text;
             } catch (e) {
                 return "";
-            };
-        },
-        sr_full() {
-            try {
-                return this.$store.state.sr;
-            } catch (e) {
-                return [];
             };
         },
         pdf_ready() {
@@ -161,7 +161,7 @@ Vue.component('app-rs13', {
                     // Build PDF
                     var pdf = [];
                     pdf.push(this.pdf_app_info(this.current_module, true));
-                    pdf.push(this.rs13_pdf_content(this.sr_data));
+                    pdf.push(this.rs13_pdf_content(this.sr_full));
                     this.pdf_content = pdf;
                     return true;
                 } else {
@@ -176,7 +176,7 @@ Vue.component('app-rs13', {
         <div>
 
             <div v-if="!missings">
-                <optinomic-content-block :title="base_config.app_short_description" subtitle="Übersicht | Grafik" id="rs13_chart">
+                <optinomic-content-block v-if="sr_full" :title="base_config.app_short_description" subtitle="Übersicht | Grafik" id="rs13_chart">
                     <optinomic-chart-profile v-bind:options="JSON.stringify(rs13_chart.options)"
                         v-bind:scales="JSON.stringify(rs13_chart.scales)" v-bind:ranges="JSON.stringify(rs13_chart.ranges)"
                         v-bind:scores="JSON.stringify(sr_full)">

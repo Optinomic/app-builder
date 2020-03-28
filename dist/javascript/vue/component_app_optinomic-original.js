@@ -11,7 +11,13 @@ Vue.component('app-optinomic', {
         }
     },
     created() {
-        this.$store.dispatch('getSurveyResponses');
+        var params = {
+            "identifier": helpers.getAppID(),
+            "root": helpers.getAppID()
+        };
+        this.$store.dispatch('getSurveyResponses', params);
+        this.$store.dispatch('getApps');
+
         if (helpers.getPatientID() !== 0) {
             this.$store.dispatch('getPatient');
             this.$store.dispatch('getPatientStays');
@@ -22,9 +28,9 @@ Vue.component('app-optinomic', {
     computed: {
         sr() {
             try {
-                return this.$store.state.sr;
+                return this.$store.state.data_apps.data_object[helpers.getAppID()];
             } catch (e) {
-                return {};
+                return [];
             };
         },
         isAdmin() {
@@ -36,7 +42,7 @@ Vue.component('app-optinomic', {
         },
         loaded() {
             try {
-                if (this.$store.state.sr.loaded === true) {
+                if (this.sr.loaded === true) {
                     return true;
                 } else {
                     return false;   
@@ -62,7 +68,6 @@ Vue.component('app-optinomic', {
         could_have_data() {
             try {
                 var ret_bool = false;
-
                 if (this.$store.state.current_app.module.surveys.length > 0) {
                     ret_bool = true;
                 }
@@ -73,12 +78,12 @@ Vue.component('app-optinomic', {
         },
         missing_data() {
             try {
-                if (this.$store.state.sr === null) {
+                if (this.sr === null) {
                     return false;
                 } else {
-                    var sr = this.$store.state.sr.data;
+                    var sr_data = this.sr.data;
                     var data_errors = false;
-                    sr.forEach(function (item) {
+                    sr_data.forEach(function (item) {
                         if (item.all_found === false) {
                             data_errors = true;
                         };

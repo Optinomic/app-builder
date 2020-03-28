@@ -5,11 +5,8 @@ const plugin_rs13 = {
             data: function () {
                 return {
                     "base_config": {
-                        "dist_root": "dist",
-                        "app_id": "ch.suedhang.apps.rs13.production",
                         "app_name": "Resilienzfragebogen (RS-13)",
                         "app_short_description": "Psychische Widerstandskraft",
-                        "app_type": "patient"
                     },
                     "rs13_chart": {
                         "options": {
@@ -107,10 +104,11 @@ const plugin_rs13 = {
                     }
                     return ret_string;
                 },
-                rs13_pdf_content: function (data) {
+                rs13_pdf_content: function (sr) {
                     var pdf = [];
                     try {
-                        if (data.length > 0) {
+
+                        if (sr.data.length > 0) {
 
                             // Chart | Grafik
                             var subtitle = [];
@@ -119,12 +117,12 @@ const plugin_rs13 = {
                             pdf.push(makepdf._keepTogether(subtitle, "rs13_chart_title"));
 
                             var pdf_chart = [];
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.rs13_chart.options, {}, {}, [], this.rs13_chart.scales, this.$store.state.sr, this.rs13_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.rs13_chart.options, {}, {}, [], this.rs13_chart.scales, sr, this.rs13_chart.ranges));
                             pdf_chart.push(makepdf._spacer(10));
                             pdf.push(makepdf._keepTogether(pdf_chart, "rs13_chart"));
 
                             // Messungen
-                            data.forEach(function (sr) {
+                            sr.data.forEach(function (sr) {
                                 if (sr.calculation_found) {
                                     // Messung Titel
                                     var subtitle = [];
@@ -145,9 +143,12 @@ const plugin_rs13 = {
                         } else {
                             pdf.push(this.pdf_no_data(this.base_config.app_name));
                         };
+
                     } catch (e) {
+                        console.log('rs13_pdf_content', e)
                         pdf.push(this.pdf_error(this.base_config.app_name));
                     };
+
                     return pdf;
                 }
             }

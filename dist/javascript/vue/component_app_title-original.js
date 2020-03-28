@@ -10,9 +10,6 @@ Vue.component('app-title', {
             default: "App"
         }
     },
-    created() {
-        this.$store.dispatch('getApps');
-    },
     computed: {
         readme_html() {
             try {
