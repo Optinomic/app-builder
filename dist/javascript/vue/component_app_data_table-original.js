@@ -8,6 +8,10 @@ Vue.component('optinomic-data-table', {
         interpretations: {
             type: Object,
             default: {}
+        },
+        sr: {
+            type: Array,
+            default: []
         }
     },
     data() {
@@ -52,7 +56,7 @@ Vue.component('optinomic-data-table', {
         rows_extended() {
             try {
                 var new_rows = this.rows.slice();
-                var sr = this.$store.state.sr.data;
+                var sr = this.sr;
                 var sr_pushed = -99;
 
                 if ((new_rows.length > 0) && (sr.length > 0)) {
