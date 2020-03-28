@@ -1,5 +1,5 @@
-// Plugin: pdf_actinfo
-const pdf_actinfo = {
+// Plugin: plugin_actinfo
+const plugin_actinfo = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
@@ -148,4 +148,4 @@ const pdf_actinfo = {
         });
     }
 };
-Vue.use(pdf_actinfo)
+Vue.use(plugin_actinfo)

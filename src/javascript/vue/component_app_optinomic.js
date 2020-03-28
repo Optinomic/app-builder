@@ -82,7 +82,7 @@ Vue.component('app-optinomic', {
                         if (item.all_found === false) {
                             data_errors = true;
                         };
-                    });
+                    }.bind(this));
                     return data_errors;
                 };
             } catch (e) {

@@ -1,4 +1,3 @@
-
 // Init Vue
 new Vue({
     el: '#optinomic_app',
@@ -648,7 +647,7 @@ new Vue({
                             }
                         }
 
-                        stays.forEach(function(stay, stayID) {
+                        stays.forEach(function (stay, stayID) {
                             stay.data = createStayExtras(stay.data);
                             stay.data.id = stay.id;
                             stay.data.fid = stay.id;
