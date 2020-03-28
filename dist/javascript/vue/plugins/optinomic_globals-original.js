@@ -1,5 +1,5 @@
-// Plugin: global_helpers
-const global_helpers = {
+// Plugin: optinomic_globals
+const optinomic_globals = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
@@ -46,4 +46,4 @@ const global_helpers = {
         });
     }
 };
-Vue.use(global_helpers)
+Vue.use(optinomic_globals)
