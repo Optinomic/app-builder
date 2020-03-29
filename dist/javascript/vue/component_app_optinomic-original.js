@@ -127,7 +127,7 @@ Vue.component('app-optinomic', {
             <v-app id="top" style="background-color:#f8f8f8!important;">
                 <v-content class="mb-12 pb-12">
                     <v-container class="mt-10 pt-8 pl-10 pr-8 elevation-1" style="background-color:white!important;">
-        
+
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <img v-if="clinic_data" :src="clinic_data.clinic_logo" :alt="clinic_data.clinic_slogan"
@@ -139,9 +139,9 @@ Vue.component('app-optinomic', {
                                 <optinomic-toc></optinomic-toc>
                             </v-col>
                         </v-row>
-        
+
                         <app-title :title="title" :subtitle="subtitle" class="mt-4"></app-title>
-        
+
                         <div v-if="loaded">
                             <div v-if="could_have_data">
                                 <div v-if="sr.have_data">
@@ -190,7 +190,7 @@ Vue.component('app-optinomic', {
                                 <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
                             </v-sheet>
                         </div>
-        
+
                         <!-- FOOTER -->
                         <div class="mt-12 pt-12 ml-4 mr-6">
                             <v-row style="border-top: 1px solid #8b0042;">
@@ -208,13 +208,13 @@ Vue.component('app-optinomic', {
                             </v-row>
                         </div>
                     </v-container>
-                    <v-content class="mt-12 mx-12">
+                    <v-content class="mt-12 ml-8 mr-12">
                         <!-- ADMIN - Tools -->
                         <div v-if="isAdmin">
-                            <p class="overline" style="color:#8b0042">Admin-Tools</p>
+                            <p class="overline ml-4" style="margin-left:1px;color:#8b0042">Admin-Tools</p>
                             <v-simple-table dense>
                                 <tbody>
-                                    <tr>
+                                    <tr style="background-color:#f8f8f8">
                                         <td>State (check console)</td>
                                         <td>
                                             <v-btn text small @click="logState(true)">
