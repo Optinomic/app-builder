@@ -4,6 +4,10 @@ Vue.component('app-pdf-druckvorlagen', {
         identifier: {
             type: String,
             default: helpers.getAppID()
+        },
+        production: {
+            type: Boolean,
+            default: true
         }
     },
     created() {},
@@ -30,6 +34,14 @@ Vue.component('app-pdf-druckvorlagen', {
                 "description": "Drucken eines leeren Verlaufsblattes.",
                 "loading_string": "",
                 "content": null
+            },
+            "pdf_apps": {
+                "production": [{
+                    "name": "rs13",
+                    "title": "Resilienzfragebogen (RS-13)",
+                    "subtitle": "Psychische Widerstandskraft",
+                    "identifier": "ch.suedhang.apps.rs13.production"
+                }]
             }
         }
     },
@@ -56,7 +68,7 @@ Vue.component('app-pdf-druckvorlagen', {
                 return "Error";
             }
         },
-        pdf_ready() {
+        pdf_allgemein_ready() {
             try {
                 if (this.patient_data) {
                     // Build internal PDF's
@@ -140,10 +152,17 @@ Vue.component('app-pdf-druckvorlagen', {
             };
         }
     },
+    created() {
+        if (this.production) {
+            this.pdf_apps.production.forEach(function (params) {
+                this.$store.dispatch('getSurveyResponses', params);    
+            }.bind(this));
+        };
+    },
     template: `
         <div>
 
-            <optinomic-content-block v-if="pdf_ready" title="Druckvorlagen" subtitle="PDF" id="pdf_druckvorlagen">
+            <optinomic-content-block v-if="pdf_allgemein_ready" title="Druckvorlagen" subtitle="Allgemeine" id="pdf_druckvorlagen">
                 <optinomic-pdfmake :header-left="patient_data.extras.full_name"
                     :footer-left="pdf_einladung_pa.title + ' :: ' + pdf_einladung_pa.name" header-right="Klinik Südhang"
                     :document-title="pdf_einladung_pa.title + ' - ' + pdf_einladung_pa.name" :content="pdf_einladung_pa.content"

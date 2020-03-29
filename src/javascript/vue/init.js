@@ -84,6 +84,7 @@ new Vue({
                 try {
                     if (is_defined(params.identifier)) {
                         module_identifier = params.identifier;
+                        store_root = module_identifier;
                     }
 
                     if (is_defined(params.pid)) {
