@@ -64,6 +64,13 @@ const optinomic_globals = {
                         return null;
                     };
                 },
+                patient_data() {
+                    try {
+                        return this.$store.state.patient.data;
+                    } catch (e) {
+                        return null;
+                    };
+                }
             }
         });
     }
