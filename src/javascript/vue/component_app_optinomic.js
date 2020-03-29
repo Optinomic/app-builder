@@ -190,12 +190,11 @@ Vue.component('app-optinomic', {
                                 <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
                             </v-sheet>
                         </div>
-
                         <!-- FOOTER -->
                         <div class="mt-12 pt-12 ml-4 mr-6">
                             <v-row style="border-top: 1px solid #8b0042;">
                                 <v-col cols="12" sm="6" class="px-0">
-                                    <p class="subtitle-1 font-italic font-weight-thin text-left" style="color:#8b0042"
+                                    <p class="subtitle-1 font-italic font-weight-light text-left" style="color:#8b0042"
                                         v-text="clinic_data.clinic_slogan" v-if="clinic_data"></p>
                                 </v-col>
                                 <v-col cols="12" sm="6" class="px-0">
