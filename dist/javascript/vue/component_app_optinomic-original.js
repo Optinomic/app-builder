@@ -125,10 +125,9 @@ Vue.component('app-optinomic', {
     template: `
         <template>
             <v-app id="top" style="background-color:#f8f8f8!important;">
-                <v-content class="mb-12">
-                    <v-container class="mt-10 mb-12 pt-8 pb-12 pl-10 pr-8 elevation-1"
-                        style="background-color:white!important;">
-
+                <v-content class="mb-12 pb-12">
+                    <v-container class="mt-10 pt-8 pl-10 pr-8 elevation-1" style="background-color:white!important;">
+        
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <img v-if="clinic_data" :src="clinic_data.clinic_logo" :alt="clinic_data.clinic_slogan"
@@ -140,9 +139,9 @@ Vue.component('app-optinomic', {
                                 <optinomic-toc></optinomic-toc>
                             </v-col>
                         </v-row>
-
+        
                         <app-title :title="title" :subtitle="subtitle" class="mt-4"></app-title>
-
+        
                         <div v-if="loaded">
                             <div v-if="could_have_data">
                                 <div v-if="sr.have_data">
@@ -191,27 +190,7 @@ Vue.component('app-optinomic', {
                                 <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
                             </v-sheet>
                         </div>
-                        <!-- ADMIN - Tools -->
-                        <div v-if="isAdmin">
-                            <optinomic-content-block title="Administrator" subtitle="Only for" id="admin_tools"
-                                show_in_toc="false">
-                                <v-simple-table dense>
-                                    <tbody>
-                                        <tr>
-                                            <td>State (Check Console)</td>
-                                            <td>
-                                                <v-btn text small @click="logState(true)">
-                                                    beautify
-                                                </v-btn>
-                                                <v-btn text small color="#8b0042" @click="logState(false)">
-                                                    log
-                                                </v-btn>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </v-simple-table>
-                            </optinomic-content-block>
-                        </div>
+        
                         <!-- FOOTER -->
                         <div class="mt-12 pt-12 ml-4 mr-6">
                             <v-row style="border-top: 1px solid #8b0042;">
@@ -229,8 +208,29 @@ Vue.component('app-optinomic', {
                             </v-row>
                         </div>
                     </v-container>
+                    <v-content class="mt-12 mx-12">
+                        <!-- ADMIN - Tools -->
+                        <div v-if="isAdmin">
+                            <p class="overline" style="color:#8b0042">Admin-Tools</p>
+                            <v-simple-table dense>
+                                <tbody>
+                                    <tr>
+                                        <td>State (check console)</td>
+                                        <td>
+                                            <v-btn text small @click="logState(true)">
+                                                beautify
+                                            </v-btn>
+                                            <v-btn text small color="#8b0042" @click="logState(false)">
+                                                log
+                                            </v-btn>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                        </div>
+                    </v-content>
                 </v-content>
             </v-app>
-        </template> 
+        </template>
     `
 });
