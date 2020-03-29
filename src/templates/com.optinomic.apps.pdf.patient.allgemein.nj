@@ -8,7 +8,7 @@
 {% block content %}
 
 <app-optinomic title="Druckvorlagen (PDF)" subtitle="Allgeime (Patienten-)Druckvorlagen">
-    <app-druckvorlagen></app-druckvorlagen>
+    <app-pdf-druckvorlagen></app-pdf-druckvorlagen>
 </app-optinomic>
 
 {% endblock %}
