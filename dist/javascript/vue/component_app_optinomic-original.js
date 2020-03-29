@@ -207,7 +207,7 @@ Vue.component('app-optinomic', {
                             </v-row>
                         </div>
                     </v-container>
-                    <v-content class="mt-12 ml-8 mr-12">
+                    <v-container class="mt-12 mx-auto px-8">
                         <!-- ADMIN - Tools -->
                         <div v-if="isAdmin">
                             <p class="overline ml-4" style="margin-left:1px;color:#8b0042">Admin-Tools</p>
@@ -227,7 +227,7 @@ Vue.component('app-optinomic', {
                                 </tbody>
                             </v-simple-table>
                         </div>
-                    </v-content>
+                    </v-container>
                 </v-content>
             </v-app>
         </template>
