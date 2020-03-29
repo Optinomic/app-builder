@@ -13,7 +13,8 @@ Vue.component('app-optinomic', {
     created() {
         var params = {
             "identifier": helpers.getAppID(),
-            "root": helpers.getAppID()
+            "title": this.title,
+            "subtitle": this.subtitle
         };
         this.$store.dispatch('getSurveyResponses', params);
         this.$store.dispatch('getApps');

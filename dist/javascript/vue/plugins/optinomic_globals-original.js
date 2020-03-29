@@ -24,9 +24,23 @@ const optinomic_globals = {
                 }
             },
             computed: {
+                sr() {
+                    try {
+                        return this.$store.state.data_apps.data_object[this.identifier];
+                    } catch (e) {
+                        return null;
+                    };
+                },
+                sr_data() {
+                    try {
+                        return this.sr.data;
+                    } catch (e) {
+                        return [];
+                    };
+                },
                 missings() {
                     try {
-                        var d = this.$store.state.data_apps.data_object[helpers.getAppID()];
+                        var d = this.$store.state.data_apps.data_object[this.identifier];
                         if (d === null) {
                             return false;
                         } else {
@@ -42,7 +56,14 @@ const optinomic_globals = {
                     } catch (e) {
                         return false;
                     };
-                }
+                },
+                current_module() {
+                    try {
+                        return this.$store.state.current_app.module;
+                    } catch (e) {
+                        return null;
+                    };
+                },
             }
         });
     }

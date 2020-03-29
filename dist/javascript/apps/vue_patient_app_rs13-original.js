@@ -1,6 +1,11 @@
 // RS13-Application
 Vue.component('app-rs13', {
-    props: {},
+    props: {
+        identifier: {
+            type: String,
+            default: helpers.getAppID()
+        }
+    },
     created() {},
     data: function () {
         return {
@@ -112,30 +117,8 @@ Vue.component('app-rs13', {
         patient_secure() {
             try {
                 return this.$store.state.patient.data.extras.secure;
-
             } catch (e) {
                 return "";
-            };
-        },
-        sr_full() {
-            try {
-                return this.$store.state.data_apps.data_object[helpers.getAppID()];
-            } catch (e) {
-                return null;
-            };
-        },
-        sr_data() {
-            try {
-                return this.sr_full.data;
-            } catch (e) {
-                return [];
-            };
-        },
-        current_module() {
-            try {
-                return this.$store.state.current_app.module;
-            } catch (e) {
-                return null;
             };
         },
         sr_count_text() {
@@ -161,7 +144,7 @@ Vue.component('app-rs13', {
                     // Build PDF
                     var pdf = [];
                     pdf.push(this.pdf_app_info(this.current_module, true));
-                    pdf.push(this.rs13_pdf_content(this.sr_full));
+                    pdf.push(this.rs13_pdf_content(this.sr));
                     this.pdf_content = pdf;
                     return true;
                 } else {
@@ -176,10 +159,10 @@ Vue.component('app-rs13', {
         <div>
 
             <div v-if="!missings">
-                <optinomic-content-block v-if="sr_full" :title="base_config.app_short_description" subtitle="Übersicht | Grafik" id="rs13_chart">
+                <optinomic-content-block v-if="sr" :title="base_config.app_short_description" subtitle="Übersicht | Grafik" id="rs13_chart">
                     <optinomic-chart-profile v-bind:options="JSON.stringify(rs13_chart.options)"
                         v-bind:scales="JSON.stringify(rs13_chart.scales)" v-bind:ranges="JSON.stringify(rs13_chart.ranges)"
-                        v-bind:scores="JSON.stringify(sr_full)">
+                        v-bind:scores="JSON.stringify(sr)">
                     </optinomic-chart-profile>
                 </optinomic-content-block>
             </div>

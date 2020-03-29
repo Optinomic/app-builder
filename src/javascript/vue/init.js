@@ -79,7 +79,7 @@ new Vue({
                 var module_identifier = helpers.getAppID();
                 var current_pid = parseInt(helpers.getPatientID());
                 var current_stay_id = parseInt(helpers.getStayID());;
-                var store_root = 'sr';
+                var store_root = module_identifier;
 
                 try {
                     if (is_defined(params.identifier)) {
@@ -112,7 +112,8 @@ new Vue({
                     "request": null,
                     "pid": current_pid,
                     "fid": current_stay_id,
-                    "app_id": module_identifier
+                    "app_id": module_identifier,
+                    "params": params
                 };
 
                 console.log('(?) getSurveyResponses', module_identifier, current_pid, current_stay_id, store_root);
@@ -349,7 +350,8 @@ new Vue({
                                     "request": data_request,
                                     "pid": current_pid,
                                     "fid": current_stay_id,
-                                    "app_id": app_id
+                                    "app_id": app_id,
+                                    "params": params
                                 };
                                 console.log('(✔) Data (' + api_url + '):', response);
 
