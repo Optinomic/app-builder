@@ -1,16 +1,33 @@
-// Plugin: some_tamplate
-const some_tamplate = {
+// Plugin: plugin_tamplate
+const plugin_tamplate = {
     install(Vue, options) {
         Vue.mixin({
             data: function () {
                 return {
-                    "hello": "World"    
+                    "name": "BDI-II",
                 }
             },
             methods: {
-                doSomething: function () {}
+                template_pdf_content: function (sr) {
+                    var pdf = [];
+                    try {
+                        if (sr.data.length > 0) {
+
+                            
+
+                        } else {
+                            pdf.push(this.pdf_no_data(this.name));
+                        };
+
+                    } catch (e) {
+                        console.log('a_pdf_content', e)
+                        pdf.push(this.pdf_error(this.name));
+                    };
+
+                    return pdf;
+                }
             }
         });
     }
 };
-Vue.use(some_tamplate)
+Vue.use(plugin_tamplate);

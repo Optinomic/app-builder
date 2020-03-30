@@ -1,1 +1,1 @@
-const some_tamplate={install(Vue,options){Vue.mixin({data:function(){return{hello:"World"}},methods:{doSomething:function(){}}})}};Vue.use(some_tamplate);
+const plugin_tamplate={install(Vue,options){Vue.mixin({data:function(){return{name:"BDI-II"}},methods:{template_pdf_content:function(sr){var pdf=[];try{sr.data.length>0||pdf.push(this.pdf_no_data(this.name))}catch(e){console.log("a_pdf_content",e),pdf.push(this.pdf_error(this.name))}return pdf}}})}};Vue.use(plugin_tamplate);

@@ -146,17 +146,14 @@ Vue.component('pdf-auswertung-gesamt', {
                     return title_block;
                 }.bind(this);
 
-                pdf.push(titelseite());
-                pdf.push(makepdf._pageBreak());
 
                 // ------------------------------------------
                 // actInfo
                 // ------------------------------------------
-
                 var actinfo = function () {
                     var pdf = [];
+                    const current_app_name = 'actinfo';
                     try {
-                        const current_app_name = 'actinfo';
                         var data_ein = this.getAppBaseData('actinfo_ein');
                         data_ein.module = this.get_current_patient_module('actinfo_ein');
                         var data_aus = this.getAppBaseData('actinfo_aus');
@@ -174,7 +171,7 @@ Vue.component('pdf-auswertung-gesamt', {
                         return block;
 
                     } catch (e) {
-                        pdf.push(makepdf._keepTogether(makepdf._indication('!', 'Error'), name + '_error'));
+                        pdf.push(makepdf._keepTogether(makepdf._indication('!', 'Error'), current_app_name + '_error'));
                     };
 
                     this.pdf_create_count = this.pdf_create_count + 1;
@@ -187,7 +184,6 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
                 // tmt
                 // ------------------------------------------
-
                 var tmt = function () {
                     const current_app_name = 'tmt';
                     var data = this.getAppBaseData(current_app_name);
@@ -200,23 +196,21 @@ Vue.component('pdf-auswertung-gesamt', {
                     block.push(app_title(data));
 
                     // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
                 }.bind(this);
-                pdf.push(tmt());
 
 
                 // ------------------------------------------
                 // bdi
                 // ------------------------------------------
-
                 var bdi = function () {
                     const current_app_name = 'bdi';
                     var data = this.getAppBaseData(current_app_name);
                     data.module = this.get_current_patient_module(current_app_name);
-                    console.error(current_app_name, data);
+                    // console.error(current_app_name, data);
 
                     var block = [];
 
@@ -230,13 +224,11 @@ Vue.component('pdf-auswertung-gesamt', {
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
                 }.bind(this);
-                pdf.push(bdi());
 
 
                 // ------------------------------------------
                 // aase
                 // ------------------------------------------
-
                 var aase = function () {
                     const current_app_name = 'aase';
                     var data = this.getAppBaseData(current_app_name);
@@ -249,42 +241,60 @@ Vue.component('pdf-auswertung-gesamt', {
                     block.push(app_title(data));
 
                     // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
                 }.bind(this);
-                pdf.push(aase());
 
 
                 // ------------------------------------------
-                // whoqol
+                // bscl
                 // ------------------------------------------
-
-                var whoqol = function () {
-                    const current_app_name = 'whoqol';
+                var bscl = function () {
+                    const current_app_name = 'bscl';
                     var data = this.getAppBaseData(current_app_name);
                     data.module = this.get_current_patient_module(current_app_name);
-                    console.error(current_app_name, data);
+                    // console.error(current_app_name, data);
 
                     var block = [];
 
                     // Titel
                     block.push(app_title(data));
 
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    // Content from Plugin
+                    block.push(this.bscl_pdf_content(data));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
                 }.bind(this);
-                pdf.push(whoqol());
+
+
+                // ------------------------------------------
+                // whoqol
+                // ------------------------------------------
+                var whoqol = function () {
+                    const current_app_name = 'whoqol';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    // console.error(current_app_name, data);
+
+                    var block = [];
+
+                    // Titel
+                    block.push(app_title(data));
+
+                    // Content from Plugin
+                    block.push(this.whoqol_pdf_content(data));
+
+                    this.pdf_create_count = this.pdf_create_count + 1;
+                    return block;
+                }.bind(this);
 
 
                 // ------------------------------------------
                 // isk
                 // ------------------------------------------
-
                 var isk = function () {
                     const current_app_name = 'isk';
                     var data = this.getAppBaseData(current_app_name);
@@ -297,19 +307,16 @@ Vue.component('pdf-auswertung-gesamt', {
                     block.push(app_title(data));
 
                     // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
                 }.bind(this);
 
-                pdf.push(isk());
-
 
                 // ------------------------------------------
                 // sci
                 // ------------------------------------------
-
                 var sci = function () {
                     const current_app_name = 'sci';
                     var data = this.getAppBaseData(current_app_name);
@@ -322,18 +329,16 @@ Vue.component('pdf-auswertung-gesamt', {
                     block.push(app_title(data));
 
                     // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
                 }.bind(this);
-                pdf.push(sci());
 
 
                 // ------------------------------------------
                 // rs13
                 // ------------------------------------------
-
                 var rs13 = function () {
                     const current_app_name = 'rs13';
                     var data = this.getAppBaseData(current_app_name);
@@ -342,12 +347,29 @@ Vue.component('pdf-auswertung-gesamt', {
                     // Build PDF
                     var pdf = [];
                     pdf.push(app_title(data));
+
+                    // Content from Plugin
                     pdf.push(this.rs13_pdf_content(data));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return pdf;
                 }.bind(this);
+
+
+                // ------------------------------------------
+                // PDF /  Pages & Order
+                // ------------------------------------------
+                pdf.push(titelseite());
+                pdf.push(makepdf._pageBreak());
+                pdf.push(bdi());
+                pdf.push(aase());
+                pdf.push(bscl());
+                pdf.push(whoqol());
+                pdf.push(isk());
+                pdf.push(sci());
                 pdf.push(rs13());
+                pdf.push(tmt());
+
 
 
                 // Job Done

@@ -1,5 +1,5 @@
-// Plugin: pdf_globals
-const pdf_globals = {
+// Plugin: optinomic_pdf_globals
+const optinomic_pdf_globals = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
@@ -37,9 +37,19 @@ const pdf_globals = {
                         pdf.push(this.pdf_app_title(m.name, m.short_description, m.description));
                         return makepdf._keepTogether(pdf, m.name + '_appinfo');
                     };
+                },
+                get_pdf_chart_options(options) {
+                    try {
+                        var copy = Object.assign({}, options);
+                        copy.item_height = copy.item_height - 12;
+                        return copy;
+                    } catch (err) {
+                        console.error('get_pdf_chart_options', err);
+                        return options;
+                    }
                 }
             }
         });
     }
 };
-Vue.use(pdf_globals)
+Vue.use(optinomic_pdf_globals);
