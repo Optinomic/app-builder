@@ -258,10 +258,8 @@ Vue.component('app-pdf-druckvorlagen', {
     },
     template: `
         <div>
-            <p>Hallo</p>
-            <p v-text="pdf_apps_ready"></p>
             
-            <optinomic-content-block v-if="pdf_allgemein_ready" title="Druckvorlagen" subtitle="Allgemeine" id="pdf_allgemeine_druckvorlagen">
+            <optinomic-content-block v-if="pdf_allgemein_ready" title="Allgemein" subtitle="Druckvorlagen (PDF)" id="pdf_allgemeine_druckvorlagen">
                 <optinomic-pdfmake :header-left="patient_data.extras.full_name"
                     :footer-left="pdf_einladung_pa.title + ' :: ' + pdf_einladung_pa.name" header-right="Klinik Südhang"
                     :document-title="pdf_einladung_pa.title + ' - ' + pdf_einladung_pa.name" :content="pdf_einladung_pa.content"
@@ -274,7 +272,7 @@ Vue.component('app-pdf-druckvorlagen', {
                 </optinomic-pdfmake>
             </optinomic-content-block>
             
-            <optinomic-content-block v-if="pdf_apps_ready" title="Druckvorlagen" subtitle="Applikationen" id="pdf_apps_druckvorlagen">
+            <optinomic-content-block v-if="pdf_apps_ready" title="Applikationen" subtitle="Druckvorlagen (PDF)" id="pdf_apps_druckvorlagen">
                 <div v-for="app in pdf_apps_array">
                     <optinomic-pdfmake :header-left="app.title"
                         :footer-left="app.subtitle" header-right="Klinik Südhang"
