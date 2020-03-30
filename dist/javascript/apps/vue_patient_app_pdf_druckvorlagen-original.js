@@ -42,11 +42,70 @@ Vue.component('app-pdf-druckvorlagen', {
                     "subtitle": "Psychische Widerstandskraft",
                     "identifier": "ch.suedhang.apps.rs13.production"
                 }]
+            },
+            "pdf_contents": {}
+        }
+    },
+    methods: {
+        get_app_sr(name) {
+            try {
+                if (this.production) {
+                    var return_obj = null;
+                    this.pdf_apps.production.forEach(function (app) {
+                        if (app.name === name) {
+                            return_obj = this.$store.state.data_apps.data_object[app.identifier];
+                        };
+                    }.bind(this));
+                    return return_obj;
+                };
+            } catch (err) {
+                console.error('get_app_sr', err);
+                return null;
+            }
+        },
+        get_current_patient_module(name) {
+            try {
+                if (this.production) {
+
+                    var return_obj = null;
+                    this.pdf_apps.production.forEach(function (app) {
+                        if (app.name === name) {
+                            this.patient_modules.forEach(function (mod) {
+                                if (mod.identifier === app.identifier) {
+                                    return_obj = Object.assign({}, mod.module);
+                                };
+                            }.bind(this));
+                        };
+                    }.bind(this));
+                    return return_obj;
+                };
+            } catch (err) {
+                console.error('get_app_sr', err);
+                return null;
+            }
+        },
+        get_app_pdf_content(identifier) {
+            try {
+                return this.pdf_contents[identifier];
+            } catch (err) {
+                console.error('get_app_pdf_content', err);
+                return [];
             }
         }
     },
-    methods: {},
     computed: {
+        pdf_apps_array() {
+            try {
+                if (this.production) {
+                    return this.pdf_apps.production;
+                } else {
+                    return null;
+                };
+            } catch (err) {
+                console.error('pdf_apps_array', err);
+                return null;
+            }
+        },
         login_pid() {
             try {
                 return this.patient_data.cis_pid
@@ -66,6 +125,44 @@ Vue.component('app-pdf-druckvorlagen', {
             } catch (err) {
                 console.error('login_pw', err);
                 return "Error";
+            }
+        },
+        pdf_apps_ready() {
+            try {
+                // Build App PDF's
+
+                var return_ready = false;
+
+                if (this.production && this.patient_modules) {
+                    this.pdf_apps.production.forEach(function (app) {
+
+                        var sr_data = this.get_app_sr(app.name);
+                        var app_data = this.get_current_patient_module(app.name);
+
+                        if (sr_data && app_data) {
+                            if (app.name === 'rs13') {
+                                // Build RS-13 PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.rs13_pdf_content(sr_data));
+
+                                // Store
+                                this.pdf_contents[app.identifier] = pdf.slice();
+                            };
+
+                            return_ready = true;
+                            console.log('REAAAAAADY', this.pdf_contents);
+                    
+                        };
+
+                    }.bind(this));
+                    return return_ready;
+                };
+
+
+            } catch (err) {
+                console.error('pdf_apps_ready', err);
+                return false;
             }
         },
         pdf_allgemein_ready() {
@@ -155,14 +252,16 @@ Vue.component('app-pdf-druckvorlagen', {
     created() {
         if (this.production) {
             this.pdf_apps.production.forEach(function (params) {
-                this.$store.dispatch('getSurveyResponses', params);    
+                this.$store.dispatch('getSurveyResponses', params);
             }.bind(this));
         };
     },
     template: `
         <div>
-
-            <optinomic-content-block v-if="pdf_allgemein_ready" title="Druckvorlagen" subtitle="Allgemeine" id="pdf_druckvorlagen">
+            <p>Hallo</p>
+            <p v-text="pdf_apps_ready"></p>
+            
+            <optinomic-content-block v-if="pdf_allgemein_ready" title="Druckvorlagen" subtitle="Allgemeine" id="pdf_allgemeine_druckvorlagen">
                 <optinomic-pdfmake :header-left="patient_data.extras.full_name"
                     :footer-left="pdf_einladung_pa.title + ' :: ' + pdf_einladung_pa.name" header-right="Klinik Südhang"
                     :document-title="pdf_einladung_pa.title + ' - ' + pdf_einladung_pa.name" :content="pdf_einladung_pa.content"
@@ -173,6 +272,17 @@ Vue.component('app-pdf-druckvorlagen', {
                     :document-title="pdf_notizblatt.title" :content="pdf_notizblatt.content"
                     hide-logo>
                 </optinomic-pdfmake>
+            </optinomic-content-block>
+            
+            <optinomic-content-block v-if="pdf_apps_ready" title="Druckvorlagen" subtitle="Applikationen" id="pdf_apps_druckvorlagen">
+                <div v-for="app in pdf_apps_array">
+                    <optinomic-pdfmake :header-left="app.title"
+                        :footer-left="app.subtitle" header-right="Klinik Südhang"
+                        :document-title="app.title" :content="get_app_pdf_content(app.identifier)"
+                        hide-logo>
+                    </optinomic-pdfmake>
+                </div>
+                
             </optinomic-content-block>
 
         </div>

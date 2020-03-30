@@ -64,6 +64,20 @@ const optinomic_globals = {
                         return null;
                     };
                 },
+                patient_modules() {
+                    try {
+                        return this.$store.state.apps.data.patient_modules;
+                    } catch (e) {
+                        return null;
+                    };
+                },
+                user_modules() {
+                    try {
+                        return this.$store.state.apps.data.user_modules;
+                    } catch (e) {
+                        return null;
+                    };
+                },
                 patient_data() {
                     try {
                         return this.$store.state.patient.data;
