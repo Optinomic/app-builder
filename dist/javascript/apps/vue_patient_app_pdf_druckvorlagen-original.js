@@ -149,10 +149,7 @@ Vue.component('app-pdf-druckvorlagen', {
                                 // Store
                                 this.pdf_contents[app.identifier] = pdf.slice();
                             };
-
                             return_ready = true;
-                            console.log('REAAAAAADY', this.pdf_contents);
-                    
                         };
 
                     }.bind(this));
