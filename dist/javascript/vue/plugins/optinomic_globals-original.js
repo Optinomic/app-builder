@@ -21,6 +21,24 @@ const optinomic_globals = {
                         };
                     };
                     return dateObj.toLocaleDateString('de-DE', o);
+                },
+                get_app_data(identifier) {
+                    try {
+                        return this.$store.state.data_apps.data_object[identifier];
+                    } catch (err) {
+                        console.error('get_app_data', err);
+                        return null;
+                    }
+                },
+                get_pdf_chart_options(options) {
+                    try {
+                        var copy = Object.assign({}, options);
+                        copy.item_height = copy.item_height - 12;
+                        return copy;
+                    } catch (err) {
+                        console.error('get_pdf_chart_options', err);
+                        return options;
+                    }
                 }
             },
             computed: {
@@ -89,4 +107,4 @@ const optinomic_globals = {
         });
     }
 };
-Vue.use(optinomic_globals)
+Vue.use(optinomic_globals);

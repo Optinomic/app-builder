@@ -15,72 +15,72 @@ Vue.component('pdf-auswertung-gesamt', {
         "pdf_building": false,
         "pdf_finished": false,
         "pdf_content": [],
-        "needed_apps_data": {
+        "pdf_apps": {
             "production": [{
                     "name": "actinfo_ein",
-                    "title": "act-info",
+                    "title": "ActInfo",
                     "subtitle": "Information network on addiction care and therapy",
-                    "app_id": "ch.suedhang.apps.actinfo_ein.production"
+                    "identifier": "ch.suedhang.apps.actinfo_ein.production"
                 },
                 {
                     "name": "actinfo_aus",
-                    "title": "act-info",
+                    "title": "ActInfo",
                     "subtitle": "Information network on addiction care and therapy",
-                    "app_id": "ch.suedhang.apps.actinfo_aus.production"
+                    "identifier": "ch.suedhang.apps.actinfo_aus.production"
                 },
                 {
                     "name": "tmt",
                     "title": "TMT",
                     "subtitle": "Trail Making Test",
-                    "app_id": "ch.suedhang.apps.tmt.production"
+                    "identifier": "ch.suedhang.apps.tmt.production"
                 },
                 {
                     "name": "bdi",
                     "title": "BDI-II",
                     "subtitle": "Beck Depressions-Inventar",
-                    "app_id": "ch.suedhang.apps.bdi.production"
+                    "identifier": "ch.suedhang.apps.bdi.production"
                 },
                 {
                     "name": "asrs",
                     "title": "",
                     "subtitle": "",
-                    "app_id": "ch.suedhang.apps.asrs.production"
+                    "identifier": "ch.suedhang.apps.asrs.production"
                 },
                 {
                     "name": "aase",
                     "title": "AASE-G",
                     "subtitle": "Alcohol Abstinence Self-Effcacy | Skala Versuchung",
-                    "app_id": "ch.suedhang.apps.aase-g.production"
+                    "identifier": "ch.suedhang.apps.aase-g.production"
                 },
                 {
                     "name": "bscl",
                     "title": "BSCL",
                     "subtitle": "Brief Symptom Checklist",
-                    "app_id": "ch.suedhang.apps.bscl_anq.production"
+                    "identifier": "ch.suedhang.apps.bscl_anq.production"
                 },
                 {
                     "name": "isk",
                     "title": "ISK-K",
                     "subtitle": "Inventar Sozialer Kompetenzen - Kurzform",
-                    "app_id": "ch.suedhang.apps.isk.production"
+                    "identifier": "ch.suedhang.apps.isk.production"
                 },
                 {
                     "name": "whoqol",
                     "title": "WHOQOL-BREF",
                     "subtitle": "WHO Quality of Life - Kurzform",
-                    "app_id": "ch.suedhang.apps.whoqol.production"
+                    "identifier": "ch.suedhang.apps.whoqol.production"
                 },
                 {
                     "name": "sci",
                     "title": "SCI",
                     "subtitle": "Stress-Coping-Inventar",
-                    "app_id": "ch.suedhang.apps.sci.production"
+                    "identifier": "ch.suedhang.apps.sci.production"
                 },
                 {
                     "name": "rs13",
                     "title": "RS-13",
                     "subtitle": "Resilienzfragebogen",
-                    "app_id": "ch.suedhang.apps.rs13.production"
+                    "identifier": "ch.suedhang.apps.rs13.production"
                 }
             ]
         }
@@ -94,7 +94,7 @@ Vue.component('pdf-auswertung-gesamt', {
                 this.pdf_building = true;
 
                 var pdf = [];
-                var base = this.$store.state.data_apps.base.slice();
+                var base = this.data_apps_array;
 
                 console.warn('doPDF :: Building PDF', base);
                 this.pdf_status = "Wird erstellt...";
@@ -107,10 +107,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 var app_title = function (data) {
                     var titel = [];
                     titel.push(makepdf._horizontalLine(100, "#E0E0E0"));
-                    titel.push(makepdf._heading(data.title, data.subtitle, 'h1'));
+                    titel.push(makepdf._heading(data.params.title, data.params.subtitle, 'h1'));
                     titel.push(makepdf._text(data.module.short_description));
 
-                    return makepdf._keepTogether(titel, data.name + '_titel');
+                    return makepdf._keepTogether(titel, data.params.name + '_titel');
                 }.bind(this);
 
 
@@ -124,12 +124,12 @@ Vue.component('pdf-auswertung-gesamt', {
                     block.push(makepdf._suedhang_logo_anschrift());
                     block.push(makepdf._title(this.title, this.subtitle));
                     block.push({
-                        "text": "Wir berichten über den Aufenthalt von " + this.patient_extras.anrede + " vom " + this.stay_from_to + ".",
+                        "text": "Wir berichten über den Aufenthalt von " + this.patient_data.extras.anrede + " vom " + this.stay_from_to + ".",
                         "style": "p"
                     });
                     block.push(makepdf._spacer(96));
                     block.push(makepdf._horizontalLine(62, "#F5F5F5"));
-                    block.push(makepdf._stamp(this.patient_extras.full_name, 18));
+                    block.push(makepdf._stamp(this.patient_data.extras.full_name, 18));
                     block.push(makepdf._horizontalLine(62, "#F5F5F5"));
 
                     var title_block = {
@@ -155,15 +155,23 @@ Vue.component('pdf-auswertung-gesamt', {
 
                 var actinfo = function () {
                     var pdf = [];
-                    var name = 'actinfo';
                     try {
+                        const current_app_name = 'actinfo';
                         var data_ein = this.getAppBaseData('actinfo_ein');
+                        data_ein.module = this.get_current_patient_module('actinfo_ein');
                         var data_aus = this.getAppBaseData('actinfo_aus');
-                        // console.error('actinfo', data_ein, data_aus);
 
-                        // Build PDF from Plugin
-                        var pdf = this.pdf_build_actinfo(data_ein, data_aus);
+                        var block = [];
+
+                        // Titel
+                        block.push(app_title(data_ein));
+
+                        // Content from Plugin
+                        block.push(this.actinfo_pdf_content(data_ein, data_aus));
+
+
                         this.pdf_create_count = this.pdf_create_count + 1;
+                        return block;
 
                     } catch (e) {
                         pdf.push(makepdf._keepTogether(makepdf._indication('!', 'Error'), name + '_error'));
@@ -181,8 +189,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var tmt = function () {
-                    var data = this.getAppBaseData('tmt');
-                    console.error('tmt', data);
+                    const current_app_name = 'tmt';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    console.error(current_app_name, data);
 
                     var block = [];
 
@@ -203,16 +213,19 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var bdi = function () {
-                    var data = this.getAppBaseData('bdi');
-                    console.error('bdi', data);
+                    const current_app_name = 'bdi';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    console.error(current_app_name, data);
 
                     var block = [];
 
                     // Titel
                     block.push(app_title(data));
 
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    // Content from Plugin
+                    block.push(this.bdi_pdf_content(data));
+
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
@@ -225,8 +238,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var aase = function () {
-                    var data = this.getAppBaseData('aase');
-                    console.error('aase', data);
+                    const current_app_name = 'aase';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    console.error(current_app_name, data);
 
                     var block = [];
 
@@ -247,8 +262,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var whoqol = function () {
-                    var data = this.getAppBaseData('whoqol');
-                    console.error('whoqol', data);
+                    const current_app_name = 'whoqol';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    console.error(current_app_name, data);
 
                     var block = [];
 
@@ -269,8 +286,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var isk = function () {
-                    var data = this.getAppBaseData('isk');
-                    console.error('isk', data);
+                    const current_app_name = 'isk';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    console.error(current_app_name, data);
 
                     var block = [];
 
@@ -292,8 +311,10 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var sci = function () {
-                    var data = this.getAppBaseData('sci');
-                    console.error('sci', data);
+                    const current_app_name = 'sci';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
+                    console.error(current_app_name, data);
 
                     var block = [];
 
@@ -314,19 +335,17 @@ Vue.component('pdf-auswertung-gesamt', {
                 // ------------------------------------------
 
                 var rs13 = function () {
-                    var data = this.getAppBaseData('rs13');
-                    console.error('rs13', data);
+                    const current_app_name = 'rs13';
+                    var data = this.getAppBaseData(current_app_name);
+                    data.module = this.get_current_patient_module(current_app_name);
 
-                    var block = [];
-
-                    // Titel
-                    block.push(app_title(data));
-
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), data.name + '_todo'));
+                    // Build PDF
+                    var pdf = [];
+                    pdf.push(app_title(data));
+                    pdf.push(this.rs13_pdf_content(data));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
-                    return block;
+                    return pdf;
                 }.bind(this);
                 pdf.push(rs13());
 
@@ -343,88 +362,90 @@ Vue.component('pdf-auswertung-gesamt', {
         },
         getAppBaseData(app_name) {
             try {
-                var da = this.$store.state.data_apps.base.slice();
-                var return_obj = {};
-                da.forEach(function (app) {
+                var return_obj = null;
+                this.data_apps_array.forEach(function (app) {
                     if (app.name === app_name) {
-                        return_obj = Object.assign({}, app);
-
-                        this.patient_modules.forEach(function (pm) {
-                            if (pm.identifier === return_obj.app_id) {
-                                return_obj.module = Object.assign({}, pm.module);
-                            };
-                        }.bind(this));
-
+                        return_obj = this.get_app_data(app.identifier);
                     };
                 }.bind(this));
                 return return_obj;
             } catch (err) {
-                console.error('buildAppTitle', err);
+                console.error('getAppBaseData', err);
+                return null;
+            }
+        },
+        get_current_patient_module(name) {
+            try {
+                if (this.production) {
+
+                    var return_obj = null;
+                    this.pdf_apps.production.forEach(function (app) {
+                        if (app.name === name) {
+                            this.patient_modules.forEach(function (mod) {
+                                if (mod.identifier === app.identifier) {
+                                    return_obj = Object.assign({}, mod.module);
+                                };
+                            }.bind(this));
+                        };
+                    }.bind(this));
+                    return return_obj;
+                };
+            } catch (err) {
+                console.error('get_current_patient_module', err);
                 return null;
             }
         }
     },
     computed: {
-        patient_modules() {
-            try {
-                return this.$store.state.apps.data.patient_modules
-            } catch (err) {
-                return [];
-            }
-        },
         data_apps_array() {
             try {
-                var da = this.$store.state.data_apps.base.slice();
-                da.forEach(function (app, appID) {
-                    if (!("pdf_created" in app)) {
-                        app.pdf_created = false;
-                    };
-                }.bind(this));
-                // console.error('computed', da);
-                return da;
+                if (this.production) {
+                    return this.pdf_apps.production.slice();
+                } else {
+                    return [];
+                };
             } catch (e) {
-                return [];
+                console.error('data_apps_array', e);
+                return null;
             };
         },
         readyforPDF() {
             try {
                 var ret_val = true;
-                var da = this.$store.state.data_apps.base.slice();
-                da.forEach(function (app, appID) {
-                    if (app.loaded !== true) {
+
+                this.data_apps_array.forEach(function (app) {
+                    var data = this.get_app_data(app.identifier);
+
+                    if (data !== undefined) {
+                        if (data.loaded !== true) {
+                            ret_val = false;
+                        };
+                    } else {
                         ret_val = false;
                     };
                 }.bind(this));
 
-                if (this.$store.state.stays.current.found === false) {
+                if (this.stay_current_data.found === false) {
                     ret_val = false;
                 };
-                // console.error('computed data_apps_array_loaded', da);
                 return ret_val;
             } catch (e) {
+                console.error('readyforPDF', e);
                 return false;
+            };
+        },
+        stay_current_data() {
+            // return data
+            try {
+                return this.$store.state.stays.current.data;
+            } catch (e) {
+                return null;
             };
         },
         stay_from_to() {
             // return data
             try {
-                return this.$store.state.stays.current.data.extras.from_to;
-            } catch (e) {
-                return "";
-            };
-        },
-        patient_secure() {
-            // return data
-            try {
-                return this.$store.state.patient.data.extras.secure;
-            } catch (e) {
-                return "";
-            };
-        },
-        patient_extras() {
-            // return data
-            try {
-                return this.$store.state.patient.data.extras;
+                return this.stay_current_data.extras.from_to;
             } catch (e) {
                 return "";
             };
@@ -442,27 +463,10 @@ Vue.component('pdf-auswertung-gesamt', {
         try {
             if (this.production) {
 
-                var init = {
-                    "base": this.needed_apps_data.production.slice(),
-                    "count": 0,
-                    "data_init_array": [],
-                    "data_loaded_array": []
-                };
-
-                this.$store.commit({
-                    type: 'saveData',
-                    root: 'data_apps',
-                    data: init
-                });
-
                 this.pdf_status = "Daten werden geladen...";
 
-                this.needed_apps_data.production.forEach(function (app, appID) {
-                    var params = {
-                        "identifier": app.app_id,
-                        "root": app.app_id
-                    };
-                    this.$store.dispatch('getSurveyResponses', params);
+                this.pdf_apps.production.forEach(function (app, appID) {
+                    this.$store.dispatch('getSurveyResponses', app);
                 }.bind(this));
             };
         } catch (err) {
@@ -502,7 +506,7 @@ Vue.component('pdf-auswertung-gesamt', {
 
         </div>
         <div v-else>
-            <optinomic-pdfmake :header-left="patient_secure" :footer-left="title" header-right="Klinik Südhang"
+            <optinomic-pdfmake :header-left="patient_data.extras.secure" :footer-left="title" header-right="Klinik Südhang"
                 :document-title="title" :content="pdf_content" hide-logo></optinomic-pdfmake>
         </div>
     </div>

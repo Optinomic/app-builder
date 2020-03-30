@@ -80,7 +80,7 @@ Vue.component('app-pdf-druckvorlagen', {
                     return return_obj;
                 };
             } catch (err) {
-                console.error('get_app_sr', err);
+                console.error('get_current_patient_module', err);
                 return null;
             }
         },
@@ -256,7 +256,7 @@ Vue.component('app-pdf-druckvorlagen', {
     template: `
         <div>
             
-            <optinomic-content-block v-if="pdf_allgemein_ready" title="Allgemein" subtitle="Druckvorlagen (PDF)" id="pdf_allgemeine_druckvorlagen">
+            <optinomic-content-block v-if="pdf_allgemein_ready" title="Allgemeine" subtitle="Druckvorlagen (PDF)" id="pdf_allgemeine_druckvorlagen">
                 <optinomic-pdfmake :header-left="patient_data.extras.full_name"
                     :footer-left="pdf_einladung_pa.title + ' :: ' + pdf_einladung_pa.name" header-right="Klinik Südhang"
                     :document-title="pdf_einladung_pa.title + ' - ' + pdf_einladung_pa.name" :content="pdf_einladung_pa.content"
@@ -268,8 +268,12 @@ Vue.component('app-pdf-druckvorlagen', {
                     hide-logo>
                 </optinomic-pdfmake>
             </optinomic-content-block>
+
+            <optinomic-content-block v-if="pdf_apps_ready" title="Fragebogenauswertung" subtitle="Fallkonferenz (UNDER CONSTRUCTION)" id="pdf_gesamtauswertung">
+                <pdf-auswertung-gesamt></pdf-auswertung-gesamt>
+            </optinomic-content-block>
             
-            <optinomic-content-block v-if="pdf_apps_ready" title="Applikationen" subtitle="Druckvorlagen (PDF)" id="pdf_apps_druckvorlagen">
+            <optinomic-content-block v-if="pdf_apps_ready" title="Spezifische Applikationen" subtitle="Druckvorlagen (PDF)" id="pdf_apps_druckvorlagen">
                 <div v-for="app in pdf_apps_array">
                     <optinomic-pdfmake :header-left="app.title"
                         :footer-left="app.subtitle" header-right="Klinik Südhang"
@@ -277,7 +281,6 @@ Vue.component('app-pdf-druckvorlagen', {
                         hide-logo>
                     </optinomic-pdfmake>
                 </div>
-                
             </optinomic-content-block>
 
         </div>

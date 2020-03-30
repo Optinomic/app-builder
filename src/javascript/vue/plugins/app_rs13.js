@@ -111,13 +111,10 @@ const plugin_rs13 = {
                         if (sr.data.length > 0) {
 
                             // Chart | Grafik
-                            var subtitle = [];
-                            subtitle.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            subtitle.push(makepdf._heading(this.base_config.app_short_description, null, 'h3'));
-                            pdf.push(makepdf._keepTogether(subtitle, "rs13_chart_title"));
-
                             var pdf_chart = [];
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.rs13_chart.options, {}, {}, [], this.rs13_chart.scales, sr, this.rs13_chart.ranges));
+                            pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.rs13_chart.options), {}, {}, [], this.rs13_chart.scales, sr, this.rs13_chart.ranges));
+                            pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
                             pdf_chart.push(makepdf._spacer(10));
                             pdf.push(makepdf._keepTogether(pdf_chart, "rs13_chart"));
 
@@ -155,4 +152,4 @@ const plugin_rs13 = {
         });
     }
 };
-Vue.use(plugin_rs13)
+Vue.use(plugin_rs13);
