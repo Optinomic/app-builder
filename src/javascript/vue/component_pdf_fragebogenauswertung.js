@@ -177,8 +177,6 @@ Vue.component('pdf-auswertung-gesamt', {
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return pdf;
                 }.bind(this);
-                pdf.push(actinfo());
-
 
 
                 // ------------------------------------------
@@ -360,15 +358,16 @@ Vue.component('pdf-auswertung-gesamt', {
                 // PDF /  Pages & Order
                 // ------------------------------------------
                 pdf.push(titelseite());
+                pdf.push(actinfo());
                 pdf.push(makepdf._pageBreak());
                 pdf.push(bdi());
+                pdf.push(tmt());
                 pdf.push(aase());
                 pdf.push(bscl());
                 pdf.push(whoqol());
                 pdf.push(isk());
                 pdf.push(sci());
                 pdf.push(rs13());
-                pdf.push(tmt());
 
 
 
