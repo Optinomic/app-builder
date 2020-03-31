@@ -231,15 +231,14 @@ Vue.component('pdf-auswertung-gesamt', {
                     const current_app_name = 'aase';
                     var data = this.getAppBaseData(current_app_name);
                     data.module = this.get_current_patient_module(current_app_name);
-                    console.error(current_app_name, data);
 
                     var block = [];
 
                     // Titel
                     block.push(app_title(data));
 
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
+                    // Content from Plugin
+                    block.push(this.aase_pdf_content(data));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
@@ -297,15 +296,16 @@ Vue.component('pdf-auswertung-gesamt', {
                     const current_app_name = 'isk';
                     var data = this.getAppBaseData(current_app_name);
                     data.module = this.get_current_patient_module(current_app_name);
-                    console.error(current_app_name, data);
+                    // console.error(current_app_name, data);
 
                     var block = [];
 
                     // Titel
                     block.push(app_title(data));
 
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
+                    // Content from Plugin
+                    block.push(this.iskk_pdf_content(data));
+
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;
@@ -319,15 +319,15 @@ Vue.component('pdf-auswertung-gesamt', {
                     const current_app_name = 'sci';
                     var data = this.getAppBaseData(current_app_name);
                     data.module = this.get_current_patient_module(current_app_name);
-                    console.error(current_app_name, data);
+                    // console.error(current_app_name, data);
 
                     var block = [];
 
                     // Titel
                     block.push(app_title(data));
 
-                    // Content
-                    block.push(makepdf._keepTogether(makepdf._indication('!', 'ToDo'), current_app_name + '_todo'));
+                    // Content from Plugin
+                    block.push(this.sci_pdf_content(data));
 
                     this.pdf_create_count = this.pdf_create_count + 1;
                     return block;

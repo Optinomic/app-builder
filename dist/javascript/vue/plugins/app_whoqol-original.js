@@ -78,7 +78,7 @@ const plugin_whoqol = {
                         };
 
                     } catch (e) {
-                        console.log('a_pdf_content', e)
+                        console.log('whoqol_pdf_content', e)
                         pdf.push(this.pdf_error(this.name));
                     };
 

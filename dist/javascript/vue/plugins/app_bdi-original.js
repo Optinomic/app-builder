@@ -77,14 +77,14 @@ const plugin_bdi = {
                             pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.bdi_chart.options), {}, {}, [], this.bdi_chart.scales, sr, this.bdi_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
-                            pdf.push(makepdf._keepTogether(pdf_chart, "audit_chart"));
+                            pdf.push(makepdf._keepTogether(pdf_chart, "bdi_chart"));
 
                         } else {
                             pdf.push(this.pdf_no_data(this.name));
                         };
 
                     } catch (e) {
-                        console.log('a_pdf_content', e)
+                        console.log('bdi_pdf_content', e)
                         pdf.push(this.pdf_error(this.name));
                     };
 
