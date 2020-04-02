@@ -37,11 +37,72 @@ Vue.component('app-pdf-druckvorlagen', {
             },
             "pdf_apps": {
                 "production": [{
-                    "name": "rs13",
-                    "title": "Resilienzfragebogen (RS-13)",
-                    "subtitle": "Psychische Widerstandskraft",
-                    "identifier": "ch.suedhang.apps.rs13.production"
-                }]
+                        "name": "actinfo_ein",
+                        "title": "ActInfo",
+                        "subtitle": "Information network on addiction care and therapy",
+                        "identifier": "ch.suedhang.apps.actinfo_ein.production"
+                    },
+                    {
+                        "name": "actinfo_aus",
+                        "title": "ActInfo",
+                        "subtitle": "Information network on addiction care and therapy",
+                        "identifier": "ch.suedhang.apps.actinfo_aus.production"
+                    },
+                    {
+                        "name": "tmt",
+                        "title": "TMT",
+                        "subtitle": "Trail Making Test",
+                        "identifier": "ch.suedhang.apps.tmt.production"
+                    },
+                    {
+                        "name": "bdi",
+                        "title": "BDI-II",
+                        "subtitle": "Beck Depressions-Inventar",
+                        "identifier": "ch.suedhang.apps.bdi.production"
+                    },
+                    {
+                        "name": "asrs",
+                        "title": "",
+                        "subtitle": "",
+                        "identifier": "ch.suedhang.apps.asrs.production"
+                    },
+                    {
+                        "name": "aase",
+                        "title": "AASE-G",
+                        "subtitle": "Alcohol Abstinence Self-Effcacy | Skala Versuchung",
+                        "identifier": "ch.suedhang.apps.aase-g.production"
+                    },
+                    {
+                        "name": "bscl",
+                        "title": "BSCL",
+                        "subtitle": "Brief Symptom Checklist",
+                        "identifier": "ch.suedhang.apps.bscl_anq.production"
+                    },
+                    {
+                        "name": "isk",
+                        "title": "ISK-K",
+                        "subtitle": "Inventar Sozialer Kompetenzen - Kurzform",
+                        "identifier": "ch.suedhang.apps.isk.production"
+                    },
+                    {
+                        "name": "whoqol",
+                        "title": "WHOQOL-BREF",
+                        "subtitle": "WHO Quality of Life - Kurzform",
+                        "identifier": "ch.suedhang.apps.whoqol.production"
+                    },
+                    {
+                        "name": "sci",
+                        "title": "SCI",
+                        "subtitle": "Stress-Coping-Inventar",
+                        "identifier": "ch.suedhang.apps.sci.production"
+                    },
+                    {
+                        "name": "rs13",
+                        "title": "RS-13",
+                        "subtitle": "Resilienzfragebogen",
+                        "identifier": "ch.suedhang.apps.rs13.production"
+                    }
+                ]
             },
             "pdf_contents": {}
         }
@@ -134,21 +195,99 @@ Vue.component('app-pdf-druckvorlagen', {
                 var return_ready = false;
 
                 if (this.production && this.patient_modules) {
+                    
                     this.pdf_apps.production.forEach(function (app) {
 
                         var sr_data = this.get_app_sr(app.name);
                         var app_data = this.get_current_patient_module(app.name);
-
+                        
                         if (sr_data && app_data) {
+                            
+                            
+
+                            if (app.name === 'aase') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.aase_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
+                            if (app.name === 'actinfo_ein') {
+                                var sr_data_aus = this.get_app_sr('actinfo_aus');
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.actinfo_pdf_content(sr_data, sr_data_aus));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
+
+                            if (app.name === 'bdi') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.bdi_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
+                            if (app.name === 'bscl') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.bscl_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
+                            if (app.name === 'isk') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.iskk_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+ 
                             if (app.name === 'rs13') {
-                                // Build RS-13 PDF
+                                // Build PDF
                                 var pdf = [];
                                 pdf.push(this.pdf_app_info(app_data, true));
                                 pdf.push(this.rs13_pdf_content(sr_data));
-
                                 // Store
-                                this.pdf_contents[app.identifier] = pdf.slice();
+                                this.pdf_contents[app.name] = pdf.slice();
                             };
+
+                            if (app.name === 'sci') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.sci_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
+                            if (app.name === 'tmt') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.tmt_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
+                            if (app.name === 'whoqol') {
+                                // Build PDF
+                                var pdf = [];
+                                pdf.push(this.pdf_app_info(app_data, true));
+                                pdf.push(this.whoqol_pdf_content(sr_data));
+                                // Store
+                                this.pdf_contents[app.name] = pdf.slice();
+                            };
+
                             return_ready = true;
                         };
 
@@ -269,7 +408,7 @@ Vue.component('app-pdf-druckvorlagen', {
                 </optinomic-pdfmake>
             </optinomic-content-block>
 
-            <optinomic-content-block v-if="pdf_apps_ready" title="Fragebogenauswertung" subtitle="Fallkonferenz (UNDER CONSTRUCTION)" id="pdf_gesamtauswertung">
+            <optinomic-content-block title="Fragebogenauswertung" subtitle="Fallkonferenz (UNDER CONSTRUCTION)" id="pdf_gesamtauswertung">
                 <pdf-auswertung-gesamt></pdf-auswertung-gesamt>
             </optinomic-content-block>
             
@@ -277,7 +416,7 @@ Vue.component('app-pdf-druckvorlagen', {
                 <div v-for="app in pdf_apps_array">
                     <optinomic-pdfmake :header-left="app.title"
                         :footer-left="app.subtitle" header-right="Klinik Südhang"
-                        :document-title="app.title" :content="get_app_pdf_content(app.identifier)"
+                        :document-title="app.title" :content="get_app_pdf_content(app.name)"
                         hide-logo>
                     </optinomic-pdfmake>
                 </div>
