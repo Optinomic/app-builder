@@ -99,7 +99,7 @@ Vue.component('app-optinomic', {
     methods: {
         logState: function (pretty) {
             try {
-                var log = Object.assign({}, this.$store.state);
+                var log = JSON.parse(JSON.stringify(this.$store.state));
                 var dateObj = new Date();
                 const options = {
                     year: 'numeric',

@@ -24,7 +24,7 @@ const plugin_bdi = {
                             "show_settings_block": false,
                             "allow_toggle_settings_block": false,
                             "topnumber_hide_first_last": true,
-                            "range_alpha": 0.09,
+                            "range_alpha": 0.2,
                             "vertical_grid_every_x": 3,
                             "response_title_path": "calculation.bdi_score.score.current_range.interpretation_de",
                             "response_date_path": "date"
@@ -46,12 +46,12 @@ const plugin_bdi = {
                             "range_start": 8.5,
                             "range_stop": 13.5,
                             "text": "V.a. eine minimale Depression",
-                            "color": "#FFA000"
+                            "color": "#FBB100"
                         }, {
                             "range_start": 13.5,
                             "range_stop": 19.5,
                             "text": "V.a. eine leichte Depression",
-                            "color": "#FBB100"
+                            "color": "#FFA000"
                         }, {
                             "range_start": 19.5,
                             "range_stop": 28.5,
