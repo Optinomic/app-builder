@@ -12,9 +12,9 @@ const plugin_rs13 = {
                         "options": {
                             "min": 0,
                             "max": 100,
-                            "item_height": 50,
-                            "item_text_left": 83,
-                            "item_text_right": 60,
+                            "item_height": 51,
+                            "item_text_left": 65,
+                            "item_text_right": 65,
                             "color_skin": "indigo_grey_pink",
                             "color_grid": "#9E9E9E",
                             "color_clinic_sample": "#673AB7",

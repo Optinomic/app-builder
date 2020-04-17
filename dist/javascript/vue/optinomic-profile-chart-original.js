@@ -1,4 +1,4 @@
-// Optinomic App-Title
+// <optinmic-profile-chart>
 Vue.component('optinmic-profile-chart', {
     props: {
         options: {
@@ -74,13 +74,16 @@ Vue.component('optinmic-profile-chart', {
 
                 var getCategoryText = function (title, text) {
                     var r = "";
-                    if (title !== "") {
+                    
+                    if ((title !== "") && (title !== undefined)) {
                         r = r + title;
                     }
-                    if (title !== "" && text !== "") {
+                    
+                    if (((title !== "") && (title !== undefined)) && ((text !== "") && (text !== undefined))) {
                         r = r + ": ";
                     }
-                    if (text !== "") {
+                    
+                    if ((text !== "") && (text !== undefined)) {
                         r = r + text;
                     }
                     return "[font-size:11px]" + r + "[/]";
