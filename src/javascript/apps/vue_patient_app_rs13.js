@@ -160,10 +160,10 @@ Vue.component('app-rs13', {
 
             <div v-if="!missings">
                 <optinomic-content-block v-if="sr" :title="base_config.app_short_description" subtitle="Übersicht | Grafik" id="rs13_chart">
-                    <optinomic-chart-profile v-bind:options="JSON.stringify(rs13_chart.options)"
+                    <optinomic-profile-chart v-bind:options="JSON.stringify(rs13_chart.options)"
                         v-bind:scales="JSON.stringify(rs13_chart.scales)" v-bind:ranges="JSON.stringify(rs13_chart.ranges)"
                         v-bind:scores="JSON.stringify(sr)">
-                    </optinomic-chart-profile>
+                    </optinomic-profile-chart>
                 </optinomic-content-block>
             </div>
 

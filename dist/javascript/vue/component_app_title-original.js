@@ -79,7 +79,7 @@ Vue.component('app-title', {
                         <v-expansion-panel-content class="mx-0 px-0" style="margin:0; padding:0;">
                             <!-- Readme -->
                             <div style="border-bottom: 1px solid #8b0042">&nbsp;</div>
-                            <p class="overline mt-1 pb-1" style="margin-left:1px;color:#8b0042">README.md</p>
+                            <p class="overline mt-1 pb-1" style="margin-left:1px;color:#8b0042">README</p>
                             <div class="mt-2" v-html="readme_html"></div>
                             <!-- Info-Table -->
                             <div class="mt-6" style="border-bottom: 1px solid #8b0042">&nbsp;</div>

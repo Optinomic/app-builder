@@ -1,4 +1,4 @@
-{% extends "__build/templates/vuetify_polymer.nj" %} 
+{% extends "__build/templates/vuetify.nj" %} 
 
 {# --- HEAD-Section ---#}
 {% block head %}
