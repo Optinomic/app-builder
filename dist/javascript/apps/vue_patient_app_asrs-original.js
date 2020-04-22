@@ -1,4 +1,4 @@
-// ASRS | Application
+// ASRS | Application
 Vue.component('app-asrs', {
     props: {
         identifier: {
@@ -42,7 +42,7 @@ Vue.component('app-asrs', {
         <div>
 
             <div v-if="!missings">
-                <optinomic-content-block v-if="sr" title="ASRS" subtitle="Übersicht | Grafik" id="aase_chart">
+                <optinomic-content-block v-if="sr" title="ADHS-Screening (ASRS)" subtitle="Übersicht | Grafik" id="aase_chart">
                     <optinmic-profile-chart 
                         :options="asrs_chart.options"
                         :scales="asrs_chart.scales" 
@@ -54,7 +54,7 @@ Vue.component('app-asrs', {
 
             <div v-if="!missings">
                 <optinomic-content-block title="Druckvorlage" subtitle="PDF" id="id_pdf" v-if="pdf_ready">
-                    <optinomic-pdfmake :header-left="patient_secure" footer-left="ASRS | ADHS-Screening"
+                    <optinomic-pdfmake :header-left="patient_secure" footer-left="ASRS | ADHS-Screening"
                         header-right="Klinik Südhang" document-title="ASRS" :content="pdf_content" hide-logo>
                     </optinomic-pdfmake>
                 </optinomic-content-block>

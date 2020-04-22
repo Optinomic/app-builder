@@ -81,4 +81,4 @@ const plugin_asrs = {
         });
     }
 };
-Vue.use(plugin_aase);
+Vue.use(plugin_asrs);

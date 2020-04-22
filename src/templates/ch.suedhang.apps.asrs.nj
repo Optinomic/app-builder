@@ -7,7 +7,7 @@
 {# --- Content-Section ---#}
 {% block content %}
 
-<app-optinomic title="ASRS" subtitle="ADHS-Screening">
+<app-optinomic title="ADHS-Screening" subtitle="ASRS" >
     <app-asrs></app-asrs>
 </app-optinomic>
 

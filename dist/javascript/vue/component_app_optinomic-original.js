@@ -8,11 +8,15 @@ Vue.component('app-optinomic', {
         subtitle: {
             type: String,
             default: "App"
+        },
+        identifier: {
+            type: String,
+            default: helpers.getAppID()
         }
     },
     created() {
         var params = {
-            "identifier": helpers.getAppID(),
+            "identifier": this.identifier,
             "title": this.title,
             "subtitle": this.subtitle
         };
@@ -29,7 +33,7 @@ Vue.component('app-optinomic', {
     computed: {
         sr() {
             try {
-                return this.$store.state.data_apps.data_object[helpers.getAppID()];
+                return this.$store.state.data_apps.data_object[this.identifier];
             } catch (e) {
                 return [];
             };
