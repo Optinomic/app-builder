@@ -35,14 +35,14 @@ Vue.component('app-optinomic', {
             try {
                 return this.$store.state.data_apps.data_object[this.identifier];
             } catch (e) {
-                return [];
+                return {};
             };
         },
         isAdmin() {
             try {
                 return this.$store.state.user.data.isAdmin;
             } catch (e) {
-                return {};
+                return false;
             };
         },
         loaded() {

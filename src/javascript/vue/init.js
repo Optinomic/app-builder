@@ -144,7 +144,8 @@ new Vue({
                 // Do async task
                 helpers.callAPI('GET', api_url, {}, {}, function (req) {
 
-                    var app_id = helpers.getAppID();
+                    // var app_id = helpers.getAppID();
+                    var app_id = base_data.app_id;
 
                     if (req.status == 200) {
                         var resp = JSON.parse(req.response);

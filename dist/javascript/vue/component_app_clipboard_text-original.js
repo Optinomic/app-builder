@@ -42,12 +42,12 @@ Vue.component('optinomic-clipboard-text', {
             <v-tooltip left>
                 <template v-slot:activator="{ on }">
                     <span v-on="on" style="float:right;">
-                        <v-btn @click="copyClipboard" icon color="indigo">
+                        <v-btn x-small @click="copyClipboard" icon color="indigo">
                             <v-icon>mdi-content-copy</v-icon>
                         </v-btn>
                     </span>
                 </template>
-                <span>Kopiere in die Zwischenablage.</span>
+                <span class="caption">Kopiere in die Zwischenablage.</span>
             </v-tooltip>
 
             <p class="text--primary body-1" v-text="text">optinomic-clipboard-text</p>
