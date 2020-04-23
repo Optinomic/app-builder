@@ -141,11 +141,11 @@ Vue.component('app-actinfo', {
         },
         pdf_ready() {
             try {
-                if ((this.sr_data.length) && (this.current_module)) {
+                if ((this.data_ein) && (this.data_aus) && (this.current_module)) {
                     // Build PDF
                     var pdf = [];
                     pdf.push(this.pdf_app_info(this.current_module, true));
-                    pdf.push(this.actinfo_pdf_content(this.sr));
+                    pdf.push(this.actinfo_pdf_content(this.data_ein, this.data_aus));
                     this.pdf_content = pdf;
                     return true;
                 } else {
@@ -193,10 +193,21 @@ Vue.component('app-actinfo', {
                         :scores="data_merged">
                     </optinmic-profile-chart>
                 </optinomic-content-block>
+                
+                <optinomic-content-block show_in_toc="false" v-if="!data_merged.actinfo_ein_aus_data" title="Missings" subtitle="Datenhinweis"  id="actinfo_hinweis">
+                    <v-alert dense outlined text type="warning" v-if="!data_merged.actinfo_ein_data">
+                        actInfo | Eintritt: Noch nicht erfasst.
+                    </v-alert>
+                    <v-alert dense outlined text type="info" v-if="!data_merged.actinfo_aus_data">
+                        actInfo | Austritt: Noch nicht erfasst.
+                    </v-alert>
+                </optinomic-content-block>
+                
+                
             </div>
             <div v-else lass="mt-12">
                 <v-sheet class="mt-12 mb-3">
-                    <v-skeleton-loader class="mx-auto" type="article, sentence, article, table-tbody"></v-skeleton-loader>
+                    <v-skeleton-loader class="mx-auto" type="article, sentence, article"></v-skeleton-loader>
                 </v-sheet>
             </div>
 
