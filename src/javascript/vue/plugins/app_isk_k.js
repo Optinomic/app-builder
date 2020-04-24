@@ -22,6 +22,7 @@ const plugin_isk_k = {
                             "show_score_profile_line": true,
                             "show_score_circles": true,
                             "show_settings_block": false,
+                            "show_range_text": true,
                             "allow_toggle_settings_block": true,
                             "topnumber_hide_first_last": false,
                             "range_alpha": 0.09,
@@ -92,14 +93,37 @@ const plugin_isk_k = {
                 }
             },
             methods: {
+                iskk_get_cs_dive: function(s) {
+                    var dive = [];
+                    try {
+                        if (s.data.length > 0) {
+                            var latest_sr = s.data[s.data.length - 1];
+                            
+                            // Messzeitpunkt
+                            var mz = latest_sr.calculation.scores_calculation.info.mz.mz_id - 1;
+                            if ((mz === 0) || (mz === 1) || (mz === 2)) {
+                                dive.push(mz);
+                            } else {
+                                dive.push(3);
+                            };
+
+                            // console.log('iskk_get_cs_dive SET', dive)
+                        };
+                    } catch (e) {
+                        console.log('iskk_get_cs_dive', e)
+                    };
+                    return dive;                    
+                },
                 iskk_pdf_content: function (sr) {
                     var pdf = [];
                     try {
                         if (sr.data.length > 0) {
 
+                            var cs_dive = this.iskk_get_cs_dive(sr);
+
                             var pdf_chart = [];
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.isk_k_chart.options), {}, {}, [], this.isk_k_chart.scales, sr, this.isk_k_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.isk_k_chart.options), {}, included_cs, cs_dive, this.isk_k_chart.scales, sr, this.isk_k_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
                             pdf.push(makepdf._keepTogether(pdf_chart, "iskk_chart"));

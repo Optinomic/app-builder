@@ -423,7 +423,7 @@ const plugin_bscl_anq = {
                         if (s.data.length > 0) {
 
                             var sr = this.bscl_get_zusatzitems(s);
-                            var cs_dive = this.bscl_get_cs_dive(s)
+                            var cs_dive = this.bscl_get_cs_dive(s);
 
                             if (sr.zusatz.should_print_chart === true) {
                                 var chart = [];
