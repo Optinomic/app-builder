@@ -34,60 +34,60 @@ const plugin_sci = {
                             "left_text": "Keine oder wenig Belastung durch negative Ereignisse",
                             "right_title": "Negative Ereignisse",
                             "right_text": "Viele Stressoren durch negative Ereignisse",
-                            "score_path": "info.score_0",
+                            "score_path": "calculation.scores.scores.0.stanine",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Stresssymptome",
                             "left_text": "Wenig körperliche und psychische Stressreaktionen",
                             "right_title": "Stresssymptome",
                             "right_text": "Viele körperliche und psychische Stressreaktionen",
-                            "score_path": "info.score_1",
+                            "score_path": "calculation.scores.scores.1.stanine",
                             "clinic_sample_var": null
                         }],
                         "ranges": [{
                             "range_start": 0.5,
                             "range_stop": 1.5,
-                            "text": "Stanine: 1 | 4%",
+                            "text": "Stanine: 1 | 4%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 1.5,
                             "range_stop": 2.5,
-                            "text": "Stanine: 2 | 7%",
+                            "text": "Stanine: 2 | 7%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 2.5,
                             "range_stop": 3.5,
-                            "text": "Stanine: 3 | 12%",
+                            "text": "Stanine: 3 | 12%",
                             "color": "#FFA000"
                         }, {
                             "range_start": 3.5,
                             "range_stop": 4.5,
-                            "text": "Stanine: 4 | 17%",
+                            "text": "Stanine: 4 | 17%",
                             "color": "#FFA000"
                         }, {
                             "range_start": 4.5,
                             "range_stop": 5.5,
-                            "text": "Stanine: 5 | 20%",
+                            "text": "Stanine: 5 | 20%",
                             "color": "#FBB100"
                         }, {
                             "range_start": 5.5,
                             "range_stop": 6.5,
-                            "text": "Stanine: 6 | 17%",
+                            "text": "Stanine: 6 | 17%",
                             "color": "#FBB100"
                         }, {
                             "range_start": 6.5,
                             "range_stop": 7.5,
-                            "text": "Stanine: 7 | 12%",
+                            "text": "Stanine: 7 | 12%",
                             "color": "#FB7200"
                         }, {
                             "range_start": 7.5,
                             "range_stop": 8.5,
-                            "text": "Stanine: 8 | 7%",
+                            "text": "Stanine: 8 | 7%",
                             "color": "#FB7200"
                         }, {
                             "range_start": 8.5,
                             "range_stop": 9.5,
-                            "text": "Stanine: 9 | 4%",
+                            "text": "Stanine: 9 | 4%",
                             "color": "#C62828"
                         }]
                     },
@@ -120,134 +120,134 @@ const plugin_sci = {
                             "left_text": "Stressbewältigung durch positives Denken",
                             "right_title": "Positives Denken",
                             "right_text": "Selbstzweifel und Fokus auf Negatives",
-                            "score_path": "info.score_2",
+                            "score_path": "calculation.scores.scores.2.stanine",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Aktive Stressbewältigung",
                             "left_text": "Aktive und vorbeugende Stressbewältigung",
                             "right_title": "Aktive Stressbewältigung",
                             "right_text": "Stressoren werden nicht beseitigt",
-                            "score_path": "info.score_3",
+                            "score_path": "calculation.scores.scores.3.stanine",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Soziale Unterstützung",
                             "left_text": "Viel Unterstützung durch Freunde und Bekannte",
                             "right_title": "Soziale Unterstützung",
                             "right_text": "Kaum Unterstützung durch andere",
-                            "score_path": "info.score_4",
+                            "score_path": "calculation.scores.scores.4.stanine",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Halt im Glauben",
                             "left_text": "Person findet Halt im Glauben",
                             "right_title": "Halt im Glauben",
                             "right_text": "Kaum religiöser / spiritueller Halt",
-                            "score_path": "info.score_5",
+                            "score_path": "calculation.scores.scores.5.stanine",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Alkohol- und Zigarettenkonsum",
                             "left_text": "Kein erhöhter Akohol- oder Zigarettenkonsum",
                             "right_title": "Alkohol- und Zigarettenkonsum",
                             "right_text": "Ungünstige Bewältigung durch Alkohol und Zigaretten",
-                            "score_path": "info.score_6",
+                            "score_path": "calculation.scores.scores.6.stanine",
                             "clinic_sample_var": null
                         }],
                         "ranges_alt": [{
                             "range_start": 0.5,
                             "range_stop": 1.5,
-                            "text": "Stanine: 1 | 4%",
+                            "text": "Stanine: 1 | 4%",
                             "color": "#C62828"
                         }, {
                             "range_start": 1.5,
                             "range_stop": 2.5,
-                            "text": "Stanine: 2 | 7%",
+                            "text": "Stanine: 2 | 7%",
                             "color": "#FB7200"
                         }, {
                             "range_start": 2.5,
                             "range_stop": 3.5,
-                            "text": "Stanine: 3 | 12%",
+                            "text": "Stanine: 3 | 12%",
                             "color": "#FFA000"
                         }, {
                             "range_start": 3.5,
                             "range_stop": 4.5,
-                            "text": "Stanine: 4 | 17%",
+                            "text": "Stanine: 4 | 17%",
                             "color": "#FBB100"
                         }, {
                             "range_start": 4.5,
                             "range_stop": 5.5,
-                            "text": "Stanine: 5 | 20%",
+                            "text": "Stanine: 5 | 20%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 5.5,
                             "range_stop": 6.5,
-                            "text": "Stanine: 6 | 17%",
+                            "text": "Stanine: 6 | 17%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 6.5,
                             "range_stop": 7.5,
-                            "text": "Stanine: 7 | 12%",
+                            "text": "Stanine: 7 | 12%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 7.5,
                             "range_stop": 8.5,
-                            "text": "Stanine: 8 | 7%",
+                            "text": "Stanine: 8 | 7%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 8.5,
                             "range_stop": 9.5,
-                            "text": "Stanine: 9 | 4%",
+                            "text": "Stanine: 9 | 4%",
                             "color": "#2E7D32"
                         }],
                         "ranges": [{
                             "range_start": 0.5,
                             "range_stop": 1.5,
-                            "text": "Stanine: 1 | 4%",
+                            "text": "Stanine: 1 | 4%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 1.5,
                             "range_stop": 2.5,
-                            "text": "Stanine: 2 | 7%",
+                            "text": "Stanine: 2 | 7%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 2.5,
                             "range_stop": 3.5,
-                            "text": "Stanine: 3 | 12%",
+                            "text": "Stanine: 3 | 12%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 3.5,
                             "range_stop": 4.5,
-                            "text": "Stanine: 4 | 17%",
+                            "text": "Stanine: 4 | 17%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 4.5,
                             "range_stop": 5.5,
-                            "text": "Stanine: 5 | 20%",
+                            "text": "Stanine: 5 | 20%",
                             "color": "#2E7D32"
                         }, {
                             "range_start": 5.5,
                             "range_stop": 6.5,
-                            "text": "Stanine: 6 | 17%",
+                            "text": "Stanine: 6 | 17%",
                             "color": "#FBB100"
                         }, {
                             "range_start": 6.5,
                             "range_stop": 7.5,
-                            "text": "Stanine: 7 | 12%",
+                            "text": "Stanine: 7 | 12%",
                             "color": "#FFA000"
                         }, {
                             "range_start": 7.5,
                             "range_stop": 8.5,
-                            "text": "Stanine: 8 | 7%",
+                            "text": "Stanine: 8 | 7%",
                             "color": "#FB7200"
                         }, {
                             "range_start": 8.5,
                             "range_stop": 9.5,
-                            "text": "Stanine: 9 | 4%",
+                            "text": "Stanine: 9 | 4%",
                             "color": "#C62828"
                         }]
                     }
                 }
             },
             methods: {
-                get_population: function (_sr) {
+                sci_get_population: function (_sr) {
 
                     var _sr_sci = [];
                     var population = ""
@@ -303,7 +303,7 @@ const plugin_sci = {
                     try {
                         if (sr.data.length > 0) {
 
-                            var population_data = this.get_population(sr);
+                            var population_data = this.sci_get_population(sr);
 
                             var stanine_beschriftung = {
                                 "id": "stanine_beschriftung",
