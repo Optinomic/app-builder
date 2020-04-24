@@ -22,6 +22,7 @@ const plugin_bscl_anq = {
                             "show_score_profile_line": true,
                             "show_score_circles": true,
                             "show_settings_block": false,
+                            "show_range_text": true,
                             "allow_toggle_settings_block": true,
                             "topnumber_hide_first_last": false,
                             "range_alpha": 0.09,
@@ -153,7 +154,7 @@ const plugin_bscl_anq = {
                 }
             },
             methods: {
-                get_zusatzitems: function (r) {
+                bscl_get_zusatzitems: function (r) {
 
                     var d = {
                         "should_print_chart": false,
@@ -207,6 +208,25 @@ const plugin_bscl_anq = {
                     return_obj.zusatz = d;
 
                     return return_obj;
+                },
+                bscl_get_cs_dive: function(s) {
+                    var dive = [];
+                    try {
+                        if (s.data.length > 0) {
+                            var latest_sr = s.data[s.data.length - 1];
+                            
+                            // Messzeitpunkt
+                            if (latest_sr.calculation.scores_calculation.info.mz.mz_id !== 99) {
+                                dive.push(latest_sr.calculation.scores_calculation.info.mz.mz_id);
+                            };
+
+                            // console.log('bscl_get_cs_dive SET', dive)
+                        };
+
+                    } catch (e) {
+                        console.log('bscl_get_cs_dive', e)
+                    };
+                    return dive;                    
                 },
                 bscl_pdf_zusatzangaben: function (sr) {
                     var pdf = [];
@@ -402,13 +422,13 @@ const plugin_bscl_anq = {
                     try {
                         if (s.data.length > 0) {
 
-                            var sr = this.get_zusatzitems(s);
-                            // console.error('bscl_pdf_content', sr);
+                            var sr = this.bscl_get_zusatzitems(s);
+                            var cs_dive = this.bscl_get_cs_dive(s)
 
                             if (sr.zusatz.should_print_chart === true) {
                                 var chart = [];
                                 chart.push(makepdf._horizontalLine(100, "#F5F5F5", 1));
-                                chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.bscl_chart.options), {}, {}, [], this.bscl_chart.scales, sr, this.bscl_chart.ranges));
+                                chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.bscl_chart.options), {}, included_cs, cs_dive, this.bscl_chart.scales, sr, this.bscl_chart.ranges));
                                 chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
                                 pdf.push(makepdf._keepTogether(chart, "chart_" + this.name));
                             };

@@ -641,7 +641,8 @@ Vue.component('optinmic-profile-chart', {
         <template>
             <div ref="full_chart">
               <div v-bind:style="{ width: '100%', height: getChartHeight + 'px' }" ref="chartdiv"></div>
-              <div class="cs_toggle" v-if="clinic_samples">
+              <div style="background:white;z-index:100;position:relative;height: 50px;width: 60px;max-width: 80px;margin-top:-55px;"></div>
+              <div style="margin-top:-60px;z-index:200;position:relative" v-if="clinic_samples">
                 <v-tooltip right>
                   <template v-slot:activator="{ on }">
                     <div v-on="on">
@@ -652,7 +653,7 @@ Vue.component('optinmic-profile-chart', {
                         class="ma-2"
                         color="grey"
                       >
-                        <v-icon>mdi-cog-outline</v-icon>
+                        <v-icon>mdi-settings</v-icon>
                       </v-btn>
 
                       <v-btn
@@ -662,14 +663,14 @@ Vue.component('optinmic-profile-chart', {
                         class="ma-2"
                         color="pink"
                       >
-                        <v-icon>mdi-cog-outline</v-icon>
+                        <v-icon>mdi-settings-box</v-icon>
                       </v-btn>
                     </div>
                   </template>
                   <span>Klinikstichprobe anpassen</span>
                 </v-tooltip>
               </div>
-              <div class="cs_toggle" v-if="!clinic_samples"></div>
+              
               <v-container fluid v-if="cs_toggle">
                 <v-row align="center" v-if="chart_data.dive">
                   <v-col
@@ -689,6 +690,7 @@ Vue.component('optinmic-profile-chart', {
                   </v-col>
                 </v-row>
               </v-container>
+              
             </div>
         </template>
       `
