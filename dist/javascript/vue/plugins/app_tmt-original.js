@@ -79,6 +79,42 @@ const plugin_tmt = {
                         return false;
                     }
                 },
+                tmt_get_cs_dive: function(s) {
+                    var dive = [];
+                    try {
+                        if (s.data.length > 0) {
+                            var latest_sr = s.data[s.data.length - 1];
+
+                            // ---- Altersgruppe
+                            if (latest_sr.calculation.tmt_score.percentile.age_perz.altersgruppe !== 99) {
+                                dive.push(latest_sr.calculation.tmt_score.percentile.age_perz.altersgruppe);
+                            } else {
+                                dive.push(11);
+                            };
+                        
+                            // Ausbildungsgrad
+                            var ausbildungsgrad = latest_sr.calculation.tmt_score.percentile.age_perz.education_high;
+                            if (ausbildungsgrad === true) {
+                                dive.push(1);
+                            } else {
+                                dive.push(0);
+                            };
+                        
+                            // Messzeitpunkt
+                            var mz = latest_sr.calculation.tmt_score.mz - 1;
+                            if ((mz === 0) || (mz === 1) || (mz === 2)) {
+                                dive.push(mz);
+                            } else {
+                                dive.push(3);
+                            };
+  
+                            // console.log('tmt_get_cs_dive SET', dive)
+                        };
+                    } catch (e) {
+                        console.log('tmt_get_cs_dive', e)
+                    };
+                    return dive;                    
+                },
                 tmt_pdf_datenblatt: function (_sr) {
                     // ----------------------------------------------- 
                     // Build pdfmake Table 
@@ -227,9 +263,11 @@ const plugin_tmt = {
                     try {
                         if (sr.data.length > 0) {
 
+                            var cs_dive = this.tmt_get_cs_dive(sr);
+
                             var pdf_chart = [];
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.tmt_chart.options), {}, {}, [], this.tmt_chart.scales, sr, this.tmt_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.tmt_chart.options), {}, included_cs, cs_dive, this.tmt_chart.scales, sr, this.tmt_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
                             pdf.push(makepdf._keepTogether(pdf_chart, "tmt_chart"));
