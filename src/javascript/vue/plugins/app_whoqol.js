@@ -61,14 +61,51 @@ const plugin_whoqol = {
                 }
             },
             methods: {
+                whoqol_get_cs_dive: function(s) {
+                    var dive = [];
+                    try {
+                        if (s.data.length > 0) {
+                            var latest_sr = s.data[s.data.length - 1];
+                            
+                            // Messzeitpunkt
+                            if (latest_sr.calculation.phys_psych_calculation.info.mz.mz_id !== 99) {
+                                dive.push((latest_sr.calculation.phys_psych_calculation.info.mz.mz_id - 1));
+                            } else {
+                                dive.push(3);
+                            };
+
+                            // Altersgruppe
+                            if (latest_sr.calculation.phys_psych_calculation.info.age_norm.altersgruppe !== 99) {
+                                dive.push((latest_sr.calculation.phys_psych_calculation.info.age_norm.altersgruppe));
+                            } else {
+                                dive.push(8);
+                            };
+
+                            // Geschlecht
+                            if (latest_sr.patient.gender === "female") {
+                                dive.push(0);
+                            } else {
+                                dive.push(1);
+                            };
+
+                            // console.log('whoqol_get_cs_dive SET', dive)
+                        };
+
+                    } catch (e) {
+                        console.log('whoqol_get_cs_dive', e)
+                    };
+                    return dive;                    
+                },
                 whoqol_pdf_content: function (sr) {
                     var pdf = [];
                     try {
                         if (sr.data.length > 0) {
 
+                            var cs_dive = this.whoqol_get_cs_dive(sr);
+
                             var pdf_chart = [];
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.whoqol_chart.options), {}, {}, [], this.whoqol_chart.scales, sr, this.whoqol_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.whoqol_chart.options), {}, included_cs, cs_dive, this.whoqol_chart.scales, sr, this.whoqol_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
                             pdf.push(makepdf._keepTogether(pdf_chart, "audit_chart"));
