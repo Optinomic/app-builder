@@ -1,7 +1,11 @@
-// HoNOS-Application
+// HoNOS - Application
 Vue.component('app-honos', {
-    props: {},
-    created() {},
+    props: {
+        identifier: {
+            type: String,
+            default: helpers.getAppID()
+        }
+    },
     data: function () {
         return {
             "base_config": {
@@ -20,66 +24,66 @@ Vue.component('app-honos', {
                     },
                     {
                         "name": "Verhaltensstörungen",
-                        "variable": "honos_h1",
+                        "variable": "honos_h01",
                         "path": "response.H1[402V01]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Selbstverletzung",
-                        "variable": "honos_h2",
+                        "variable": "honos_h02",
                         "path": "response.H1[402V02]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Sucht",
-                        "variable": "honos_h3",
+                        "variable": "honos_h03",
                         "path": "response.H1[402V03]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Kognitive Probleme",
-                        "variable": "honos_h4",
+                        "variable": "honos_h04",
                         "path": "response.H1[402V04]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Körperliche Probleme",
-                        "variable": "honos_h5",
+                        "variable": "honos_h05",
                         "path": "response.H1[402V05]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Wahn",
-                        "variable": "honos_h6",
+                        "variable": "honos_h06",
                         "path": "response.H1[402V06]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Gedrückte Stimmung",
-                        "variable": "honos_h7",
+                        "variable": "honos_h07",
                         "path": "response.H1[402V07]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Andere Probleme",
-                        "variable": "honos_h8",
+                        "variable": "honos_h08",
                         "path": "response.H1[402V08]",
                         "interpretation": "problemeinschaetzung"
                     },
                     {
                         "name": "Art, Andere Probleme",
-                        "variable": "honos_h8a",
+                        "variable": "honos_h08a",
                         "path": "response.q402V09",
                         "interpretation": "andereart"
                     },
                     {
                         "name": "Weitere Spezifikation",
-                        "variable": "honos_h8b",
+                        "variable": "honos_h08b",
                         "path": "response.q402V10"
                     },
                     {
                         "name": "Beziehungen",
-                        "variable": "honos_h9",
+                        "variable": "honos_h09",
                         "path": "response.H2[402V11]",
                         "interpretation": "problemeinschaetzung"
                     },
@@ -195,17 +199,16 @@ Vue.component('app-honos', {
             };
         },
         sr_count_text() {
-            // return data
             try {
                 var ret_text = "";
-                if (this.$store.state.sr.data.length === 0) {
+                if (this.sr_data.length === 0) {
                     ret_text = "Keine Erfassung";
                 };
-                if (this.$store.state.sr.data.length === 1) {
+                if (this.sr_data.length === 1) {
                     ret_text = "Eine Erfassung";
                 };
-                if (this.$store.state.sr.data.length > 1) {
-                    ret_text = "Erfassungen (" + this.$store.state.sr.data.length + ")";
+                if (this.sr_data.length > 1) {
+                    ret_text = "Erfassungen (" + this.sr_data.length + ")";
                 };
                 return ret_text;
             } catch (e) {
