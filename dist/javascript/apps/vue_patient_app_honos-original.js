@@ -194,14 +194,6 @@ Vue.component('app-honos', {
                 return "";
             };
         },
-        sr_data() {
-            // return data
-            try {
-                return this.$store.state.sr.data;
-            } catch (e) {
-                return [];
-            };
-        },
         sr_count_text() {
             // return data
             try {
@@ -219,23 +211,12 @@ Vue.component('app-honos', {
             } catch (e) {
                 return "";
             };
-        },
-        sr_full() {
-            // return data
-            try {
-                return this.$store.state.sr;
-            } catch (e) {
-                return [];
-            };
-        },
-        pdf_ready() {
-            return false;
         }
     },
     template: `
         <div>
             <optinomic-content-block :subtitle="sr_count_text" title="Datentabelle" id="id_data_table">
-                <optinomic-data-table :rows="data_table.rows" :interpretations="data_table.interpretations"></optinomic-data-table>
+                <optinomic-data-table :rows="data_table.rows" :interpretations="data_table.interpretations" :sr="sr_data"></optinomic-data-table>
             </optinomic-content-block>
         </div>
     `
