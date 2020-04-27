@@ -27,7 +27,7 @@ __opapp_include(../../dist/javascript/vue/optinomic-profile-chart.js)
 __opapp_include(../../dist/includes/vue_general_includes.html) 
 
 // Include current clinic_sample
-const included_cs = __opapp_include(../../dist/includes/clinic_samples/optimized/cs_bscl.json);
+const included_bscl_cs = __opapp_include(../../dist/includes/clinic_samples/optimized/cs_bscl.json);
 
 {% endraw %}
 {% endblock %}

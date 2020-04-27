@@ -64,7 +64,7 @@ Vue.component('app-whoqol', {
                         :options="whoqol_chart.options"
                         :scales="whoqol_chart.scales" 
                         :ranges="whoqol_chart.ranges"
-                        :clinic_samples="included_cs"
+                        :clinic_samples="included_whoqol_cs"
                         :clinic_sample_dive="whoqol_get_cs_dive(sr)"
                         :scores="sr">
                     </optinmic-profile-chart>

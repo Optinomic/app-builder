@@ -105,7 +105,7 @@ const plugin_whoqol = {
 
                             var pdf_chart = [];
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.whoqol_chart.options), {}, included_cs, cs_dive, this.whoqol_chart.scales, sr, this.whoqol_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.whoqol_chart.options), {}, included_whoqol_cs, cs_dive, this.whoqol_chart.scales, sr, this.whoqol_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
                             pdf.push(makepdf._keepTogether(pdf_chart, "audit_chart"));

@@ -64,7 +64,7 @@ Vue.component('app-isk', {
                         :options="isk_k_chart.options"
                         :scales="isk_k_chart.scales" 
                         :ranges="isk_k_chart.ranges"
-                        :clinic_samples="included_cs"
+                        :clinic_samples="included_isk_cs"
                         :clinic_sample_dive="iskk_get_cs_dive(sr)"
                         :scores="sr">
                     </optinmic-profile-chart>

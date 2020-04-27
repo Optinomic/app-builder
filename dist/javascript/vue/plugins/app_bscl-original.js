@@ -428,7 +428,7 @@ const plugin_bscl_anq = {
                             if (sr.zusatz.should_print_chart === true) {
                                 var chart = [];
                                 chart.push(makepdf._horizontalLine(100, "#F5F5F5", 1));
-                                chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.bscl_chart.options), {}, included_cs, cs_dive, this.bscl_chart.scales, sr, this.bscl_chart.ranges));
+                                chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.bscl_chart.options), {}, included_bscl_cs, cs_dive, this.bscl_chart.scales, sr, this.bscl_chart.ranges));
                                 chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
                                 pdf.push(makepdf._keepTogether(chart, "chart_" + this.name));
                             };

@@ -123,7 +123,7 @@ const plugin_isk_k = {
 
                             var pdf_chart = [];
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.isk_k_chart.options), {}, included_cs, cs_dive, this.isk_k_chart.scales, sr, this.isk_k_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.isk_k_chart.options), {}, included_isk_cs, cs_dive, this.isk_k_chart.scales, sr, this.isk_k_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
                             pdf.push(makepdf._keepTogether(pdf_chart, "iskk_chart"));

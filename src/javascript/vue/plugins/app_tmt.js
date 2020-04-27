@@ -267,7 +267,7 @@ const plugin_tmt = {
 
                             var pdf_chart = [];
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
-                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.tmt_chart.options), {}, included_cs, cs_dive, this.tmt_chart.scales, sr, this.tmt_chart.ranges));
+                            pdf_chart.push(makepdf._pdf_chart_profile("de", this.get_pdf_chart_options(this.tmt_chart.options), {}, included_tmt_cs, cs_dive, this.tmt_chart.scales, sr, this.tmt_chart.ranges));
                             pdf_chart.push(makepdf._horizontalLine(100, "#F5F5F5"));
 
                             pdf.push(makepdf._keepTogether(pdf_chart, "tmt_chart"));

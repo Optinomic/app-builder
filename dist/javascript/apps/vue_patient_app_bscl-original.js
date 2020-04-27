@@ -99,7 +99,7 @@ Vue.component('app-bscl', {
                         :options="bscl_chart.options"
                         :scales="bscl_chart.scales" 
                         :ranges="bscl_chart.ranges"
-                        :clinic_samples="included_cs"
+                        :clinic_samples="included_bscl_cs"
                         :clinic_sample_dive="bscl_get_cs_dive(sr)"
                         :scores="sr">
                     </optinmic-profile-chart>

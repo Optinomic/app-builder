@@ -109,7 +109,7 @@ Vue.component('app-tmt', {
                         :options="tmt_chart.options"
                         :scales="tmt_chart.scales" 
                         :ranges="tmt_chart.ranges"
-                        :clinic_samples="included_cs"
+                        :clinic_samples="included_tmt_cs"
                         :clinic_sample_dive="tmt_get_cs_dive(sr)"
                         :scores="sr">
                     </optinmic-profile-chart>
