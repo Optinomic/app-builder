@@ -20,7 +20,7 @@ Vue.component('app-title', {
         },
         app_description() {
             try {
-                return this.$store.state.current_app.module.description;
+                return this.$store.state.current_app.module.short_description;
             } catch (e) {
                 return null;
             };
