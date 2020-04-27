@@ -225,13 +225,14 @@ const plugin_actinfo = {
                     var zusatzangaben = "";
                     _sr_actinfo_ein.data.forEach(function (current, ID) {
                         problemsubstanzen = current.calculation.actinfo_ein.pdfmake.problemsubstanzen_ol;
-                        zusatzangaben = current.calculation.actinfo_ein.zusatzangaben.kunsumalter_text + ' ' + current.calculation.actinfo_ein.zusatzangaben.entzuege_text;
+                        zusatzangaben = current.calculation.actinfo_ein.pdfmake.zusatzangaben_text;
                     });
 
                     var ps = [];
                     ps.push(problemsubstanzen);
                     ps.push(makepdf._spacer(6));
-                    ps.push(makepdf._text("Zusatzangaben: " + zusatzangaben));
+                    zusatzangaben.stack["0"].text = "Zusatzangaben: " + zusatzangaben.stack["0"].text
+                    ps.push(zusatzangaben);
                     _pdf_content.push(makepdf._keepTogether(ps, "problemsubstanzen"));
 
                     if (_sr_actinfo_merged.show_audit) {
