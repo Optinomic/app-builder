@@ -216,23 +216,48 @@ const plugin_actinfo = {
 
                 },
                 actinfo_pdf_content: function (_sr_actinfo_ein, _sr_actinfo_aus) {
+                    var _pdf_content = [];
+                    var _data_ein_last = _sr_actinfo_ein.data[_sr_actinfo_ein.data.length-1];
                     var _sr_actinfo_merged = this.merge_data_ein_aus(_sr_actinfo_ein, _sr_actinfo_aus);
                     // console.error('pdf_build_actinfo :: ', _sr_actinfo_merged);
 
-                    var _pdf_content = [];
+                    var ps_ol = {
+                        "ol": []
+                    };
+                    _data_ein_last.calculation.actinfo_ein.problemsubstanzen.substanzen.forEach(function (s, ID) {
+                        var txt = {
+                            "text": [
+                              {
+                                "text": s.substanz,
+                                "style": "p",
+                                "bold": true
+                              }
+                            ]
+                        };
+                          
+                        if ("label" in s) {
+                          txt.text.push({
+                              "text": ": ",
+                              "style": "p",
+                              "bold": true
+                          });
+                          txt.text.push({
+                              "text": s.label,
+                              "style": "p"
+                          });
+                        };
 
-                    var problemsubstanzen = "";
-                    var zusatzangaben = "";
-                    _sr_actinfo_ein.data.forEach(function (current, ID) {
-                        problemsubstanzen = current.calculation.actinfo_ein.pdfmake.problemsubstanzen_ol;
-                        zusatzangaben = current.calculation.actinfo_ein.pdfmake.zusatzangaben_text;
-                    });
+                        ps_ol.ol.push(txt);
+                    }.bind(this));
+                    var zusatzangaben = _data_ein_last.calculation.actinfo_ein.zusatzangaben.kunsumalter_text + " " + _data_ein_last.calculation.actinfo_ein.zusatzangaben.entzuege_text;
 
                     var ps = [];
-                    ps.push(problemsubstanzen);
+                    ps.push(makepdf._heading("Problemsubstanzen", null, 'h3'));
+                    ps.push(makepdf._text(_data_ein_last.calculation.actinfo_ein.problemsubstanzen.description));
+                    ps.push(makepdf._spacer(3));
+                    ps.push(ps_ol);
                     ps.push(makepdf._spacer(6));
-                    zusatzangaben.stack["0"].text = "Zusatzangaben: " + zusatzangaben.stack["0"].text
-                    ps.push(zusatzangaben);
+                    ps.push(makepdf._text("Zusatzangaben: " + zusatzangaben));
                     _pdf_content.push(makepdf._keepTogether(ps, "problemsubstanzen"));
 
                     if (_sr_actinfo_merged.show_audit) {

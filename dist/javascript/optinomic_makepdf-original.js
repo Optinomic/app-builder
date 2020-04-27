@@ -265,9 +265,7 @@ var makepdf = (function () {
     var _spacer = function (space) {
 
         space = space === undefined ? 10 : space;
-
         return {
-            "id": "spacer_" + space,
             "text": "",
             "margin": [0, space, 0, space]
         };
