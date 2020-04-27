@@ -193,11 +193,12 @@ const plugin_actinfo = {
                         };
                     }.bind(this));
 
+                    
                     var actinfo_obj = {
                         "merged": true,
                         "actinfo_ein_data": _sr_actinfo_ein.have_data,
                         "actinfo_aus_data": _sr_actinfo_aus.have_data,
-                        "actinfo_ein_aus_data": false,
+                        "actinfo_ein_aus_data": _sr_actinfo_ein.have_data && _sr_actinfo_aus.have_data,
                         "show_audit": show_audit,
                         "audit_text": audit_text,
                         "show_fagerstoem": show_fagerstoem,
@@ -224,14 +225,13 @@ const plugin_actinfo = {
                     var zusatzangaben = "";
                     _sr_actinfo_ein.data.forEach(function (current, ID) {
                         problemsubstanzen = current.calculation.actinfo_ein.pdfmake.problemsubstanzen_ol;
-                        zusatzangaben = current.calculation.actinfo_ein.pdfmake.zusatzangaben_text;
+                        zusatzangaben = current.calculation.actinfo_ein.zusatzangaben.kunsumalter_text + ' ' + current.calculation.actinfo_ein.zusatzangaben.entzuege_text;
                     });
 
                     var ps = [];
                     ps.push(problemsubstanzen);
                     ps.push(makepdf._spacer(6));
-                    zusatzangaben.stack["0"].text = "Zusatzinformationen: " + zusatzangaben.stack["0"].text
-                    ps.push(zusatzangaben);
+                    ps.push(makepdf._text("Zusatzangaben: " + zusatzangaben));
                     _pdf_content.push(makepdf._keepTogether(ps, "problemsubstanzen"));
 
                     if (_sr_actinfo_merged.show_audit) {
