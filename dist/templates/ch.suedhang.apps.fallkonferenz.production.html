@@ -1,0 +1,37 @@
+<head><meta content="Optinomic GmbH" name="author"><link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" name="viewport"></head><div id="optinomic_app"><v-app style="background:#f8f8f8;background-color:#f8f8f8"><v-content><v-container><app-optinomic subtitle="Eine Übersicht der wichtigsten Ergebnisse und Auswertungen." title="Fragebogenauswertung"><app-fallkonferenz></app-fallkonferenz></app-optinomic></v-container></v-content></v-app></div><script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vuex@2.x/dist/vuex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script><script>// Current App Components
+__opapp_include(../../dist/javascript/apps/vue_patient_app_fallkonferenz.js)
+__opapp_include(../../dist/javascript/vue/component_app_data.js)
+__opapp_include(../../dist/javascript/vue/component_pdf_fragebogenauswertung.js)
+
+// Plugins :: Share Logic between components 
+__opapp_include(../../dist/javascript/vue/plugins/app_aase.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_actinfo.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_asrs.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_bdi.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_bscl.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_isk_k.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_rs13.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_sci.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_tmt.js)
+__opapp_include(../../dist/javascript/vue/plugins/app_whoqol.js)
+
+// App-Elements 
+__opapp_include(../../dist/javascript/apps/vue_patient_app_aase.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_actinfo.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_asrs.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_bdi.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_bscl.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_isk.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_rs13.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_sci.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_tmt.js)
+__opapp_include(../../dist/javascript/apps/vue_patient_app_whoqol.js)
+
+// General Includes
+__opapp_include(../../dist/includes/vue_general_includes.html) 
+
+// Include clinic_samples
+const included_bscl_cs = __opapp_include(../../dist/includes/clinic_samples/optimized/cs_bscl.json);
+const included_isk_cs = __opapp_include(../../dist/includes/clinic_samples/optimized/cs_isk.json);
+const included_tmt_cs = __opapp_include(../../dist/includes/clinic_samples/optimized/cs_tmt.json);
+const included_whoqol_cs = __opapp_include(../../dist/includes/clinic_samples/optimized/cs_whoqol.json);</script><script src="https://www.amcharts.com/lib/4/core.js"></script><script src="https://www.amcharts.com/lib/4/charts.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/pdfmake.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.62/vfs_fonts.js"></script>

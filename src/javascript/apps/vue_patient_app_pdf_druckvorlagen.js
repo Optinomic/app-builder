@@ -202,8 +202,6 @@ Vue.component('app-pdf-druckvorlagen', {
                         var app_data = this.get_current_patient_module(app.name);
                         
                         if (sr_data && app_data) {
-                            
-                            
 
                             if (app.name === 'aase') {
                                 // Build PDF
@@ -408,7 +406,7 @@ Vue.component('app-pdf-druckvorlagen', {
                 </optinomic-pdfmake>
             </optinomic-content-block>
 
-            <optinomic-content-block title="Fragebogenauswertung" subtitle="Fallkonferenz (UNDER CONSTRUCTION)" id="pdf_gesamtauswertung">
+            <optinomic-content-block title="Fragebogenauswertung" subtitle="Fallkonferenz" id="pdf_gesamtauswertung">
                 <pdf-auswertung-gesamt></pdf-auswertung-gesamt>
             </optinomic-content-block>
             
