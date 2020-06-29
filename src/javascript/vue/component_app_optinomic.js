@@ -129,7 +129,7 @@ Vue.component('app-optinomic', {
     template: `
         <template>
             <v-app id="top" style="background-color:#f8f8f8!important;">
-                <v-content class="mb-12 pb-12">
+                <v-main class="mb-12 pb-12">
                     <v-container class="mt-10 pt-8 pl-10 pr-8 elevation-1" style="background-color:white!important;">
 
                         <v-row>
@@ -232,7 +232,7 @@ Vue.component('app-optinomic', {
                             </v-simple-table>
                         </div>
                     </v-container>
-                </v-content>
+                </v-main>
             </v-app>
         </template>
     `

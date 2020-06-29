@@ -12,13 +12,13 @@
 <body>
   <div id="optinomic_app">
     <v-app>
-      <v-content>
+      <v-main>
         <v-container>
             <!-- START APP -->
             {% block content %}{% endblock %}  
             <!-- END APP -->
         </v-container>
-      </v-content>
+      </v-main>
     </v-app>
   </div>
 

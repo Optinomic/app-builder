@@ -34,14 +34,14 @@ const plugin_sci = {
                             "left_text": "Keine oder wenig Belastung durch negative Ereignisse",
                             "right_title": "Negative Ereignisse",
                             "right_text": "Viele Stressoren durch negative Ereignisse",
-                            "score_path": "calculation.scores.scores.0.stanine",
+                            "score_path": "info.score0",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Stresssymptome",
                             "left_text": "Wenig körperliche und psychische Stressreaktionen",
                             "right_title": "Stresssymptome",
                             "right_text": "Viele körperliche und psychische Stressreaktionen",
-                            "score_path": "calculation.scores.scores.1.stanine",
+                            "score_path": "info.score1",
                             "clinic_sample_var": null
                         }],
                         "ranges": [{
@@ -120,35 +120,35 @@ const plugin_sci = {
                             "left_text": "Stressbewältigung durch positives Denken",
                             "right_title": "Positives Denken",
                             "right_text": "Selbstzweifel und Fokus auf Negatives",
-                            "score_path": "calculation.scores.scores.2.stanine",
+                            "score_path": "info.score2",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Aktive Stressbewältigung",
                             "left_text": "Aktive und vorbeugende Stressbewältigung",
                             "right_title": "Aktive Stressbewältigung",
                             "right_text": "Stressoren werden nicht beseitigt",
-                            "score_path": "calculation.scores.scores.3.stanine",
+                            "score_path": "info.score3",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Soziale Unterstützung",
                             "left_text": "Viel Unterstützung durch Freunde und Bekannte",
                             "right_title": "Soziale Unterstützung",
                             "right_text": "Kaum Unterstützung durch andere",
-                            "score_path": "calculation.scores.scores.4.stanine",
+                            "score_path": "info.score4",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Halt im Glauben",
                             "left_text": "Person findet Halt im Glauben",
                             "right_title": "Halt im Glauben",
                             "right_text": "Kaum religiöser / spiritueller Halt",
-                            "score_path": "calculation.scores.scores.5.stanine",
+                            "score_path": "info.score5",
                             "clinic_sample_var": null
                         }, {
                             "left_title": "Alkohol- und Zigarettenkonsum",
                             "left_text": "Kein erhöhter Akohol- oder Zigarettenkonsum",
                             "right_title": "Alkohol- und Zigarettenkonsum",
                             "right_text": "Ungünstige Bewältigung durch Alkohol und Zigaretten",
-                            "score_path": "calculation.scores.scores.6.stanine",
+                            "score_path": "info.score6",
                             "clinic_sample_var": null
                         }],
                         "ranges_alt": [{
@@ -270,13 +270,13 @@ const plugin_sci = {
                             };
                         };
 
-                        current.info.score_0 = parseInt(current.calculation.scores.scores["0"].stanine);
-                        current.info.score_1 = parseInt(current.calculation.scores.scores["1"].stanine);
-                        current.info.score_2 = 10 - parseInt(current.calculation.scores.scores["2"].stanine);
-                        current.info.score_3 = 10 - parseInt(current.calculation.scores.scores["3"].stanine);
-                        current.info.score_4 = 10 - parseInt(current.calculation.scores.scores["4"].stanine);
-                        current.info.score_5 = 10 - parseInt(current.calculation.scores.scores["5"].stanine);
-                        current.info.score_6 = parseInt(current.calculation.scores.scores["6"].stanine);
+                        current.info.score0 = parseInt(current.calculation.scores.scores["0"].stanine);
+                        current.info.score1 = parseInt(current.calculation.scores.scores["1"].stanine);
+                        current.info.score2 = 10 - parseInt(current.calculation.scores.scores["2"].stanine);
+                        current.info.score3 = 10 - parseInt(current.calculation.scores.scores["3"].stanine);
+                        current.info.score4 = 10 - parseInt(current.calculation.scores.scores["4"].stanine);
+                        current.info.score5 = 10 - parseInt(current.calculation.scores.scores["5"].stanine);
+                        current.info.score6 = parseInt(current.calculation.scores.scores["6"].stanine);
 
                         population = current.calculation.scores.population.name;
 
