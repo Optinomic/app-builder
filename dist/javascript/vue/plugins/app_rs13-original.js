@@ -15,7 +15,7 @@ const plugin_rs13 = {
                             "item_height": 51,
                             "item_text_left": 65,
                             "item_text_right": 65,
-                            "color_skin": "indigo_grey_pink",
+                            "color_skin": "grey_dark_to_light",
                             "color_grid": "#9E9E9E",
                             "color_clinic_sample": "#673AB7",
                             "show_baseline": true,
