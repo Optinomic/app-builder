@@ -82,7 +82,7 @@ const plugin_whoqol = {
                             };
 
                             // Geschlecht
-                            if (latest_sr.patient.gender === "female") {
+                            if (latest_sr.patient.ansprache === "Frau") {
                                 dive.push(0);
                             } else {
                                 dive.push(1);
