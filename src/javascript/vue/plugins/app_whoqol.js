@@ -82,7 +82,7 @@ const plugin_whoqol = {
                             };
 
                             // Geschlecht
-                            console.warn('Gender', latest_sr.patient);
+                            // console.warn('Gender', latest_sr.patient);
                             if (latest_sr.patient.ansprache === "Frau") {
                                 dive.push(0);
                             } else {
